@@ -26,6 +26,8 @@ import org.springframework.util.CollectionUtils;
  */
 public class RefreshRoutesEvent extends ApplicationEvent {
 
+	private static final long serialVersionUID = 1;
+
 	private final Map<String, Object> metadata;
 
 	/**

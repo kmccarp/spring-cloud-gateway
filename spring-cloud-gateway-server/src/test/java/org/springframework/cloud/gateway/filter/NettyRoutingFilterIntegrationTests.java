@@ -70,10 +70,10 @@ public class NettyRoutingFilterIntegrationTests extends BaseWebClientTests {
 
 	@Test
 	public void canHandleDecoratedResponseWithNonStandardStatusValue() {
-		final int NON_STANDARD_STATUS = 480;
+		final int nonStandardStatus = 480;
 		responseDecorator.decorateResponseTimes(1);
-		testClient.mutate().baseUrl("http://localhost:" + port).build().get().uri("/status/" + NON_STANDARD_STATUS)
-				.exchange().expectStatus().isEqualTo(NON_STANDARD_STATUS);
+		testClient.mutate().baseUrl("http://localhost:" + port).build().get().uri("/status/" + nonStandardStatus)
+				.exchange().expectStatus().isEqualTo(nonStandardStatus);
 	}
 
 	@Test

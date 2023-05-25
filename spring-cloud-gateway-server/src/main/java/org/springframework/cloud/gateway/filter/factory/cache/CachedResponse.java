@@ -44,6 +44,8 @@ import org.springframework.util.FileCopyUtils;
  */
 public final class CachedResponse implements Serializable {
 
+	private static final long serialVersionUID = 1;
+
 	private HttpStatusCode statusCode;
 
 	private HttpHeaders headers;

@@ -20,6 +20,8 @@ import org.springframework.context.ApplicationEvent;
 
 public class EnableBodyCachingEvent extends ApplicationEvent {
 
+	private static final long serialVersionUID = 1;
+
 	private final String routeId;
 
 	public EnableBodyCachingEvent(Object source, String routeId) {

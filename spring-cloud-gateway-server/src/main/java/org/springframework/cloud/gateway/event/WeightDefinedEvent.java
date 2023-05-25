@@ -21,6 +21,8 @@ import org.springframework.context.ApplicationEvent;
 
 public class WeightDefinedEvent extends ApplicationEvent {
 
+	private static final long serialVersionUID = 1;
+
 	private final WeightConfig weightConfig;
 
 	public WeightDefinedEvent(Object source, WeightConfig weightConfig) {

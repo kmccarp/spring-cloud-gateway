@@ -23,6 +23,8 @@ import org.springframework.context.ApplicationEvent;
  */
 public class RefreshRoutesResultEvent extends ApplicationEvent {
 
+	private static final long serialVersionUID = 1;
+
 	private Throwable throwable;
 
 	public RefreshRoutesResultEvent(Object source, Throwable throwable) {

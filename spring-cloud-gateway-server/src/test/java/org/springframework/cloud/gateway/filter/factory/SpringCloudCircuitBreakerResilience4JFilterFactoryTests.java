@@ -106,7 +106,7 @@ public class SpringCloudCircuitBreakerResilience4JFilterFactoryTests
 		@Bean
 		public Customizer<ReactiveResilience4JCircuitBreakerFactory> slowCusomtizer() {
 			return factory -> {
-				factory.addCircuitBreakerCustomizer(cb -> cb.transitionToForcedOpenState(), "failcmd");
+				factory.addCircuitBreakerCustomizer(CircuitBreaker::transitionToForcedOpenState, "failcmd");
 			};
 		}
 

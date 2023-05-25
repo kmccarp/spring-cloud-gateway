@@ -22,9 +22,11 @@ import org.springframework.context.ApplicationEvent;
 
 public class PredicateArgsEvent extends ApplicationEvent {
 
+	private static final long serialVersionUID = 1;
+
 	private final Map<String, Object> args;
 
-	private String routeId;
+	private final String routeId;
 
 	public PredicateArgsEvent(Object source, String routeId, Map<String, Object> args) {
 		super(source);
