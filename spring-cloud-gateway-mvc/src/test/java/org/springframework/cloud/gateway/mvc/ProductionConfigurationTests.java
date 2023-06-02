@@ -56,8 +56,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(properties = { "spring.cloud.gateway.proxy.auto-forward=Baz" },
-		webEnvironment = WebEnvironment.RANDOM_PORT)
+@SpringBootTest(properties = {"spring.cloud.gateway.proxy.auto-forward=Baz"},webEnvironment = WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(classes = TestApplication.class)
 public class ProductionConfigurationTests {
 
@@ -109,7 +108,7 @@ public class ProductionConfigurationTests {
 	@Test
 	public void post() {
 		assertThat(rest.postForObject("/proxy/0", Collections.singletonMap("name", "foo"), Bar.class).getName())
-				.isEqualTo("host=localhost:" + port + ";foo");
+	.isEqualTo("host=localhost:" + port + ";foo");
 	}
 
 	@Test
@@ -127,10 +126,10 @@ public class ProductionConfigurationTests {
 	@Test
 	public void postForwardHeader() {
 		ResponseEntity<List<Bar>> result = rest.exchange(
-				RequestEntity.post(rest.getRestTemplate().getUriTemplateHandler().expand("/forward/special/bars"))
-						.body(Collections.singletonList(Collections.singletonMap("name", "foo"))),
-				new ParameterizedTypeReference<List<Bar>>() {
-				});
+	RequestEntity.post(rest.getRestTemplate().getUriTemplateHandler().expand("/forward/special/bars"))
+.body(Collections.singletonList(Collections.singletonMap("name", "foo"))),
+	new ParameterizedTypeReference<List<Bar>>() {
+	});
 		assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(result.getBody().iterator().next().getName()).isEqualTo("FOOfoo");
 	}
@@ -138,10 +137,9 @@ public class ProductionConfigurationTests {
 	@Test
 	public void postForwardBody() {
 		ResponseEntity<String> result = rest
-				.exchange(
-						RequestEntity.post(rest.getRestTemplate().getUriTemplateHandler().expand("/forward/body/bars"))
-								.body(Collections.singletonList(Collections.singletonMap("name", "foo"))),
-						String.class);
+	.exchange(
+RequestEntity.post(rest.getRestTemplate().getUriTemplateHandler().expand("/forward/body/bars")).body(Collections.singletonList(Collections.singletonMap("name", "foo"))),
+String.class);
 		assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(result.getBody()).contains("foo");
 	}
@@ -149,9 +147,9 @@ public class ProductionConfigurationTests {
 	@Test
 	public void postForwardForgetBody() {
 		ResponseEntity<String> result = rest.exchange(
-				RequestEntity.post(rest.getRestTemplate().getUriTemplateHandler().expand("/forward/forget/bars"))
-						.body(Collections.singletonList(Collections.singletonMap("name", "foo"))),
-				String.class);
+	RequestEntity.post(rest.getRestTemplate().getUriTemplateHandler().expand("/forward/forget/bars"))
+.body(Collections.singletonList(Collections.singletonMap("name", "foo"))),
+	String.class);
 		assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(result.getBody()).contains("foo");
 	}
@@ -159,10 +157,10 @@ public class ProductionConfigurationTests {
 	@Test
 	public void postForwardBodyFoo() {
 		ResponseEntity<List<Bar>> result = rest.exchange(
-				RequestEntity.post(rest.getRestTemplate().getUriTemplateHandler().expand("/forward/body/bars"))
-						.body(Collections.singletonList(Collections.singletonMap("name", "foo"))),
-				new ParameterizedTypeReference<List<Bar>>() {
-				});
+	RequestEntity.post(rest.getRestTemplate().getUriTemplateHandler().expand("/forward/body/bars"))
+.body(Collections.singletonList(Collections.singletonMap("name", "foo"))),
+	new ParameterizedTypeReference<List<Bar>>() {
+	});
 		assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(result.getBody().iterator().next().getName()).isEqualTo("foo");
 	}
@@ -170,45 +168,45 @@ public class ProductionConfigurationTests {
 	@Test
 	public void list() {
 		assertThat(rest.exchange(
-				RequestEntity.post(rest.getRestTemplate().getUriTemplateHandler().expand("/proxy"))
-						.body(Collections.singletonList(Collections.singletonMap("name", "foo"))),
-				new ParameterizedTypeReference<List<Bar>>() {
-				}).getBody().iterator().next().getName()).isEqualTo("host=localhost:" + port + ";foo");
+	RequestEntity.post(rest.getRestTemplate().getUriTemplateHandler().expand("/proxy"))
+.body(Collections.singletonList(Collections.singletonMap("name", "foo"))),
+	new ParameterizedTypeReference<List<Bar>>() {
+	}).getBody().iterator().next().getName()).isEqualTo("host=localhost:" + port + ";foo");
 	}
 
 	@Test
 	public void bodyless() {
 		assertThat(rest.postForObject("/proxy/0", Collections.singletonMap("name", "foo"), Bar.class).getName())
-				.isEqualTo("host=localhost:" + port + ";foo");
+	.isEqualTo("host=localhost:" + port + ";foo");
 	}
 
 	@Test
 	public void entity() {
 		assertThat(
-				rest.exchange(RequestEntity.post(rest.getRestTemplate().getUriTemplateHandler().expand("/proxy/entity"))
-						.body(Collections.singletonMap("name", "foo")), new ParameterizedTypeReference<List<Bar>>() {
-						}).getBody().iterator().next().getName()).isEqualTo("host=localhost:" + port + ";foo");
+	rest.exchange(RequestEntity.post(rest.getRestTemplate().getUriTemplateHandler().expand("/proxy/entity"))
+.body(Collections.singletonMap("name", "foo")), new ParameterizedTypeReference<List<Bar>>() {
+	}).getBody().iterator().next().getName()).isEqualTo("host=localhost:" + port + ";foo");
 	}
 
 	@Test
 	public void entityWithType() {
 		assertThat(
-				rest.exchange(RequestEntity.post(rest.getRestTemplate().getUriTemplateHandler().expand("/proxy/type"))
-						.body(Collections.singletonMap("name", "foo")), new ParameterizedTypeReference<List<Bar>>() {
-						}).getBody().iterator().next().getName()).isEqualTo("host=localhost:" + port + ";foo");
+	rest.exchange(RequestEntity.post(rest.getRestTemplate().getUriTemplateHandler().expand("/proxy/type"))
+.body(Collections.singletonMap("name", "foo")), new ParameterizedTypeReference<List<Bar>>() {
+	}).getBody().iterator().next().getName()).isEqualTo("host=localhost:" + port + ";foo");
 	}
 
 	@Test
 	public void single() {
 		assertThat(rest.postForObject("/proxy/single", Collections.singletonMap("name", "foobar"), Bar.class).getName())
-				.isEqualTo("host=localhost:" + port + ";foobar");
+	.isEqualTo("host=localhost:" + port + ";foobar");
 	}
 
 	@Test
 	public void converter() {
 		assertThat(
-				rest.postForObject("/proxy/converter", Collections.singletonMap("name", "foobar"), Bar.class).getName())
-						.isEqualTo("host=localhost:" + port + ";foobar");
+	rest.postForObject("/proxy/converter", Collections.singletonMap("name", "foobar"), Bar.class).getName())
+	.isEqualTo("host=localhost:" + port + ";foobar");
 	}
 
 	@Test
@@ -220,7 +218,7 @@ public class ProductionConfigurationTests {
 	@Test
 	public void deleteWithoutBody() {
 		ResponseEntity<Void> deleteResponse = rest.exchange("/proxy/{id}/no-body", HttpMethod.DELETE, null, Void.TYPE,
-				Collections.singletonMap("id", "123"));
+	Collections.singletonMap("id", "123"));
 		assertThat(deleteResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
 	}
 
@@ -230,17 +228,17 @@ public class ProductionConfigurationTests {
 		ParameterizedTypeReference<Map<String, Foo>> returnType = new ParameterizedTypeReference<Map<String, Foo>>() {
 		};
 		ResponseEntity<Map<String, Foo>> deleteResponse = rest.exchange("/proxy/{id}", HttpMethod.DELETE,
-				new HttpEntity<Foo>(foo), returnType, Collections.singletonMap("id", "123"));
+	new HttpEntity<Foo>(foo), returnType, Collections.singletonMap("id", "123"));
 		assertThat(deleteResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(deleteResponse.getBody().get("deleted")).usingRecursiveComparison().isEqualTo(foo);
 	}
 
 	@Test
-	@SuppressWarnings({ "Duplicates", "unchecked" })
+	@SuppressWarnings({"Duplicates", "unchecked"})
 	public void testSensitiveHeadersOverride() {
 		RequestEntity<Void> request = RequestEntity
-				.get(rest.getRestTemplate().getUriTemplateHandler().expand("/proxy/headers")).header("foo", "bar")
-				.header("abc", "xyz").header("cookie", "monster").build();
+	.get(rest.getRestTemplate().getUriTemplateHandler().expand("/proxy/headers")).header("foo", "bar")
+	.header("abc", "xyz").header("cookie", "monster").build();
 		Map<String, List<String>> headers = rest.exchange(request, Map.class).getBody();
 		assertThat(headers).doesNotContainKey("foo").doesNotContainKey("hello").containsKeys("bar", "abc");
 
@@ -248,22 +246,22 @@ public class ProductionConfigurationTests {
 	}
 
 	@Test
-	@SuppressWarnings({ "Duplicates", "unchecked" })
+	@SuppressWarnings({"Duplicates", "unchecked"})
 	public void testSensitiveHeadersDefault() {
 		Map<String, List<String>> headers = rest.exchange(RequestEntity
-				.get(rest.getRestTemplate().getUriTemplateHandler().expand("/proxy/sensitive-headers-default"))
-				.header("cookie", "monster").build(), Map.class).getBody();
+	.get(rest.getRestTemplate().getUriTemplateHandler().expand("/proxy/sensitive-headers-default"))
+	.header("cookie", "monster").build(), Map.class).getBody();
 
 		assertThat(headers).doesNotContainKey("cookie");
 	}
 
 	@Test
-	@SuppressWarnings({ "Duplicates", "unchecked" })
+	@SuppressWarnings({"Duplicates", "unchecked"})
 	public void headers() {
 		Map<String, List<String>> headers = rest
-				.exchange(RequestEntity.get(rest.getRestTemplate().getUriTemplateHandler().expand("/proxy/headers"))
-						.header("foo", "bar").header("abc", "xyz").header("baz", "fob").build(), Map.class)
-				.getBody();
+	.exchange(RequestEntity.get(rest.getRestTemplate().getUriTemplateHandler().expand("/proxy/headers"))
+.header("foo", "bar").header("abc", "xyz").header("baz", "fob").build(), Map.class)
+	.getBody();
 		assertThat(headers).doesNotContainKey("foo").doesNotContainKey("hello").containsKeys("bar", "abc");
 
 		assertThat(headers.get("bar")).containsOnly("hello");
@@ -274,9 +272,9 @@ public class ProductionConfigurationTests {
 	@Test
 	public void forwardedHeaderUsesHost() {
 		Map<String, List<String>> headers = rest
-				.exchange(RequestEntity.get(rest.getRestTemplate().getUriTemplateHandler().expand("/proxy/headers"))
-						.header("host", "foo:1234").build(), Map.class)
-				.getBody();
+	.exchange(RequestEntity.get(rest.getRestTemplate().getUriTemplateHandler().expand("/proxy/headers"))
+.header("host", "foo:1234").build(), Map.class)
+	.getBody();
 
 		assertThat(headers).containsKey("forwarded");
 		assertThat(headers.get("forwarded").size()).isEqualTo(1);
@@ -337,7 +335,7 @@ public class ProductionConfigurationTests {
 
 			@PostMapping("/proxy/{id}")
 			public ResponseEntity<?> proxyBars(@PathVariable Integer id, @RequestBody Map<String, Object> body,
-					ProxyExchange<List<Object>> proxy) {
+		ProxyExchange<List<Object>> proxy) {
 				body.put("id", id);
 				return proxy.uri(home.toString() + "/bars").body(Arrays.asList(body)).post(this::first);
 			}
@@ -354,7 +352,7 @@ public class ProductionConfigurationTests {
 
 			@PostMapping("/proxy/type")
 			public ResponseEntity<List<Bar>> explicitEntityWithType(@RequestBody Foo foo,
-					ProxyExchange<List<Bar>> proxy) {
+		ProxyExchange<List<Bar>> proxy) {
 				return proxy.uri(home.toString() + "/bars").body(Arrays.asList(foo)).post();
 			}
 
@@ -365,10 +363,10 @@ public class ProductionConfigurationTests {
 
 			@PostMapping("/proxy/converter")
 			public ResponseEntity<Bar> implicitEntityWithConverter(@RequestBody Foo foo,
-					ProxyExchange<List<Bar>> proxy) {
+		ProxyExchange<List<Bar>> proxy) {
 				return proxy.uri(home.toString() + "/bars").body(Arrays.asList(foo))
-						.post(response -> ResponseEntity.status(response.getStatusCode()).headers(response.getHeaders())
-								.body(response.getBody().iterator().next()));
+			.post(response -> ResponseEntity.status(response.getStatusCode()).headers(response.getHeaders())
+		.body(response.getBody().iterator().next()));
 			}
 
 			@PostMapping("/proxy/no-body")
@@ -383,9 +381,9 @@ public class ProductionConfigurationTests {
 
 			@DeleteMapping("/proxy/{id}")
 			public ResponseEntity<?> deleteWithBody(@PathVariable Integer id, @RequestBody Foo foo,
-					ProxyExchange<?> proxy) {
+		ProxyExchange<?> proxy) {
 				return proxy.uri(home.toString() + "/foos/" + id).body(foo).delete(response -> ResponseEntity
-						.status(response.getStatusCode()).headers(response.getHeaders()).body(response.getBody()));
+			.status(response.getStatusCode()).headers(response.getHeaders()).body(response.getBody()));
 			}
 
 			@GetMapping("/forward/**")
@@ -433,7 +431,7 @@ public class ProductionConfigurationTests {
 
 			@GetMapping("/proxy/sensitive-headers-default")
 			public ResponseEntity<Map<String, List<String>>> defaultSensitiveHeaders(
-					ProxyExchange<Map<String, List<String>>> proxy) {
+		ProxyExchange<Map<String, List<String>>> proxy) {
 				proxy.header("bar", "hello");
 				proxy.header("abc", "123");
 				proxy.header("hello", "world");
@@ -442,7 +440,7 @@ public class ProductionConfigurationTests {
 
 			private <T> ResponseEntity<T> first(ResponseEntity<List<T>> response) {
 				return ResponseEntity.status(response.getStatusCode()).headers(response.getHeaders())
-						.body(response.getBody().iterator().next());
+			.body(response.getBody().iterator().next());
 			}
 
 		}

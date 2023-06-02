@@ -30,8 +30,7 @@ import static org.springframework.cloud.gateway.support.GatewayToStringStyler.fi
 /**
  * @author Spencer Gibb
  */
-public class RemoveResponseHeaderGatewayFilterFactory
-		extends AbstractGatewayFilterFactory<AbstractGatewayFilterFactory.NameConfig> {
+public class RemoveResponseHeaderGatewayFilterFactoryextends AbstractGatewayFilterFactory<AbstractGatewayFilterFactory.NameConfig> {
 
 	public RemoveResponseHeaderGatewayFilterFactory() {
 		super(NameConfig.class);
@@ -48,13 +47,13 @@ public class RemoveResponseHeaderGatewayFilterFactory
 			@Override
 			public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 				return chain.filter(exchange)
-						.then(Mono.fromRunnable(() -> exchange.getResponse().getHeaders().remove(config.getName())));
+			.then(Mono.fromRunnable(() -> exchange.getResponse().getHeaders().remove(config.getName())));
 			}
 
 			@Override
 			public String toString() {
 				return filterToStringCreator(RemoveResponseHeaderGatewayFilterFactory.this)
-						.append("name", config.getName()).toString();
+			.append("name", config.getName()).toString();
 			}
 		};
 	}

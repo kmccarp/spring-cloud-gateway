@@ -38,8 +38,7 @@ import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.W
  * @author Spencer Gibb
  */
 // TODO: make this a generic Choose out of group predicate?
-public class WeightRoutePredicateFactory extends AbstractRoutePredicateFactory<WeightConfig>
-		implements ApplicationEventPublisherAware {
+public class WeightRoutePredicateFactory extends AbstractRoutePredicateFactory<WeightConfig>implements ApplicationEventPublisherAware {
 
 	/**
 	 * Weight config group key.
@@ -98,7 +97,7 @@ public class WeightRoutePredicateFactory extends AbstractRoutePredicateFactory<W
 					String chosenRoute = weights.get(group);
 					if (log.isTraceEnabled()) {
 						log.trace("in group weight: " + group + ", current route: " + routeId + ", chosen route: "
-								+ chosenRoute);
+					+ chosenRoute);
 					}
 
 					return routeId.equals(chosenRoute);

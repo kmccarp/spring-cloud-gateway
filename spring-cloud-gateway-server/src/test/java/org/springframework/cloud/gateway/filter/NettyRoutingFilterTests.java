@@ -64,17 +64,17 @@ class NettyRoutingFilterTests extends BaseWebClientTests {
 	// gh-2207
 	void testCaseInsensitiveScheme() {
 		DisposableServer server = HttpServer.create().port(port).host("127.0.0.1").route(
-				routes -> routes.get("/issue", (request, response) -> response.sendString(Mono.just("issue2207"))))
-				.bindNow();
+	routes -> routes.get("/issue", (request, response) -> response.sendString(Mono.just("issue2207"))))
+	.bindNow();
 
 		try {
 			testClient.get().uri("/issue").exchange().expectStatus().isOk().expectBody()
-					.consumeWith(entityExchangeResult -> {
-						assertThat(entityExchangeResult).isNotNull();
-						assertThat(entityExchangeResult.getResponseBody()).isNotNull();
-						String content = new String(entityExchangeResult.getResponseBody());
-						assertThat(content).isEqualTo("issue2207");
-					});
+		.consumeWith(entityExchangeResult -> {
+			assertThat(entityExchangeResult).isNotNull();
+			assertThat(entityExchangeResult.getResponseBody()).isNotNull();
+			String content = new String(entityExchangeResult.getResponseBody());
+			assertThat(content).isEqualTo("issue2207");
+		});
 		}
 		finally {
 			server.disposeNow();
@@ -89,8 +89,8 @@ class NettyRoutingFilterTests extends BaseWebClientTests {
 		@Bean
 		public RouteLocator routes(RouteLocatorBuilder builder) {
 			return builder.routes()
-					.route(p -> p.path("/mockexample").filters(f -> f.prefixPath("/httpbin")).uri("http://example.com"))
-					.route(p -> p.path("/issue").uri("HTTP://127.0.0.1:" + port)).build();
+		.route(p -> p.path("/mockexample").filters(f -> f.prefixPath("/httpbin")).uri("http://example.com"))
+		.route(p -> p.path("/issue").uri("HTTP://127.0.0.1:" + port)).build();
 		}
 
 	}

@@ -141,7 +141,7 @@ public class ProxyExchange<T> {
 	 * Contains headers that are considered case-sensitive by default.
 	 */
 	public static Set<String> DEFAULT_SENSITIVE = Collections
-			.unmodifiableSet(new HashSet<>(Arrays.asList("cookie", "authorization")));
+.unmodifiableSet(new HashSet<>(Arrays.asList("cookie", "authorization")));
 
 	private URI uri;
 
@@ -164,7 +164,7 @@ public class ProxyExchange<T> {
 	private Type responseType;
 
 	public ProxyExchange(RestTemplate rest, NativeWebRequest webRequest, ModelAndViewContainer mavContainer,
-			WebDataBinderFactory binderFactory, Type type) {
+WebDataBinderFactory binderFactory, Type type) {
 		this.responseType = type;
 		this.rest = rest;
 		this.webRequest = webRequest;
@@ -253,7 +253,7 @@ public class ProxyExchange<T> {
 
 	public String path() {
 		return (String) this.webRequest.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE,
-				WebRequest.SCOPE_REQUEST);
+	WebRequest.SCOPE_REQUEST);
 	}
 
 	public String path(String prefix) {
@@ -269,7 +269,7 @@ public class ProxyExchange<T> {
 		HttpServletResponse response = this.webRequest.getNativeResponse(HttpServletResponse.class);
 		try {
 			request.getRequestDispatcher(path).forward(new BodyForwardingHttpServletRequest(request, response),
-					response);
+		response);
 		}
 		catch (Exception e) {
 			throw new IllegalStateException("Cannot forward request", e);
@@ -352,7 +352,7 @@ public class ProxyExchange<T> {
 		webRequest.getHeaderNames().forEachRemaining(headerNames::add);
 		Set<String> filteredKeys = filterHeaderKeys(headerNames);
 		filteredKeys.stream().filter(key -> !headers.containsKey(key))
-				.forEach(header -> headers.addAll(header, Arrays.asList(webRequest.getHeaderValues(header))));
+	.forEach(header -> headers.addAll(header, Arrays.asList(webRequest.getHeaderValues(header))));
 	}
 
 	private BodyBuilder headers(BodyBuilder builder) {
@@ -371,7 +371,7 @@ public class ProxyExchange<T> {
 	private Set<String> filterHeaderKeys(Collection<String> headerNames) {
 		final Set<String> sensitiveHeaders = this.sensitive != null ? this.sensitive : DEFAULT_SENSITIVE;
 		return headerNames.stream().filter(header -> !sensitiveHeaders.contains(header.toLowerCase()))
-				.collect(Collectors.toSet());
+	.collect(Collectors.toSet());
 	}
 
 	private void proxy() {
@@ -382,7 +382,7 @@ public class ProxyExchange<T> {
 		}
 		catch (URISyntaxException e) {
 			throw new IllegalStateException("Cannot create URI for request: "
-					+ webRequest.getNativeRequest(HttpServletRequest.class).getRequestURL());
+		+ webRequest.getNativeRequest(HttpServletRequest.class).getRequestURL());
 		}
 	}
 

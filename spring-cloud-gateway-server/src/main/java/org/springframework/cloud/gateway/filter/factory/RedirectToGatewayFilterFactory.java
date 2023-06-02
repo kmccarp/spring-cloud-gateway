@@ -37,8 +37,7 @@ import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.s
 /**
  * @author Spencer Gibb
  */
-public class RedirectToGatewayFilterFactory
-		extends AbstractGatewayFilterFactory<RedirectToGatewayFilterFactory.Config> {
+public class RedirectToGatewayFilterFactoryextends AbstractGatewayFilterFactory<RedirectToGatewayFilterFactory.Config> {
 
 	/**
 	 * Status key.

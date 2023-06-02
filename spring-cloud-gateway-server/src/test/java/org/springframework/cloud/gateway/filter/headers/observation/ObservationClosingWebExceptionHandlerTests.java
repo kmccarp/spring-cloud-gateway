@@ -39,7 +39,7 @@ class ObservationClosingWebExceptionHandlerTests {
 	void shouldDoNothingWhenObservationAlreadyStopped() {
 		exchange.getAttributes().put(ObservedResponseHttpHeadersFilter.OBSERVATION_STOPPED, "true");
 		exchange.getAttributes().put(ServerWebExchangeUtils.GATEWAY_OBSERVATION_ATTR,
-				"if this attribute will be attempted to be retrieved ClassCast will be thrown");
+	"if this attribute will be attempted to be retrieved ClassCast will be thrown");
 
 		assertThatNoException().isThrownBy(() -> handler.handle(exchange, new RuntimeException()));
 	}

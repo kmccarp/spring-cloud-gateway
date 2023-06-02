@@ -32,7 +32,7 @@ import static org.springframework.cloud.gateway.support.GatewayToStringStyler.fi
 /*
 This filter intent is to modify the value of Location response header, ridding it of backend specific details.
 Typical scenario: POST response from a legacy backend contains a Location header with backend's hostname.
-				  You want to replace the backend's hostname:port with your documented gateway's hostname:port.
+					ou want to replace the backend's hostname:port with your documented gateway's hostname:port.
 Additionally, sometimes backend returns a 'versioned' Location, and you may want to strip the version portion.
 
 Note that the protocol portion of the URL will not be replaced by this filter. If you need that too,
@@ -53,8 +53,8 @@ Configuration parameters:
 	Default - https?|ftps? (which is the same as http|https|ftp|ftps)
 
 Example 1
-	  default-filters:
-	  - RewriteLocationResponseHeader
+		efault-filters:
+			writeLocationResponseHeader
 
 Host request header: api.example.com:443
 POST request path: /some/object/name
@@ -62,12 +62,12 @@ Location response header: https://object-service.prod.example.net/v2/some/object
 Modified Location response header: https://api.example.com:443/some/object/id
 
 Example 2
-	  default-filters:
-	  - name: RewriteLocationResponseHeader
+		efault-filters:
+			me: RewriteLocationResponseHeader
 		args:
-		  stripVersion: ALWAYS_STRIP
-		  locationHeaderName: Link
-		  hostValue: example-api.com
+			tripVersion: ALWAYS_STRIP
+			ocationHeaderName: Link
+			ostValue: example-api.com
 
 Host request header (irrelevant): api.example.com:443
 POST request path: /v1/some/object/name
@@ -75,11 +75,11 @@ Link response header: https://object-service.prod.example.net/v1/some/object/id
 Modified Link response header: https://example-api.com/some/object/id
 
 Example 3
-	  default-filters:
-	  - name: RewriteLocationResponseHeader
+		efault-filters:
+			me: RewriteLocationResponseHeader
 		args:
-		  stripVersion: NEVER_STRIP
-		  protocols: https|ftps # only replace host:port for https or ftps, but not http or ftp
+			tripVersion: NEVER_STRIP
+			rotocols: https|ftps # only replace host:port for https or ftps, but not http or ftp
 
 Host request header: api.example.com:443
 1. POST request path: /some/object/name
@@ -93,8 +93,7 @@ Modified (not) Location response header: http://object-service.prod.example.net/
 /**
  * @author Vitaliy Pavlyuk
  */
-public class RewriteLocationResponseHeaderGatewayFilterFactory
-		extends AbstractGatewayFilterFactory<RewriteLocationResponseHeaderGatewayFilterFactory.Config> {
+public class RewriteLocationResponseHeaderGatewayFilterFactoryextends AbstractGatewayFilterFactory<RewriteLocationResponseHeaderGatewayFilterFactory.Config> {
 
 	private static final String STRIP_VERSION_KEY = "stripVersion";
 
@@ -141,12 +140,12 @@ public class RewriteLocationResponseHeaderGatewayFilterFactory
 			public String toString() {
 				// @formatter:off
 				return filterToStringCreator(
-						RewriteLocationResponseHeaderGatewayFilterFactory.this)
-						.append("stripVersion", config.stripVersion)
-						.append("locationHeaderName", config.locationHeaderName)
-						.append("hostValue", config.hostValue)
-						.append("protocols", config.protocols)
-						.toString();
+			RewriteLocationResponseHeaderGatewayFilterFactory.this)
+			.append("stripVersion", config.stripVersion)
+			.append("locationHeaderName", config.locationHeaderName)
+			.append("hostValue", config.hostValue)
+			.append("protocols", config.protocols)
+			.toString();
 				// @formatter:on
 			}
 		};
@@ -155,19 +154,19 @@ public class RewriteLocationResponseHeaderGatewayFilterFactory
 	void rewriteLocation(ServerWebExchange exchange, Config config) {
 		final String location = exchange.getResponse().getHeaders().getFirst(config.getLocationHeaderName());
 		final String host = config.getHostValue() != null ? config.getHostValue()
-				: exchange.getRequest().getHeaders().getFirst(HttpHeaders.HOST);
+	: exchange.getRequest().getHeaders().getFirst(HttpHeaders.HOST);
 		final String path = exchange.getRequest().getURI().getPath();
 		if (location != null && host != null) {
 			final String fixedLocation = fixedLocation(location, host, path, config.getStripVersion(),
-					config.getHostPortPattern(), config.getHostPortVersionPattern());
+		config.getHostPortPattern(), config.getHostPortVersionPattern());
 			exchange.getResponse().getHeaders().set(config.getLocationHeaderName(), fixedLocation);
 		}
 	}
 
 	String fixedLocation(String location, String host, String path, StripVersion stripVersion, Pattern hostPortPattern,
-			Pattern hostPortVersionPattern) {
+Pattern hostPortVersionPattern) {
 		final boolean doStrip = StripVersion.ALWAYS_STRIP.equals(stripVersion)
-				|| (StripVersion.AS_IN_REQUEST.equals(stripVersion) && !VERSIONED_PATH.matcher(path).matches());
+	|| (StripVersion.AS_IN_REQUEST.equals(stripVersion) && !VERSIONED_PATH.matcher(path).matches());
 		final Pattern pattern = doStrip ? hostPortVersionPattern : hostPortPattern;
 		return pattern.matcher(location).replaceFirst(host);
 	}

@@ -48,12 +48,12 @@ public class SetRequestHeaderGatewayFilterFactoryTests extends BaseWebClientTest
 	@Test
 	public void setRequestHeaderFilterWorks() {
 		testClient.get().uri("/headers").header("Host", "www.setrequestheader.org").exchange().expectStatus().isOk()
-				.expectBody(Map.class).consumeWith(result -> {
-					Map<String, Object> headers = getMap(result.getResponseBody(), "headers");
-					// add was called first, so sets will overwrite
-					assertThat(headers).doesNotContainEntry("X-Req-Foo", "First");
-					assertThat(headers).containsEntry("X-Req-Foo", "Second-www");
-				});
+	.expectBody(Map.class).consumeWith(result -> {
+			Map<String, Object> headers = getMap(result.getResponseBody(), "headers");
+			// add was called first, so sets will overwrite
+			assertThat(headers).doesNotContainEntry("X-Req-Foo", "First");
+			assertThat(headers).containsEntry("X-Req-Foo", "Second-www");
+		});
 	}
 
 	@Test
@@ -74,10 +74,10 @@ public class SetRequestHeaderGatewayFilterFactoryTests extends BaseWebClientTest
 		@Bean
 		public RouteLocator testRouteLocator(RouteLocatorBuilder builder) {
 			return builder.routes().route("test_set_request_header",
-					r -> r.order(-1).host("{sub}.setrequestheader.org").filters(f -> f.prefixPath("/httpbin")
-							.addRequestHeader("X-Req-Foo", "First").setRequestHeader("X-Req-Foo", "Second-{sub}"))
-							.uri(uri))
-					.build();
+		r -> r.order(-1).host("{sub}.setrequestheader.org").filters(f -> f.prefixPath("/httpbin")
+	.addRequestHeader("X-Req-Foo", "First").setRequestHeader("X-Req-Foo", "Second-{sub}"))
+	.uri(uri))
+		.build();
 		}
 
 	}

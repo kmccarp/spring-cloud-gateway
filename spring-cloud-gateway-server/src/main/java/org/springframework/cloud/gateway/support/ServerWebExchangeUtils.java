@@ -125,7 +125,7 @@ public final class ServerWebExchangeUtils {
 	 * Gateway predicate matched path route id attribute name.
 	 */
 	public static final String GATEWAY_PREDICATE_MATCHED_PATH_ROUTE_ID_ATTR = qualify(
-			"gatewayPredicateMatchedPathRouteIdAttr");
+"gatewayPredicateMatchedPathRouteIdAttr");
 
 	/**
 	 * Gateway predicate path container attribute name.
@@ -237,7 +237,7 @@ public final class ServerWebExchangeUtils {
 
 	public static boolean containsEncodedParts(URI uri) {
 		boolean encoded = (uri.getRawQuery() != null && uri.getRawQuery().contains("%"))
-				|| (uri.getRawPath() != null && uri.getRawPath().contains("%"));
+	|| (uri.getRawPath() != null && uri.getRawPath().contains("%"));
 
 		// Verify if it is really fully encoded. Treat partial encoded as unencoded.
 		if (encoded) {
@@ -298,7 +298,7 @@ public final class ServerWebExchangeUtils {
 	public static void putUriTemplateVariables(ServerWebExchange exchange, Map<String, String> uriVariables) {
 		if (exchange.getAttributes().containsKey(URI_TEMPLATE_VARIABLES_ATTRIBUTE)) {
 			Map<String, Object> existingVariables = (Map<String, Object>) exchange.getAttributes()
-					.get(URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+		.get(URI_TEMPLATE_VARIABLES_ATTRIBUTE);
 			HashMap<String, Object> newVariables = new HashMap<>();
 			newVariables.putAll(existingVariables);
 			newVariables.putAll(uriVariables);
@@ -326,7 +326,7 @@ public final class ServerWebExchangeUtils {
 	 * @return Mono of type T created by the function parameter.
 	 */
 	public static <T> Mono<T> cacheRequestBodyAndRequest(ServerWebExchange exchange,
-			Function<ServerHttpRequest, Mono<T>> function) {
+Function<ServerHttpRequest, Mono<T>> function) {
 		return cacheRequestBody(exchange, true, function);
 	}
 
@@ -340,7 +340,7 @@ public final class ServerWebExchangeUtils {
 	 * @return Mono of type T created by the function parameter.
 	 */
 	public static <T> Mono<T> cacheRequestBody(ServerWebExchange exchange,
-			Function<ServerHttpRequest, Mono<T>> function) {
+Function<ServerHttpRequest, Mono<T>> function) {
 		return cacheRequestBody(exchange, false, function);
 	}
 
@@ -359,17 +359,17 @@ public final class ServerWebExchangeUtils {
 	 * @return Mono of type T created by the function parameter.
 	 */
 	private static <T> Mono<T> cacheRequestBody(ServerWebExchange exchange, boolean cacheDecoratedRequest,
-			Function<ServerHttpRequest, Mono<T>> function) {
+Function<ServerHttpRequest, Mono<T>> function) {
 		ServerHttpResponse response = exchange.getResponse();
 		DataBufferFactory factory = response.bufferFactory();
 		// Join all the DataBuffers so we have a single DataBuffer for the body
 		return DataBufferUtils.join(exchange.getRequest().getBody()).defaultIfEmpty(factory.wrap(EMPTY_BYTES))
-				.map(dataBuffer -> decorate(exchange, dataBuffer, cacheDecoratedRequest))
-				.switchIfEmpty(Mono.just(exchange.getRequest())).flatMap(function);
+	.map(dataBuffer -> decorate(exchange, dataBuffer, cacheDecoratedRequest))
+	.switchIfEmpty(Mono.just(exchange.getRequest())).flatMap(function);
 	}
 
 	private static ServerHttpRequest decorate(ServerWebExchange exchange, DataBuffer dataBuffer,
-			boolean cacheDecoratedRequest) {
+boolean cacheDecoratedRequest) {
 		if (dataBuffer.readableByteCount() > 0) {
 			if (log.isTraceEnabled()) {
 				log.trace("retaining body in exchange attribute");
@@ -400,7 +400,7 @@ public final class ServerWebExchangeUtils {
 					}
 					else {
 						throw new IllegalArgumentException(
-								"Unable to handle DataBuffer of type " + dataBuffer.getClass());
+					"Unable to handle DataBuffer of type " + dataBuffer.getClass());
 					}
 				}).flux();
 			}

@@ -115,7 +115,7 @@ public class RedisRateLimiter extends AbstractRateLimiter<RedisRateLimiter.Confi
 	private String requestedTokensHeader = REQUESTED_TOKENS_HEADER;
 
 	public RedisRateLimiter(ReactiveStringRedisTemplate redisTemplate, RedisScript<List<Long>> script,
-			ConfigurationService configurationService) {
+ConfigurationService configurationService) {
 		super(Config.class, CONFIGURATION_PROPERTY_NAME, configurationService);
 		this.redisTemplate = redisTemplate;
 		this.script = script;
@@ -334,7 +334,7 @@ public class RedisRateLimiter extends AbstractRateLimiter<RedisRateLimiter.Confi
 
 		public Config setBurstCapacity(int burstCapacity) {
 			Assert.isTrue(burstCapacity >= this.replenishRate, "BurstCapacity(" + burstCapacity
-					+ ") must be greater than or equal than replenishRate(" + this.replenishRate + ")");
+		+ ") must be greater than or equal than replenishRate(" + this.replenishRate + ")");
 			this.burstCapacity = burstCapacity;
 			return this;
 		}
@@ -351,7 +351,7 @@ public class RedisRateLimiter extends AbstractRateLimiter<RedisRateLimiter.Confi
 		@Override
 		public String toString() {
 			return new ToStringCreator(this).append("replenishRate", replenishRate)
-					.append("burstCapacity", burstCapacity).append("requestedTokens", requestedTokens).toString();
+		.append("burstCapacity", burstCapacity).append("requestedTokens", requestedTokens).toString();
 
 		}
 

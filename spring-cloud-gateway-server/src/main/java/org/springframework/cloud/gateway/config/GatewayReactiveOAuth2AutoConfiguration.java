@@ -38,7 +38,7 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnProperty(name = "spring.cloud.gateway.enabled", matchIfMissing = true)
-@ConditionalOnClass({ OAuth2AuthorizedClient.class, SecurityWebFilterChain.class, SecurityProperties.class })
+@ConditionalOnClass({OAuth2AuthorizedClient.class, SecurityWebFilterChain.class, SecurityProperties.class})
 @ConditionalOnEnabledFilter(TokenRelayGatewayFilterFactory.class)
 @AutoConfigureAfter(ReactiveSecurityAutoConfiguration.class)
 public class GatewayReactiveOAuth2AutoConfiguration {
@@ -47,12 +47,12 @@ public class GatewayReactiveOAuth2AutoConfiguration {
 	@ConditionalOnMissingBean
 	@ConditionalOnBean(ReactiveClientRegistrationRepository.class)
 	public ReactiveOAuth2AuthorizedClientManager gatewayReactiveOAuth2AuthorizedClientManager(
-			ReactiveClientRegistrationRepository clientRegistrationRepository,
-			ServerOAuth2AuthorizedClientRepository authorizedClientRepository) {
+ReactiveClientRegistrationRepository clientRegistrationRepository,
+ServerOAuth2AuthorizedClientRepository authorizedClientRepository) {
 		ReactiveOAuth2AuthorizedClientProvider authorizedClientProvider = ReactiveOAuth2AuthorizedClientProviderBuilder
-				.builder().authorizationCode().refreshToken().build();
+	.builder().authorizationCode().refreshToken().build();
 		DefaultReactiveOAuth2AuthorizedClientManager authorizedClientManager = new DefaultReactiveOAuth2AuthorizedClientManager(
-				clientRegistrationRepository, authorizedClientRepository);
+	clientRegistrationRepository, authorizedClientRepository);
 		authorizedClientManager.setAuthorizedClientProvider(authorizedClientProvider);
 		return authorizedClientManager;
 	}

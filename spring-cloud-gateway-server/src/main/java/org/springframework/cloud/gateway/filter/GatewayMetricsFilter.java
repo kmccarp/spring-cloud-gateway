@@ -46,7 +46,7 @@ public class GatewayMetricsFilter implements GlobalFilter, Ordered {
 	private final String metricsPrefix;
 
 	public GatewayMetricsFilter(MeterRegistry meterRegistry, List<GatewayTagsProvider> tagsProviders,
-			String metricsPrefix) {
+String metricsPrefix) {
 		this.meterRegistry = meterRegistry;
 		this.compositeTagsProvider = tagsProviders.stream().reduce(exchange -> Tags.empty(), GatewayTagsProvider::and);
 		if (metricsPrefix.endsWith(".")) {
@@ -73,7 +73,7 @@ public class GatewayMetricsFilter implements GlobalFilter, Ordered {
 		Sample sample = Timer.start(meterRegistry);
 
 		return chain.filter(exchange).doOnSuccess(aVoid -> endTimerRespectingCommit(exchange, sample))
-				.doOnError(throwable -> endTimerRespectingCommit(exchange, sample));
+	.doOnError(throwable -> endTimerRespectingCommit(exchange, sample));
 	}
 
 	private void endTimerRespectingCommit(ServerWebExchange exchange, Sample sample) {

@@ -32,8 +32,8 @@ import org.springframework.web.server.ResponseStatusException;
 public class SpringCloudCircuitBreakerResilience4JFilterFactory extends SpringCloudCircuitBreakerFilterFactory {
 
 	public SpringCloudCircuitBreakerResilience4JFilterFactory(
-			ReactiveCircuitBreakerFactory reactiveCircuitBreakerFactory,
-			ObjectProvider<DispatcherHandler> dispatcherHandlerProvider) {
+ReactiveCircuitBreakerFactory reactiveCircuitBreakerFactory,
+ObjectProvider<DispatcherHandler> dispatcherHandlerProvider) {
 		super(reactiveCircuitBreakerFactory, dispatcherHandlerProvider);
 	}
 

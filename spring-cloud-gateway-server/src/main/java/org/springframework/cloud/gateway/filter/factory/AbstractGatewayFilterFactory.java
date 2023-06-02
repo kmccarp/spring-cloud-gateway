@@ -25,8 +25,7 @@ import org.springframework.context.ApplicationEventPublisherAware;
  *
  * @param <C> {@link AbstractConfigurable} subtype
  */
-public abstract class AbstractGatewayFilterFactory<C> extends AbstractConfigurable<C>
-		implements GatewayFilterFactory<C>, ApplicationEventPublisherAware {
+public abstract class AbstractGatewayFilterFactory<C> extends AbstractConfigurable<C>implements GatewayFilterFactory<C>, ApplicationEventPublisherAware {
 
 	private ApplicationEventPublisher publisher;
 

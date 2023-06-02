@@ -43,8 +43,8 @@ public class ObservationClosingWebExceptionHandler implements WebExceptionHandle
 			if (observation != null) {
 				if (log.isDebugEnabled()) {
 					observation.scoped(() -> log.debug(
-							() -> "An exception occurred and observation was not previously stopped, will stop it. The exception was ["
-									+ ex + "]"));
+				() -> "An exception occurred and observation was not previously stopped, will stop it. The exception was ["
+			+ ex + "]"));
 				}
 				observation.error(ex);
 				observation.stop();

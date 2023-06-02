@@ -82,7 +82,7 @@ public class PrincipalNameKeyResolverIntegrationTests {
 	@Test
 	public void keyResolverWorks() {
 		this.client.mutate().filter(basicAuthentication("user", "password")).build().get().uri("/myapi/1").exchange()
-				.expectStatus().isOk().expectBody().json("{\"user\":\"1\"}");
+	.expectStatus().isOk().expectBody().json("{\"user\":\"1\"}");
 	}
 
 	@RestController
@@ -102,10 +102,10 @@ public class PrincipalNameKeyResolverIntegrationTests {
 		@Bean
 		public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
 			return builder.routes()
-					.route(r -> r.path("/myapi/**").filters(
-							f -> f.requestRateLimiter(c -> c.setRateLimiter(myRateLimiter())).prefixPath("/downstream"))
-							.uri("http://localhost:" + port))
-					.build();
+		.route(r -> r.path("/myapi/**").filters(
+	f -> f.requestRateLimiter(c -> c.setRateLimiter(myRateLimiter())).prefixPath("/downstream"))
+	.uri("http://localhost:" + port))
+		.build();
 		}
 
 		@Bean
@@ -117,7 +117,7 @@ public class PrincipalNameKeyResolverIntegrationTests {
 		@Bean
 		SecurityWebFilterChain springWebFilterChain(ServerHttpSecurity http) {
 			return http.httpBasic().and().authorizeExchange().pathMatchers("/myapi/**").authenticated().anyExchange()
-					.permitAll().and().build();
+		.permitAll().and().build();
 		}
 
 		@Bean

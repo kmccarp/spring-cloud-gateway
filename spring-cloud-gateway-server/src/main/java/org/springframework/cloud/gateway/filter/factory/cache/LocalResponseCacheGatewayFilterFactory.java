@@ -40,8 +40,7 @@ import org.springframework.validation.annotation.Validated;
  * @author Ignacio Lozano
  */
 @ConditionalOnProperty(value = "spring.cloud.gateway.filter.local-response-cache.enabled", havingValue = "true")
-public class LocalResponseCacheGatewayFilterFactory
-		extends AbstractGatewayFilterFactory<LocalResponseCacheGatewayFilterFactory.RouteCacheConfiguration> {
+public class LocalResponseCacheGatewayFilterFactoryextends AbstractGatewayFilterFactory<LocalResponseCacheGatewayFilterFactory.RouteCacheConfiguration> {
 
 	/**
 	 * Exchange attribute name to track if the request has been already process by cache
@@ -56,12 +55,12 @@ public class LocalResponseCacheGatewayFilterFactory
 	private DataSize defaultSize;
 
 	public LocalResponseCacheGatewayFilterFactory(ResponseCacheManagerFactory cacheManagerFactory,
-			Duration defaultTimeToLive) {
+Duration defaultTimeToLive) {
 		this(cacheManagerFactory, defaultTimeToLive, null);
 	}
 
 	public LocalResponseCacheGatewayFilterFactory(ResponseCacheManagerFactory cacheManagerFactory,
-			Duration defaultTimeToLive, DataSize defaultSize) {
+Duration defaultTimeToLive, DataSize defaultSize) {
 		super(RouteCacheConfiguration.class);
 		this.cacheManagerFactory = cacheManagerFactory;
 		this.defaultTimeToLive = defaultTimeToLive;
@@ -73,7 +72,7 @@ public class LocalResponseCacheGatewayFilterFactory
 		LocalResponseCacheProperties cacheProperties = mapRouteCacheConfig(config);
 
 		Cache routeCache = LocalResponseCacheAutoConfiguration.createGatewayCacheManager(cacheProperties)
-				.getCache(config.getRouteId() + "-cache");
+	.getCache(config.getRouteId() + "-cache");
 		return new ResponseCacheGatewayFilter(cacheManagerFactory.create(routeCache, cacheProperties.getTimeToLive()));
 
 	}

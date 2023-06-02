@@ -48,7 +48,7 @@ public class MvcFailureAnalyzerApplication {
 	@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
 	public RouteLocator myRouteLocator(RouteLocatorBuilder builder) {
 		return builder.routes().route(r -> r.path("/myprefix/**").filters(f -> f.stripPrefix(1)).uri("lb://myservice"))
-				.build();
+	.build();
 	}
 
 }
@@ -61,7 +61,7 @@ class MyServiceConf {
 	@Bean
 	public ServiceInstanceListSupplier staticServiceInstanceListSupplier() {
 		return ServiceInstanceListSuppliers.from("myservice",
-				new DefaultServiceInstance("myservice-1", "myservice", "localhost", port, false));
+	new DefaultServiceInstance("myservice-1", "myservice", "localhost", port, false));
 	}
 
 }

@@ -313,7 +313,7 @@ public class XForwardedHeadersFilter implements HttpHeadersFilter, Ordered {
 		String host = request.getURI().getHost();
 		String scheme = request.getURI().getScheme();
 		if (port < 0 || (port == HTTP_PORT && HTTP_SCHEME.equals(scheme))
-				|| (port == HTTPS_PORT && HTTPS_SCHEME.equals(scheme))) {
+	|| (port == HTTPS_PORT && HTTPS_SCHEME.equals(scheme))) {
 			return host;
 		}
 		else {

@@ -49,7 +49,7 @@ public class GatewayTestApplication {
 
 		@Bean
 		public DiscoveryClientRouteDefinitionLocator discoveryClientRouteLocator(
-				ReactiveDiscoveryClient discoveryClient, DiscoveryLocatorProperties properties) {
+	ReactiveDiscoveryClient discoveryClient, DiscoveryLocatorProperties properties) {
 			return new DiscoveryClientRouteDefinitionLocator(discoveryClient, properties);
 		}
 

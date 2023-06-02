@@ -144,7 +144,7 @@ public class BaseWebClientTests {
 		@Bean
 		public ServiceInstanceListSupplier staticServiceInstanceListSupplier() {
 			return ServiceInstanceListSuppliers.from(SERVICE_ID,
-					new DefaultServiceInstance(SERVICE_ID + "-1", SERVICE_ID, "localhost", port, false));
+		new DefaultServiceInstance(SERVICE_ID + "-1", SERVICE_ID, "localhost", port, false));
 		}
 
 	}

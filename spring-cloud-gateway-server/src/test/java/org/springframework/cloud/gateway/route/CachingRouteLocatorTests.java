@@ -118,7 +118,7 @@ public class CachingRouteLocatorTests {
 	}
 
 	private void waitUntilRefreshFinished(CachingRouteLocator locator, List<RefreshRoutesResultEvent> resultEvents)
-			throws InterruptedException {
+throws InterruptedException {
 		CountDownLatch cdl = new CountDownLatch(1);
 		locator.setApplicationEventPublisher(o -> {
 			resultEvents.add((RefreshRoutesResultEvent) o);
@@ -131,7 +131,7 @@ public class CachingRouteLocatorTests {
 
 	Route route(int id) {
 		return Route.async().id(String.valueOf(id)).uri("http://localhost/" + id).order(id).predicate(exchange -> true)
-				.build();
+	.build();
 	}
 
 }

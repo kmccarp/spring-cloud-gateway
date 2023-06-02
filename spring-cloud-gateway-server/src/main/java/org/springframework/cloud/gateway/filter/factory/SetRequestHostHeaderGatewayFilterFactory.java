@@ -33,8 +33,7 @@ import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.P
 /**
  * @author Andrew Fitzgerald
  */
-public class SetRequestHostHeaderGatewayFilterFactory
-		extends AbstractGatewayFilterFactory<SetRequestHostHeaderGatewayFilterFactory.Config> {
+public class SetRequestHostHeaderGatewayFilterFactoryextends AbstractGatewayFilterFactory<SetRequestHostHeaderGatewayFilterFactory.Config> {
 
 	public SetRequestHostHeaderGatewayFilterFactory() {
 		super(Config.class);
@@ -66,7 +65,7 @@ public class SetRequestHostHeaderGatewayFilterFactory
 			@Override
 			public String toString() {
 				return filterToStringCreator(SetRequestHostHeaderGatewayFilterFactory.this).append(config.getHost())
-						.toString();
+			.toString();
 			}
 		};
 	}

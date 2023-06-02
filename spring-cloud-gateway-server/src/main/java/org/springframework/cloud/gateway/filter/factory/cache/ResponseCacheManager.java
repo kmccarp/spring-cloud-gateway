@@ -67,17 +67,17 @@ public class ResponseCacheManager {
 		this.cacheKeyGenerator = cacheKeyGenerator;
 		this.cache = cache;
 		this.afterCacheExchangeMutators = List.of(new SetResponseHeadersAfterCacheExchangeMutator(),
-				new SetStatusCodeAfterCacheExchangeMutator(),
-				new SetMaxAgeHeaderAfterCacheExchangeMutator(configuredTimeToLive, Clock.systemDefaultZone()));
+	new SetStatusCodeAfterCacheExchangeMutator(),
+	new SetMaxAgeHeaderAfterCacheExchangeMutator(configuredTimeToLive, Clock.systemDefaultZone()));
 	}
 
 	private static final List<HttpStatusCode> statusesToCache = Arrays.asList(HttpStatus.OK, HttpStatus.PARTIAL_CONTENT,
-			HttpStatus.MOVED_PERMANENTLY);
+HttpStatus.MOVED_PERMANENTLY);
 
 	public Optional<CachedResponse> getFromCache(ServerHttpRequest request, String metadataKey) {
 		CachedResponseMetadata metadata = retrieveMetadata(metadataKey);
 		String key = cacheKeyGenerator.generateKey(request,
-				metadata != null ? metadata.varyOnHeaders() : Collections.emptyList());
+	metadata != null ? metadata.varyOnHeaders() : Collections.emptyList());
 
 		return getFromCache(key);
 	}
@@ -87,7 +87,7 @@ public class ResponseCacheManager {
 		final CachedResponseMetadata metadata = new CachedResponseMetadata(response.getHeaders().getVary());
 		final String key = resolveKey(exchange, metadata.varyOnHeaders());
 		CachedResponse.Builder cachedResponseBuilder = CachedResponse.create(response.getStatusCode())
-				.headers(response.getHeaders());
+	.headers(response.getHeaders());
 		CachedResponse toProcess = cachedResponseBuilder.build();
 		afterCacheExchangeMutators.forEach(processor -> processor.accept(exchange, toProcess));
 
@@ -137,7 +137,7 @@ public class ResponseCacheManager {
 		}
 		else {
 			return response.writeWith(
-					Flux.fromIterable(cachedResponse.body()).map(data -> response.bufferFactory().wrap(data)));
+		Flux.fromIterable(cachedResponse.body()).map(data -> response.bufferFactory().wrap(data)));
 		}
 	}
 

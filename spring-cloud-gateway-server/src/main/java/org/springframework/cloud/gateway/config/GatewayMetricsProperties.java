@@ -80,7 +80,7 @@ public class GatewayMetricsProperties {
 	@Override
 	public String toString() {
 		return new ToStringCreator(this).append("enabled", enabled).append("prefix", prefix).append("tags", tags)
-				.toString();
+	.toString();
 
 	}
 

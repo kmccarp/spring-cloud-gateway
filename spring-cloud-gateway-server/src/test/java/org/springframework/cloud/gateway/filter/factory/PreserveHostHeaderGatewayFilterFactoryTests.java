@@ -48,12 +48,12 @@ public class PreserveHostHeaderGatewayFilterFactoryTests extends BaseWebClientTe
 	@Test
 	public void preserveHostHeaderGatewayFilterFactoryWorks() {
 		testClient.get().uri("/multivalueheaders").header("Host", "www.preservehostheader.org").exchange()
-				.expectStatus().isOk().expectBody(Map.class).consumeWith(result -> {
-					Map<String, Object> headers = getMap(result.getResponseBody(), "headers");
-					assertThat(headers).containsKey("Host");
-					List<String> values = (List<String>) headers.get("Host");
-					assertThat(values).containsExactly("myhost.net");
-				});
+	.expectStatus().isOk().expectBody(Map.class).consumeWith(result -> {
+			Map<String, Object> headers = getMap(result.getResponseBody(), "headers");
+			assertThat(headers).containsKey("Host");
+			List<String> values = (List<String>) headers.get("Host");
+			assertThat(values).containsExactly("myhost.net");
+		});
 	}
 
 	@Test
@@ -73,10 +73,10 @@ public class PreserveHostHeaderGatewayFilterFactoryTests extends BaseWebClientTe
 		@Bean
 		public RouteLocator testRouteLocator(RouteLocatorBuilder builder) {
 			return builder.routes()
-					.route("test_preserve_host_header", r -> r.order(-1).host("**.preservehostheader.org").filters(
-							f -> f.prefixPath("/httpbin").preserveHostHeader().setRequestHeader("Host", "myhost.net"))
-							.uri(uri))
-					.build();
+		.route("test_preserve_host_header", r -> r.order(-1).host("**.preservehostheader.org").filters(
+	f -> f.prefixPath("/httpbin").preserveHostHeader().setRequestHeader("Host", "myhost.net"))
+	.uri(uri))
+		.build();
 		}
 
 	}

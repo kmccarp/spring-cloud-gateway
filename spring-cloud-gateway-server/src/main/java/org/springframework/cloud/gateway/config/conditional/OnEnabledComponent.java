@@ -51,7 +51,7 @@ public abstract class OnEnabledComponent<T> extends SpringBootCondition implemen
 
 	@SuppressWarnings("unchecked")
 	protected Class<? extends T> getComponentType(Class<?> annotationClass, ConditionContext context,
-			AnnotatedTypeMetadata metadata) {
+AnnotatedTypeMetadata metadata) {
 		Map<String, Object> attributes = metadata.getAnnotationAttributes(annotationClass.getName());
 		if (attributes != null && attributes.containsKey("value")) {
 			Class<?> target = (Class<?>) attributes.get("value");
@@ -60,15 +60,15 @@ public abstract class OnEnabledComponent<T> extends SpringBootCondition implemen
 			}
 		}
 		Assert.state(metadata instanceof MethodMetadata && metadata.isAnnotated(Bean.class.getName()),
-				getClass().getSimpleName() + " must be used on @Bean methods when the value is not specified");
+	getClass().getSimpleName() + " must be used on @Bean methods when the value is not specified");
 		MethodMetadata methodMetadata = (MethodMetadata) metadata;
 		try {
 			return (Class<? extends T>) ClassUtils.forName(methodMetadata.getReturnTypeName(),
-					context.getClassLoader());
+		context.getClassLoader());
 		}
 		catch (Throwable ex) {
 			throw new IllegalStateException("Failed to extract component class for "
-					+ methodMetadata.getDeclaringClassName() + "." + methodMetadata.getMethodName(), ex);
+		+ methodMetadata.getDeclaringClassName() + "." + methodMetadata.getMethodName(), ex);
 		}
 	}
 

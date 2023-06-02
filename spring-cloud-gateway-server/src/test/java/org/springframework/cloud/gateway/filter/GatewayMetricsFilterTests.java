@@ -83,7 +83,7 @@ public class GatewayMetricsFilterTests extends BaseWebClientTests {
 		headers.set(HttpHeaders.HOST, "www.setcustomstatusmetrics.org");
 		// cannot use netty client since we cannot read custom http status
 		ResponseEntity<String> response = new TestRestTemplate().exchange(baseUri + "/headers", HttpMethod.POST,
-				new HttpEntity<>(headers), String.class);
+	new HttpEntity<>(headers), String.class);
 		assertThat(response.getStatusCodeValue()).isEqualTo(432);
 		assertMetricsContainsTag("outcome", "CUSTOM");
 		assertMetricsContainsTag("status", "432");
@@ -96,9 +96,9 @@ public class GatewayMetricsFilterTests extends BaseWebClientTests {
 	private void assertMetricsContainsTag(String tagKey, String tagValue) {
 		// @formatter:off
 		assertThat(this.meterRegistry.get(REQUEST_METRICS_NAME).tag(tagKey, tagValue)
-				.timer().count())
-				.as("Wrong value for metric %s: %s", tagKey, tagValue)
-				.isGreaterThanOrEqualTo(1);
+	.timer().count())
+	.as("Wrong value for metric %s: %s", tagKey, tagValue)
+	.isGreaterThanOrEqualTo(1);
 		// @formatter:on
 	}
 
@@ -114,9 +114,9 @@ public class GatewayMetricsFilterTests extends BaseWebClientTests {
 		@Bean
 		public RouteLocator myRouteLocator(RouteLocatorBuilder builder) {
 			return builder.routes()
-					.route("test_custom_http_status_metrics",
-							r -> r.host("*.setcustomstatusmetrics.org").filters(f -> f.setStatus(432)).uri(testUri))
-					.build();
+		.route("test_custom_http_status_metrics",
+	r -> r.host("*.setcustomstatusmetrics.org").filters(f -> f.setStatus(432)).uri(testUri))
+		.build();
 		}
 
 		@GetMapping("/httpbin/badtargeturi")

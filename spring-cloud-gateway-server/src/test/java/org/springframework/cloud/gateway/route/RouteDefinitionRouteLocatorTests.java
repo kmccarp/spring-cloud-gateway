@@ -51,8 +51,8 @@ public class RouteDefinitionRouteLocatorTests {
 	public void contextLoads() {
 		List<RoutePredicateFactory> predicates = Arrays.asList(new HostRoutePredicateFactory());
 		List<GatewayFilterFactory> gatewayFilterFactories = Arrays.asList(
-				new RemoveResponseHeaderGatewayFilterFactory(), new AddResponseHeaderGatewayFilterFactory(),
-				new TestOrderedGatewayFilterFactory());
+	new RemoveResponseHeaderGatewayFilterFactory(), new AddResponseHeaderGatewayFilterFactory(),
+	new TestOrderedGatewayFilterFactory());
 		GatewayProperties gatewayProperties = new GatewayProperties();
 		gatewayProperties.setRoutes(Arrays.asList(new RouteDefinition() {
 			{
@@ -60,17 +60,17 @@ public class RouteDefinitionRouteLocatorTests {
 				setUri(URI.create("https://foo.example.com"));
 				setPredicates(Arrays.asList(new PredicateDefinition("Host=*.example.com")));
 				setFilters(Arrays.asList(new FilterDefinition("RemoveResponseHeader=Server"),
-						new FilterDefinition("TestOrdered="),
-						new FilterDefinition("AddResponseHeader=X-Response-Foo, Bar")));
+			new FilterDefinition("TestOrdered="),
+			new FilterDefinition("AddResponseHeader=X-Response-Foo, Bar")));
 			}
 		}));
 
 		PropertiesRouteDefinitionLocator routeDefinitionLocator = new PropertiesRouteDefinitionLocator(
-				gatewayProperties);
+	gatewayProperties);
 		@SuppressWarnings("deprecation")
 		RouteDefinitionRouteLocator routeDefinitionRouteLocator = new RouteDefinitionRouteLocator(
-				new CompositeRouteDefinitionLocator(Flux.just(routeDefinitionLocator)), predicates,
-				gatewayFilterFactories, gatewayProperties, new ConfigurationService(null, () -> null, () -> null));
+	new CompositeRouteDefinitionLocator(Flux.just(routeDefinitionLocator)), predicates,
+	gatewayFilterFactories, gatewayProperties, new ConfigurationService(null, () -> null, () -> null));
 
 		StepVerifier.create(routeDefinitionRouteLocator.getRoutes()).assertNext(route -> {
 			List<GatewayFilter> filters = route.getFilters();
@@ -78,7 +78,7 @@ public class RouteDefinitionRouteLocatorTests {
 			assertThat(getFilterClassName(filters.get(0))).contains("RemoveResponseHeader");
 			assertThat(getFilterClassName(filters.get(1))).contains("AddResponseHeader");
 			assertThat(getFilterClassName(filters.get(2)))
-					.contains("RouteDefinitionRouteLocatorTests$TestOrderedGateway");
+		.contains("RouteDefinitionRouteLocatorTests$TestOrderedGateway");
 		}).expectComplete().verify();
 	}
 
@@ -97,10 +97,10 @@ public class RouteDefinitionRouteLocatorTests {
 		}));
 
 		PropertiesRouteDefinitionLocator routeDefinitionLocator = new PropertiesRouteDefinitionLocator(
-				gatewayProperties);
+	gatewayProperties);
 		RouteDefinitionRouteLocator routeDefinitionRouteLocator = new RouteDefinitionRouteLocator(
-				new CompositeRouteDefinitionLocator(Flux.just(routeDefinitionLocator)), predicates,
-				gatewayFilterFactories, gatewayProperties, new ConfigurationService(null, () -> null, () -> null));
+	new CompositeRouteDefinitionLocator(Flux.just(routeDefinitionLocator)), predicates,
+	gatewayFilterFactories, gatewayProperties, new ConfigurationService(null, () -> null, () -> null));
 
 		StepVerifier.create(routeDefinitionRouteLocator.getRoutes()).assertNext(route -> {
 			List<GatewayFilter> filters = route.getFilters();
@@ -116,18 +116,18 @@ public class RouteDefinitionRouteLocatorTests {
 	public void contextLoadsWithErrorRecovery() {
 		List<RoutePredicateFactory> predicates = Arrays.asList(new HostRoutePredicateFactory());
 		List<GatewayFilterFactory> gatewayFilterFactories = Arrays.asList(
-				new RemoveResponseHeaderGatewayFilterFactory(), new AddResponseHeaderGatewayFilterFactory(),
-				new TestOrderedGatewayFilterFactory());
+	new RemoveResponseHeaderGatewayFilterFactory(), new AddResponseHeaderGatewayFilterFactory(),
+	new TestOrderedGatewayFilterFactory());
 		GatewayProperties gatewayProperties = new GatewayProperties();
 		gatewayProperties.setRoutes(containsInvalidRoutes());
 		gatewayProperties.setFailOnRouteDefinitionError(false);
 
 		PropertiesRouteDefinitionLocator routeDefinitionLocator = new PropertiesRouteDefinitionLocator(
-				gatewayProperties);
+	gatewayProperties);
 		@SuppressWarnings("deprecation")
 		RouteDefinitionRouteLocator routeDefinitionRouteLocator = new RouteDefinitionRouteLocator(
-				new CompositeRouteDefinitionLocator(Flux.just(routeDefinitionLocator)), predicates,
-				gatewayFilterFactories, gatewayProperties, new ConfigurationService(null, () -> null, () -> null));
+	new CompositeRouteDefinitionLocator(Flux.just(routeDefinitionLocator)), predicates,
+	gatewayFilterFactories, gatewayProperties, new ConfigurationService(null, () -> null, () -> null));
 
 		StepVerifier.create(routeDefinitionRouteLocator.getRoutes()).assertNext(route -> {
 			List<GatewayFilter> filters = route.getFilters();
@@ -135,7 +135,7 @@ public class RouteDefinitionRouteLocatorTests {
 			assertThat(getFilterClassName(filters.get(0))).contains("RemoveResponseHeader");
 			assertThat(getFilterClassName(filters.get(1))).contains("AddResponseHeader");
 			assertThat(getFilterClassName(filters.get(2)))
-					.contains("RouteDefinitionRouteLocatorTests$TestOrderedGateway");
+		.contains("RouteDefinitionRouteLocatorTests$TestOrderedGateway");
 		}).expectComplete().verify();
 	}
 
@@ -143,7 +143,7 @@ public class RouteDefinitionRouteLocatorTests {
 	public void contextLoadsAndApplyRouteIdToRetryFilter() {
 		List<RoutePredicateFactory> predicates = Arrays.asList(new HostRoutePredicateFactory());
 		List<GatewayFilterFactory> gatewayFilterFactories = Arrays.asList(new RetryGatewayFilterFactory(),
-				new AddResponseHeaderGatewayFilterFactory());
+	new AddResponseHeaderGatewayFilterFactory());
 		GatewayProperties gatewayProperties = new GatewayProperties();
 		gatewayProperties.setDefaultFilters(Arrays.asList(new FilterDefinition("Retry")));
 		gatewayProperties.setRoutes(Arrays.asList(new RouteDefinition() {
@@ -156,11 +156,11 @@ public class RouteDefinitionRouteLocatorTests {
 		}));
 
 		PropertiesRouteDefinitionLocator routeDefinitionLocator = new PropertiesRouteDefinitionLocator(
-				gatewayProperties);
+	gatewayProperties);
 		@SuppressWarnings("deprecation")
 		RouteDefinitionRouteLocator routeDefinitionRouteLocator = new RouteDefinitionRouteLocator(
-				new CompositeRouteDefinitionLocator(Flux.just(routeDefinitionLocator)), predicates,
-				gatewayFilterFactories, gatewayProperties, new ConfigurationService(null, () -> null, () -> null));
+	new CompositeRouteDefinitionLocator(Flux.just(routeDefinitionLocator)), predicates,
+	gatewayFilterFactories, gatewayProperties, new ConfigurationService(null, () -> null, () -> null));
 
 		StepVerifier.create(routeDefinitionRouteLocator.getRoutes()).assertNext(route -> {
 			List<GatewayFilter> filters = route.getFilters();
@@ -177,7 +177,7 @@ public class RouteDefinitionRouteLocatorTests {
 		foo.setUri(URI.create("https://foo.example.com"));
 		foo.setPredicates(Arrays.asList(new PredicateDefinition("Host=*.example.com")));
 		foo.setFilters(Arrays.asList(new FilterDefinition("RemoveResponseHeader=Server"),
-				new FilterDefinition("TestOrdered="), new FilterDefinition("AddResponseHeader=X-Response-Foo, Bar")));
+	new FilterDefinition("TestOrdered="), new FilterDefinition("AddResponseHeader=X-Response-Foo, Bar")));
 		RouteDefinition bad = new RouteDefinition();
 		bad.setId("exceptionRaised");
 		bad.setUri(URI.create("https://foo.example.com"));

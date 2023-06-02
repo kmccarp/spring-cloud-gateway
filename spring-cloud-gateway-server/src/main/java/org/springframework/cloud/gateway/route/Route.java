@@ -56,7 +56,7 @@ public class Route implements Ordered {
 	private final Map<String, Object> metadata;
 
 	private Route(String id, URI uri, int order, AsyncPredicate<ServerWebExchange> predicate,
-			List<GatewayFilter> gatewayFilters, Map<String, Object> metadata) {
+List<GatewayFilter> gatewayFilters, Map<String, Object> metadata) {
 		this.id = id;
 		this.uri = uri;
 		this.order = order;
@@ -72,9 +72,9 @@ public class Route implements Ordered {
 	public static Builder builder(RouteDefinition routeDefinition) {
 		// @formatter:off
 		return new Builder().id(routeDefinition.getId())
-				.uri(routeDefinition.getUri())
-				.order(routeDefinition.getOrder())
-				.metadata(routeDefinition.getMetadata());
+	.uri(routeDefinition.getUri())
+	.order(routeDefinition.getOrder())
+	.metadata(routeDefinition.getMetadata());
 		// @formatter:on
 	}
 
@@ -85,9 +85,9 @@ public class Route implements Ordered {
 	public static AsyncBuilder async(RouteDefinition routeDefinition) {
 		// @formatter:off
 		return new AsyncBuilder().id(routeDefinition.getId())
-				.uri(routeDefinition.getUri())
-				.order(routeDefinition.getOrder())
-				.metadata(routeDefinition.getMetadata());
+	.uri(routeDefinition.getUri())
+	.order(routeDefinition.getOrder())
+	.metadata(routeDefinition.getMetadata());
 		// @formatter:on
 	}
 
@@ -125,9 +125,9 @@ public class Route implements Ordered {
 		}
 		Route route = (Route) o;
 		return this.order == route.order && Objects.equals(this.id, route.id) && Objects.equals(this.uri, route.uri)
-				&& Objects.equals(this.predicate, route.predicate)
-				&& Objects.equals(this.gatewayFilters, route.gatewayFilters)
-				&& Objects.equals(this.metadata, route.metadata);
+	&& Objects.equals(this.predicate, route.predicate)
+	&& Objects.equals(this.gatewayFilters, route.gatewayFilters)
+	&& Objects.equals(this.metadata, route.metadata);
 	}
 
 	@Override

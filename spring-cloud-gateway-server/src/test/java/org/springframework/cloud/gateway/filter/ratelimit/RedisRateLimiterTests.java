@@ -90,7 +90,7 @@ public class RedisRateLimiterTests extends BaseWebClientTests {
 
 		String routeId = "myroute";
 		rateLimiter.getConfig().put(routeId, new RedisRateLimiter.Config().setBurstCapacity(burstCapacity)
-				.setReplenishRate(replenishRate).setRequestedTokens(requestedTokens));
+	.setReplenishRate(replenishRate).setRequestedTokens(requestedTokens));
 
 		checkLimitEnforced(id, replenishRate, burstCapacity, requestedTokens, routeId);
 	}
@@ -105,7 +105,7 @@ public class RedisRateLimiterTests extends BaseWebClientTests {
 
 		String routeId = "low_rate_route";
 		rateLimiter.getConfig().put(routeId, new RedisRateLimiter.Config().setBurstCapacity(burstCapacity)
-				.setReplenishRate(replenishRate).setRequestedTokens(requestedTokens));
+	.setReplenishRate(replenishRate).setRequestedTokens(requestedTokens));
 
 		checkLimitEnforced(id, replenishRate, burstCapacity, requestedTokens, routeId);
 	}
@@ -120,7 +120,7 @@ public class RedisRateLimiterTests extends BaseWebClientTests {
 
 		String routeId = "zero_burst_capacity_route";
 		rateLimiter.getConfig().put(routeId, new RedisRateLimiter.Config().setBurstCapacity(burstCapacity)
-				.setReplenishRate(replenishRate).setRequestedTokens(requestedTokens));
+	.setReplenishRate(replenishRate).setRequestedTokens(requestedTokens));
 
 		Response response = rateLimiter.isAllowed(routeId, id).block();
 		assertThat(response.isAllowed()).isFalse();
@@ -129,7 +129,7 @@ public class RedisRateLimiterTests extends BaseWebClientTests {
 	@Test
 	public void keysUseRedisKeyHashTags() {
 		assertThat(RedisRateLimiter.getKeys("1")).containsExactly("request_rate_limiter.{1}.tokens",
-				"request_rate_limiter.{1}.timestamp");
+	"request_rate_limiter.{1}.timestamp");
 	}
 
 	@Test
@@ -148,7 +148,7 @@ public class RedisRateLimiterTests extends BaseWebClientTests {
 	}
 
 	private void checkLimitEnforced(String id, int replenishRate, int burstCapacity, int requestedTokens,
-			String routeId) throws InterruptedException {
+String routeId) throws InterruptedException {
 		// Bursts work
 		simulateBurst(id, replenishRate, burstCapacity, requestedTokens, routeId);
 
@@ -166,11 +166,11 @@ public class RedisRateLimiterTests extends BaseWebClientTests {
 			assertThat(response.isAllowed()).as("Burst # %s is allowed", i).isTrue();
 			assertThat(response.getHeaders()).containsKey(RedisRateLimiter.REMAINING_HEADER);
 			assertThat(response.getHeaders()).containsEntry(RedisRateLimiter.REPLENISH_RATE_HEADER,
-					String.valueOf(replenishRate));
+		String.valueOf(replenishRate));
 			assertThat(response.getHeaders()).containsEntry(RedisRateLimiter.BURST_CAPACITY_HEADER,
-					String.valueOf(burstCapacity));
+		String.valueOf(burstCapacity));
 			assertThat(response.getHeaders()).containsEntry(RedisRateLimiter.REQUESTED_TOKENS_HEADER,
-					String.valueOf(requestedTokens));
+		String.valueOf(requestedTokens));
 		}
 	}
 

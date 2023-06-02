@@ -76,7 +76,7 @@ public class ClientCertAuthSSLTests extends SingleCertSSLTests {
 
 		try {
 			SslContext sslContext = SslContextBuilder.forClient().trustManager(InsecureTrustManagerFactory.INSTANCE)
-					.keyManager(keyManagerFactory).build();
+		.keyManager(keyManagerFactory).build();
 			HttpClient httpClient = HttpClient.create().secure(ssl -> ssl.sslContext(sslContext));
 			setup(new ReactorClientHttpConnector(httpClient), "https://localhost:" + port);
 		}

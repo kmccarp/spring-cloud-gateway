@@ -34,8 +34,7 @@ import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.a
 /**
  * @author Spencer Gibb
  */
-public class RewritePathGatewayFilterFactory
-		extends AbstractGatewayFilterFactory<RewritePathGatewayFilterFactory.Config> {
+public class RewritePathGatewayFilterFactoryextends AbstractGatewayFilterFactory<RewritePathGatewayFilterFactory.Config> {
 
 	/**
 	 * Regexp key.
@@ -77,7 +76,7 @@ public class RewritePathGatewayFilterFactory
 			@Override
 			public String toString() {
 				return filterToStringCreator(RewritePathGatewayFilterFactory.this)
-						.append(config.getRegexp(), replacement).toString();
+			.append(config.getRegexp(), replacement).toString();
 			}
 		};
 	}

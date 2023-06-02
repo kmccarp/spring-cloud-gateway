@@ -60,8 +60,7 @@ Example usage in application.yml which trusts two reverse proxies (one using an 
 /**
  * @author Jelle Druyts
  */
-public class XForwardedRemoteAddrRoutePredicateFactory
-		extends AbstractRoutePredicateFactory<XForwardedRemoteAddrRoutePredicateFactory.Config> {
+public class XForwardedRemoteAddrRoutePredicateFactoryextends AbstractRoutePredicateFactory<XForwardedRemoteAddrRoutePredicateFactory.Config> {
 
 	private static final Log log = LogFactory.getLog(XForwardedRemoteAddrRoutePredicateFactory.class);
 
@@ -83,7 +82,7 @@ public class XForwardedRemoteAddrRoutePredicateFactory
 	public Predicate<ServerWebExchange> apply(Config config) {
 		if (log.isDebugEnabled()) {
 			log.debug("Applying XForwardedRemoteAddr route predicate with maxTrustedIndex of "
-					+ config.getMaxTrustedIndex() + " for " + config.getSources().size() + " source(s)");
+		+ config.getMaxTrustedIndex() + " for " + config.getSources().size() + " source(s)");
 		}
 
 		// Reuse the standard RemoteAddrRoutePredicateFactory but instead of using the
@@ -92,7 +91,7 @@ public class XForwardedRemoteAddrRoutePredicateFactory
 		RemoteAddrRoutePredicateFactory.Config wrappedConfig = new RemoteAddrRoutePredicateFactory.Config();
 		wrappedConfig.setSources(config.getSources());
 		wrappedConfig
-				.setRemoteAddressResolver(XForwardedRemoteAddressResolver.maxTrustedIndex(config.getMaxTrustedIndex()));
+	.setRemoteAddressResolver(XForwardedRemoteAddressResolver.maxTrustedIndex(config.getMaxTrustedIndex()));
 		RemoteAddrRoutePredicateFactory remoteAddrRoutePredicateFactory = new RemoteAddrRoutePredicateFactory();
 		Predicate<ServerWebExchange> wrappedPredicate = remoteAddrRoutePredicateFactory.apply(wrappedConfig);
 
@@ -102,10 +101,10 @@ public class XForwardedRemoteAddrRoutePredicateFactory
 			if (log.isDebugEnabled()) {
 				ServerHttpRequest request = exchange.getRequest();
 				log.debug("Request for \"" + request.getURI() + "\" from client \""
-						+ request.getRemoteAddress().getAddress().getHostAddress() + "\" with \""
-						+ XForwardedRemoteAddressResolver.X_FORWARDED_FOR + "\" header value of \""
-						+ request.getHeaders().get(XForwardedRemoteAddressResolver.X_FORWARDED_FOR) + "\" is "
-						+ (isAllowed ? "ALLOWED" : "NOT ALLOWED"));
+			+ request.getRemoteAddress().getAddress().getHostAddress() + "\" with \""
+			+ XForwardedRemoteAddressResolver.X_FORWARDED_FOR + "\" header value of \""
+			+ request.getHeaders().get(XForwardedRemoteAddressResolver.X_FORWARDED_FOR) + "\" is "
+			+ (isAllowed ? "ALLOWED" : "NOT ALLOWED"));
 			}
 
 			return isAllowed;

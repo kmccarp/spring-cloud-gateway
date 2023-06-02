@@ -72,10 +72,10 @@ public class JsonToGrpcApplicationTests {
 		final RouteConfigurer configurer = new RouteConfigurer(gatewayPort);
 		int grpcServerPort = gatewayPort + 1;
 		configurer.addRoute(grpcServerPort, "/json/hello",
-				"JsonToGrpc=file:src/main/proto/hello.pb,file:src/main/proto/hello.proto,HelloService,hello");
+	"JsonToGrpc=file:src/main/proto/hello.pb,file:src/main/proto/hello.proto,HelloService,hello");
 
 		String response = restTemplate.postForEntity("https://localhost:" + this.gatewayPort + "/json/hello",
-				"{\"firstName\":\"Duff\", \"lastName\":\"McKagan\"}", String.class).getBody();
+	"{\"firstName\":\"Duff\", \"lastName\":\"McKagan\"}", String.class).getBody();
 
 		Assertions.assertThat(response).isNotNull();
 		Assertions.assertThat(response).contains("{\"greeting\":\"Hello, Duff McKagan\"}");
@@ -91,10 +91,10 @@ public class JsonToGrpcApplicationTests {
 			throw new RuntimeException(e);
 		}
 		SSLConnectionSocketFactory sslSocketFactory = new SSLConnectionSocketFactory(sslContext,
-				NoopHostnameVerifier.INSTANCE);
+	NoopHostnameVerifier.INSTANCE);
 
 		Registry<ConnectionSocketFactory> socketFactoryRegistry = RegistryBuilder.<ConnectionSocketFactory>create()
-				.register("https", sslSocketFactory).register("http", new PlainConnectionSocketFactory()).build();
+	.register("https", sslSocketFactory).register("http", new PlainConnectionSocketFactory()).build();
 
 		HttpClientConnectionManager connectionManager = new BasicHttpClientConnectionManager(socketFactoryRegistry);
 		CloseableHttpClient httpClient = HttpClients.custom().setConnectionManager(connectionManager).build();

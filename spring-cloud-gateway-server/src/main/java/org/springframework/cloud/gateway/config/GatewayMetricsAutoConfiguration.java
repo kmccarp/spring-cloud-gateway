@@ -59,9 +59,8 @@ import org.springframework.web.reactive.DispatcherHandler;
 @ConditionalOnProperty(name = GatewayProperties.PREFIX + ".enabled", matchIfMissing = true)
 @EnableConfigurationProperties(GatewayMetricsProperties.class)
 @AutoConfigureBefore(HttpHandlerAutoConfiguration.class)
-@AutoConfigureAfter({ MetricsAutoConfiguration.class, CompositeMeterRegistryAutoConfiguration.class,
-		ObservationAutoConfiguration.class })
-@ConditionalOnClass({ DispatcherHandler.class, MeterRegistry.class, MetricsAutoConfiguration.class })
+@AutoConfigureAfter({MetricsAutoConfiguration.class, CompositeMeterRegistryAutoConfiguration.class,ObservationAutoConfiguration.class})
+@ConditionalOnClass({DispatcherHandler.class, MeterRegistry.class, MetricsAutoConfiguration.class})
 public class GatewayMetricsAutoConfiguration {
 
 	@Bean
@@ -91,7 +90,7 @@ public class GatewayMetricsAutoConfiguration {
 	// don't use @ConditionalOnEnabledGlobalFilter as the above property may
 	// encompass more than just the filter
 	public GatewayMetricsFilter gatewayMetricFilter(MeterRegistry meterRegistry,
-			List<GatewayTagsProvider> tagsProviders, GatewayMetricsProperties properties) {
+List<GatewayTagsProvider> tagsProviders, GatewayMetricsProperties properties) {
 		return new GatewayMetricsFilter(meterRegistry, tagsProviders, properties.getPrefix());
 	}
 
@@ -99,7 +98,7 @@ public class GatewayMetricsAutoConfiguration {
 	@ConditionalOnBean(MeterRegistry.class)
 	@ConditionalOnProperty(name = GatewayProperties.PREFIX + ".metrics.enabled", matchIfMissing = true)
 	public RouteDefinitionMetrics routeDefinitionMetrics(MeterRegistry meterRegistry,
-			RouteDefinitionLocator routeDefinitionLocator, GatewayMetricsProperties properties) {
+RouteDefinitionLocator routeDefinitionLocator, GatewayMetricsProperties properties) {
 		return new RouteDefinitionMetrics(meterRegistry, routeDefinitionLocator, properties.getPrefix());
 	}
 
@@ -111,9 +110,9 @@ public class GatewayMetricsAutoConfiguration {
 		@Bean
 		@ConditionalOnMissingBean
 		ObservedRequestHttpHeadersFilter observedRequestHttpHeadersFilter(ObservationRegistry observationRegistry,
-				ObjectProvider<GatewayObservationConvention> gatewayObservationConvention) {
+	ObjectProvider<GatewayObservationConvention> gatewayObservationConvention) {
 			return new ObservedRequestHttpHeadersFilter(observationRegistry,
-					gatewayObservationConvention.getIfAvailable(() -> null));
+		gatewayObservationConvention.getIfAvailable(() -> null));
 		}
 
 		@Bean
@@ -135,12 +134,12 @@ public class GatewayMetricsAutoConfiguration {
 
 			@Bean
 			@ConditionalOnMissingBean
-			@ConditionalOnBean({ Propagator.class, TracingProperties.class })
+			@ConditionalOnBean({Propagator.class, TracingProperties.class})
 			@Order(Ordered.HIGHEST_PRECEDENCE + 5)
 			GatewayPropagatingSenderTracingObservationHandler gatewayPropagatingSenderTracingObservationHandler(
-					Tracer tracer, Propagator propagator, TracingProperties tracingProperties) {
+		Tracer tracer, Propagator propagator, TracingProperties tracingProperties) {
 				return new GatewayPropagatingSenderTracingObservationHandler(tracer, propagator,
-						tracingProperties.getBaggage().getRemoteFields());
+			tracingProperties.getBaggage().getRemoteFields());
 			}
 
 		}

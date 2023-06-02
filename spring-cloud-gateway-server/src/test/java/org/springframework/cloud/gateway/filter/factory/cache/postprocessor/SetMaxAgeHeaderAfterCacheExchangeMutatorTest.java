@@ -74,7 +74,7 @@ class SetMaxAgeHeaderAfterCacheExchangeMutatorTest {
 		CachedResponse inputCachedResponse = CachedResponse.create(HttpStatus.OK).timestamp(clock.instant()).build();
 
 		SetMaxAgeHeaderAfterCacheExchangeMutator toTest = new SetMaxAgeHeaderAfterCacheExchangeMutator(timeToLive,
-				clock);
+	clock);
 		toTest.accept(inputExchange, inputCachedResponse);
 		assertThat(parseMaxAge(inputExchange.getResponse())).isEmpty();
 	}
@@ -85,12 +85,12 @@ class SetMaxAgeHeaderAfterCacheExchangeMutatorTest {
 		CachedResponse inputCachedResponse = CachedResponse.create(HttpStatus.OK).timestamp(clock.instant()).build();
 
 		SetMaxAgeHeaderAfterCacheExchangeMutator toTest = new SetMaxAgeHeaderAfterCacheExchangeMutator(timeToLive,
-				clock);
+	clock);
 		toTest.accept(inputExchange, inputCachedResponse);
 		Optional<Long> firstMaxAgeSeconds = parseMaxAge(inputExchange.getResponse());
 
 		SetMaxAgeHeaderAfterCacheExchangeMutator toTestSecondsLater = new SetMaxAgeHeaderAfterCacheExchangeMutator(
-				timeToLive, clockSecondsLater);
+	timeToLive, clockSecondsLater);
 		toTestSecondsLater.accept(inputExchange, inputCachedResponse);
 		Optional<Long> secondMaxAgeSeconds = parseMaxAge(inputExchange.getResponse());
 
@@ -106,12 +106,12 @@ class SetMaxAgeHeaderAfterCacheExchangeMutatorTest {
 		CachedResponse inputCachedResponse = CachedResponse.create(HttpStatus.OK).timestamp(clock.instant()).build();
 
 		SetMaxAgeHeaderAfterCacheExchangeMutator toTest = new SetMaxAgeHeaderAfterCacheExchangeMutator(timeToLive,
-				clock);
+	clock);
 		toTest.accept(inputExchange, inputCachedResponse);
 		Optional<Long> firstMaxAgeSeconds = parseMaxAge(inputExchange.getResponse());
 
 		SetMaxAgeHeaderAfterCacheExchangeMutator toTestSecondsLater = new SetMaxAgeHeaderAfterCacheExchangeMutator(
-				timeToLive, clockSecondsLater);
+	timeToLive, clockSecondsLater);
 		toTestSecondsLater.accept(inputExchange, inputCachedResponse);
 		Optional<Long> secondMaxAgeSeconds = parseMaxAge(inputExchange.getResponse());
 
@@ -126,11 +126,11 @@ class SetMaxAgeHeaderAfterCacheExchangeMutatorTest {
 		CachedResponse inputCachedResponse = CachedResponse.create(HttpStatus.OK).timestamp(clock.instant()).build();
 
 		SetMaxAgeHeaderAfterCacheExchangeMutator toTest = new SetMaxAgeHeaderAfterCacheExchangeMutator(timeToLive,
-				clock);
+	clock);
 		toTest.accept(inputExchange, inputCachedResponse);
 
 		String[] cacheControlValues = Optional.ofNullable(inputExchange.getResponse().getHeaders().getCacheControl())
-				.map(s -> s.split("\\s*,\\s*")).orElse(null);
+	.map(s -> s.split("\\s*,\\s*")).orElse(null);
 		assertThat(cacheControlValues).contains("max-stale=12", "min-stale=1");
 	}
 
@@ -141,7 +141,7 @@ class SetMaxAgeHeaderAfterCacheExchangeMutatorTest {
 		CachedResponse inputCachedResponse = CachedResponse.create(HttpStatus.OK).timestamp(clock.instant()).build();
 
 		SetMaxAgeHeaderAfterCacheExchangeMutator toTest = new SetMaxAgeHeaderAfterCacheExchangeMutator(timeToLive,
-				clock);
+	clock);
 		toTest.accept(inputExchange, inputCachedResponse);
 
 		List<String> cacheControlValues = inputExchange.getResponse().getHeaders().get("X-Custom-Header");

@@ -42,8 +42,8 @@ public class CacheKeyGenerator {
 	private final ThreadLocal<MessageDigest> messageDigest;
 
 	/* for testing */ static final List<KeyValueGenerator> DEFAULT_KEY_VALUE_GENERATORS = List.of(
-			new UriKeyValueGenerator(), new HeaderKeyValueGenerator(HttpHeaders.AUTHORIZATION, KEY_SEPARATOR),
-			new CookiesKeyValueGenerator(KEY_SEPARATOR));
+new UriKeyValueGenerator(), new HeaderKeyValueGenerator(HttpHeaders.AUTHORIZATION, KEY_SEPARATOR),
+new CookiesKeyValueGenerator(KEY_SEPARATOR));
 
 	public CacheKeyGenerator() {
 		messageDigest = ThreadLocal.withInitial(() -> {
@@ -73,7 +73,7 @@ public class CacheKeyGenerator {
 
 	private Stream<KeyValueGenerator> getKeyValueGenerators(List<String> varyHeaders) {
 		return Stream.concat(DEFAULT_KEY_VALUE_GENERATORS.stream(),
-				varyHeaders.stream().sorted().map(header -> new HeaderKeyValueGenerator(header, ",")));
+	varyHeaders.stream().sorted().map(header -> new HeaderKeyValueGenerator(header, ",")));
 	}
 
 	private byte[] generateRawKey(ServerHttpRequest request, List<String> varyHeaders) {

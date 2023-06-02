@@ -44,7 +44,7 @@ public class RewriteResponseHeaderGatewayFilterFactoryUnitTests {
 	@Test
 	public void testRewriteDollarSlash() {
 		assertThat(filterFactory.rewrite("/foo/bar", "/foo/(?<segment>.*)", "/$\\{segment}/$\\{segment}/42"))
-				.isEqualTo("/bar/bar/42");
+	.isEqualTo("/bar/bar/42");
 	}
 
 	@Test
@@ -71,7 +71,7 @@ public class RewriteResponseHeaderGatewayFilterFactoryUnitTests {
 		List<String> actualHeaders = headers.get(SET_COOKIE);
 		assertThat(actualHeaders).isNotNull();
 		assertThat(actualHeaders).containsExactly("TestCookie=Value;SameSite=Strict",
-				"OtherCookie=Value;SameSite=Strict");
+	"OtherCookie=Value;SameSite=Strict");
 	}
 
 	@Test

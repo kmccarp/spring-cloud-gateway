@@ -35,13 +35,12 @@ import static org.springframework.cloud.gateway.support.GatewayToStringStyler.fi
  *
  * @author Arpan
  */
-public class RequestSizeGatewayFilterFactory
-		extends AbstractGatewayFilterFactory<RequestSizeGatewayFilterFactory.RequestSizeConfig> {
+public class RequestSizeGatewayFilterFactoryextends AbstractGatewayFilterFactory<RequestSizeGatewayFilterFactory.RequestSizeConfig> {
 
 	private static String PREFIX = "kMGTPE";
 
 	private static String ERROR = "Request size is larger than permissible limit."
-			+ " Request size is %s where permissible limit is %s";
++ " Request size is %s where permissible limit is %s";
 
 	public RequestSizeGatewayFilterFactory() {
 		super(RequestSizeGatewayFilterFactory.RequestSizeConfig.class);
@@ -75,7 +74,7 @@ public class RequestSizeGatewayFilterFactory
 						exchange.getResponse().setStatusCode(HttpStatus.PAYLOAD_TOO_LARGE);
 						if (!exchange.getResponse().isCommitted()) {
 							exchange.getResponse().getHeaders().add("errorMessage",
-									getErrorMessage(currentRequestSize, requestSizeConfig.getMaxSize().toBytes()));
+						getErrorMessage(currentRequestSize, requestSizeConfig.getMaxSize().toBytes()));
 						}
 						return exchange.getResponse().setComplete();
 					}
@@ -86,7 +85,7 @@ public class RequestSizeGatewayFilterFactory
 			@Override
 			public String toString() {
 				return filterToStringCreator(RequestSizeGatewayFilterFactory.this)
-						.append("max", requestSizeConfig.getMaxSize()).toString();
+			.append("max", requestSizeConfig.getMaxSize()).toString();
 			}
 		};
 	}

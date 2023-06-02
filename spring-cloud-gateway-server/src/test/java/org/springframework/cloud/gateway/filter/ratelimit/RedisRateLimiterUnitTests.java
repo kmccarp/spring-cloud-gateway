@@ -67,7 +67,7 @@ public class RedisRateLimiterUnitTests {
 	public void setUp() {
 		when(applicationContext.getBean(ReactiveStringRedisTemplate.class)).thenReturn(redisTemplate);
 		when(applicationContext.getBeanNamesForType(ConfigurationService.class))
-				.thenReturn(CONFIGURATION_SERVICE_BEANS);
+	.thenReturn(CONFIGURATION_SERVICE_BEANS);
 		redisRateLimiter = new RedisRateLimiter(DEFAULT_REPLENISH_RATE, DEFAULT_BURST_CAPACITY);
 	}
 
@@ -95,9 +95,9 @@ public class RedisRateLimiterUnitTests {
 		redisRateLimiter.setApplicationContext(applicationContext);
 		Mono<RateLimiter.Response> response = redisRateLimiter.isAllowed(ROUTE_ID, REQUEST_ID);
 		assertThat(response.block().getHeaders()).containsOnly(entry(redisRateLimiter.getRemainingHeader(), "-1"),
-				entry(redisRateLimiter.getBurstCapacityHeader(), DEFAULT_BURST_CAPACITY + ""),
-				entry(redisRateLimiter.getReplenishRateHeader(), DEFAULT_REPLENISH_RATE + ""),
-				entry(redisRateLimiter.getRequestedTokensHeader(), "1"));
+	entry(redisRateLimiter.getBurstCapacityHeader(), DEFAULT_BURST_CAPACITY + ""),
+	entry(redisRateLimiter.getReplenishRateHeader(), DEFAULT_REPLENISH_RATE + ""),
+	entry(redisRateLimiter.getRequestedTokensHeader(), "1"));
 	}
 
 }

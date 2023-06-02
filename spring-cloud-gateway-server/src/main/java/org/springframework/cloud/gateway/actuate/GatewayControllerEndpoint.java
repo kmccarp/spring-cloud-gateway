@@ -46,10 +46,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class GatewayControllerEndpoint extends AbstractGatewayControllerEndpoint {
 
 	public GatewayControllerEndpoint(List<GlobalFilter> globalFilters, List<GatewayFilterFactory> gatewayFilters,
-			List<RoutePredicateFactory> routePredicates, RouteDefinitionWriter routeDefinitionWriter,
-			RouteLocator routeLocator, RouteDefinitionLocator routeDefinitionLocator) {
+List<RoutePredicateFactory> routePredicates, RouteDefinitionWriter routeDefinitionWriter,
+RouteLocator routeLocator, RouteDefinitionLocator routeDefinitionLocator) {
 		super(routeDefinitionLocator, globalFilters, gatewayFilters, routePredicates, routeDefinitionWriter,
-				routeLocator);
+	routeLocator);
 	}
 
 	@GetMapping("/routedefinitions")
@@ -88,11 +88,11 @@ public class GatewayControllerEndpoint extends AbstractGatewayControllerEndpoint
 	public Mono<ResponseEntity<Map<String, Object>>> route(@PathVariable String id) {
 		// @formatter:off
 		return this.routeLocator.getRoutes()
-				.filter(route -> route.getId().equals(id))
-				.singleOrEmpty()
-				.map(this::serialize)
-				.map(ResponseEntity::ok)
-				.switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
+	.filter(route -> route.getId().equals(id))
+	.singleOrEmpty()
+	.map(this::serialize)
+	.map(ResponseEntity::ok)
+	.switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
 		// @formatter:on
 	}
 

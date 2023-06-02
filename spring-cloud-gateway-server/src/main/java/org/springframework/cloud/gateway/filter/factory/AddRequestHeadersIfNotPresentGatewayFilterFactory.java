@@ -41,8 +41,7 @@ import static org.springframework.cloud.gateway.support.GatewayToStringStyler.fi
  *
  * @author Abel Salgado Romero
  */
-public class AddRequestHeadersIfNotPresentGatewayFilterFactory
-		extends AbstractGatewayFilterFactory<AddRequestHeadersIfNotPresentGatewayFilterFactory.KeyValueConfig> {
+public class AddRequestHeadersIfNotPresentGatewayFilterFactoryextends AbstractGatewayFilterFactory<AddRequestHeadersIfNotPresentGatewayFilterFactory.KeyValueConfig> {
 
 	@Override
 	public GatewayFilter apply(KeyValueConfig config) {
@@ -70,7 +69,7 @@ public class AddRequestHeadersIfNotPresentGatewayFilterFactory
 					String headerName = kv.getKey();
 
 					boolean headerIsMissingOrBlank = exchange.getRequest().getHeaders().getOrEmpty(headerName).stream()
-							.allMatch(h -> !StringUtils.hasText(h));
+				.allMatch(h -> !StringUtils.hasText(h));
 
 					if (headerIsMissingOrBlank) {
 						if (requestBuilder == null) {
@@ -79,8 +78,8 @@ public class AddRequestHeadersIfNotPresentGatewayFilterFactory
 						ServerWebExchange finalExchange = exchange;
 						requestBuilder.headers(httpHeaders -> {
 							List<String> replacedValues = kv.getValue().stream()
-									.map(value -> ServerWebExchangeUtils.expand(finalExchange, value))
-									.collect(Collectors.toList());
+						.map(value -> ServerWebExchangeUtils.expand(finalExchange, value))
+						.collect(Collectors.toList());
 							httpHeaders.addAll(headerName, replacedValues);
 						});
 					}
@@ -94,7 +93,7 @@ public class AddRequestHeadersIfNotPresentGatewayFilterFactory
 			@Override
 			public String toString() {
 				ToStringCreator toStringCreator = filterToStringCreator(
-						AddRequestHeadersIfNotPresentGatewayFilterFactory.this);
+			AddRequestHeadersIfNotPresentGatewayFilterFactory.this);
 				for (KeyValue keyValue : config.getKeyValues()) {
 					toStringCreator.append(keyValue.getKey(), keyValue.getValue());
 				}

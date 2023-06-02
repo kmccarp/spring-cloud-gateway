@@ -72,7 +72,7 @@ class CacheKeyGeneratorTest {
 		var uri = "https://this";
 
 		var requestWithoutCookies = MockServerHttpRequest.get(uri).headers(httpHeaders).build();
-		var cookies = new HttpCookie[] { new HttpCookie("user", "my-first-cookie") };
+		var cookies = new HttpCookie[]{new HttpCookie("user", "my-first-cookie")};
 		var requestWithCookies = MockServerHttpRequest.get(uri).headers(httpHeaders).cookie(cookies).build();
 
 		var keyWithoutCookies = cacheKeyGenerator.generateKey(requestWithoutCookies);
@@ -84,7 +84,7 @@ class CacheKeyGeneratorTest {
 	@Test
 	void shouldGenerateSameKeyWhenSameAuthAndCookieArePresent() {
 		var uri = "https://this";
-		var cookies = new HttpCookie[] { new HttpCookie("user", "my-first-cookie") };
+		var cookies = new HttpCookie[]{new HttpCookie("user", "my-first-cookie")};
 		var httpHeaders = new HttpHeaders();
 		httpHeaders.put(AUTHORIZATION, List.of("my-token"));
 
@@ -212,13 +212,13 @@ class CacheKeyGeneratorTest {
 		int numberOfThreads = 100;
 
 		List<Exception> exceptions = executeInParallel(Executors.newFixedThreadPool(numberOfThreads), numberOfThreads,
-				() -> cacheKeyGenerator.generateKey(request));
+	() -> cacheKeyGenerator.generateKey(request));
 
 		assertThat(exceptions.size()).isEqualTo(0);
 	}
 
 	private List<Exception> executeInParallel(Executor executor, int nThreads, Runnable action)
-			throws InterruptedException {
+throws InterruptedException {
 		CountDownLatch ready = new CountDownLatch(nThreads);
 		CountDownLatch start = new CountDownLatch(1);
 		CountDownLatch done = new CountDownLatch(nThreads);

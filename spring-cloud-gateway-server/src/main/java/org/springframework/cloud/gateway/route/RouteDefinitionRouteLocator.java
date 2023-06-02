@@ -68,8 +68,8 @@ public class RouteDefinitionRouteLocator implements RouteLocator {
 	private final GatewayProperties gatewayProperties;
 
 	public RouteDefinitionRouteLocator(RouteDefinitionLocator routeDefinitionLocator,
-			List<RoutePredicateFactory> predicates, List<GatewayFilterFactory> gatewayFilterFactories,
-			GatewayProperties gatewayProperties, ConfigurationService configurationService) {
+List<RoutePredicateFactory> predicates, List<GatewayFilterFactory> gatewayFilterFactories,
+GatewayProperties gatewayProperties, ConfigurationService configurationService) {
 		this.routeDefinitionLocator = routeDefinitionLocator;
 		this.configurationService = configurationService;
 		initFactories(predicates);
@@ -82,7 +82,7 @@ public class RouteDefinitionRouteLocator implements RouteLocator {
 			String key = factory.name();
 			if (this.predicates.containsKey(key)) {
 				this.logger.warn("A RoutePredicateFactory named " + key + " already exists, class: "
-						+ this.predicates.get(key) + ". It will be overwritten.");
+			+ this.predicates.get(key) + ". It will be overwritten.");
 			}
 			this.predicates.put(key, factory);
 			if (logger.isInfoEnabled()) {
@@ -98,7 +98,7 @@ public class RouteDefinitionRouteLocator implements RouteLocator {
 	@Override
 	public Flux<Route> getRoutesByMetadata(Map<String, Object> metadata) {
 		return getRoutes(this.routeDefinitionLocator.getRouteDefinitions()
-				.filter(routeDef -> RouteLocator.matchMetadata(routeDef.getMetadata(), metadata)));
+	.filter(routeDef -> RouteLocator.matchMetadata(routeDef.getMetadata(), metadata)));
 	}
 
 	@Override
@@ -114,7 +114,7 @@ public class RouteDefinitionRouteLocator implements RouteLocator {
 			routes = routes.onErrorContinue((error, obj) -> {
 				if (logger.isWarnEnabled()) {
 					logger.warn("RouteDefinition id " + ((RouteDefinition) obj).getId()
-							+ " will be ignored. Definition has invalid configs, " + error.getMessage());
+				+ " will be ignored. Definition has invalid configs, " + error.getMessage());
 				}
 			});
 		}
@@ -142,21 +142,21 @@ public class RouteDefinitionRouteLocator implements RouteLocator {
 			GatewayFilterFactory factory = this.gatewayFilterFactories.get(definition.getName());
 			if (factory == null) {
 				throw new IllegalArgumentException(
-						"Unable to find GatewayFilterFactory with name " + definition.getName());
+			"Unable to find GatewayFilterFactory with name " + definition.getName());
 			}
 			if (logger.isDebugEnabled()) {
 				logger.debug("RouteDefinition " + id + " applying filter " + definition.getArgs() + " to "
-						+ definition.getName());
+			+ definition.getName());
 			}
 
 			// @formatter:off
 			Object configuration = this.configurationService.with(factory)
-					.name(definition.getName())
-					.properties(definition.getArgs())
-					.eventFunction((bound, properties) -> new FilterArgsEvent(
-							// TODO: why explicit cast needed or java compile fails
-							RouteDefinitionRouteLocator.this, id, (Map<String, Object>) properties))
-					.bind();
+		.name(definition.getName())
+		.properties(definition.getArgs())
+		.eventFunction((bound, properties) -> new FilterArgsEvent(
+	// TODO: why explicit cast needed or java compile fails
+	RouteDefinitionRouteLocator.this, id, (Map<String, Object>) properties))
+		.bind();
 			// @formatter:on
 
 			// some filters require routeId
@@ -184,7 +184,7 @@ public class RouteDefinitionRouteLocator implements RouteLocator {
 		// TODO: support option to apply defaults after route specific filters?
 		if (!this.gatewayProperties.getDefaultFilters().isEmpty()) {
 			filters.addAll(loadGatewayFilters(routeDefinition.getId(),
-					new ArrayList<>(this.gatewayProperties.getDefaultFilters())));
+		new ArrayList<>(this.gatewayProperties.getDefaultFilters())));
 		}
 
 		final List<FilterDefinition> definitionFilters = routeDefinition.getFilters();
@@ -220,16 +220,16 @@ public class RouteDefinitionRouteLocator implements RouteLocator {
 		}
 		if (logger.isDebugEnabled()) {
 			logger.debug("RouteDefinition " + route.getId() + " applying " + predicate.getArgs() + " to "
-					+ predicate.getName());
+		+ predicate.getName());
 		}
 
 		// @formatter:off
 		Object config = this.configurationService.with(factory)
-				.name(predicate.getName())
-				.properties(predicate.getArgs())
-				.eventFunction((bound, properties) -> new PredicateArgsEvent(
-						RouteDefinitionRouteLocator.this, route.getId(), properties))
-				.bind();
+	.name(predicate.getName())
+	.properties(predicate.getArgs())
+	.eventFunction((bound, properties) -> new PredicateArgsEvent(
+RouteDefinitionRouteLocator.this, route.getId(), properties))
+	.bind();
 		// @formatter:on
 
 		return factory.applyAsync(config);

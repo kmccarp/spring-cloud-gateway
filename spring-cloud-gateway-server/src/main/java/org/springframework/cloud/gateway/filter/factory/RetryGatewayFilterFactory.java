@@ -70,7 +70,7 @@ public class RetryGatewayFilterFactory extends AbstractGatewayFilterFactory<Retr
 	@Override
 	public List<String> shortcutFieldOrder() {
 		return Arrays.asList("retries", "statuses", "methods", "backoff.firstBackoff", "backoff.maxBackoff",
-				"backoff.factor", "backoff.basedOnPreviousValue");
+	"backoff.factor", "backoff.basedOnPreviousValue");
 	}
 
 	@Override
@@ -106,19 +106,19 @@ public class RetryGatewayFilterFactory extends AbstractGatewayFilterFactory<Retr
 
 				final boolean finalRetryableStatusCode = retryableStatusCode;
 				trace("retryableStatusCode: %b, statusCode %s, configured statuses %s, configured series %s",
-						() -> finalRetryableStatusCode, () -> statusCode, retryConfig::getStatuses,
-						retryConfig::getSeries);
+			() -> finalRetryableStatusCode, () -> statusCode, retryConfig::getStatuses,
+			retryConfig::getSeries);
 
 				HttpMethod httpMethod = exchange.getRequest().getMethod();
 				boolean retryableMethod = retryConfig.getMethods().contains(httpMethod);
 
 				trace("retryableMethod: %b, httpMethod %s, configured methods %s", () -> retryableMethod,
-						() -> httpMethod, retryConfig::getMethods);
+			() -> httpMethod, retryConfig::getMethods);
 				return retryableMethod && finalRetryableStatusCode;
 			};
 
 			statusCodeRepeat = Repeat.onlyIf(repeatPredicate)
-					.doOnRepeat(context -> reset(context.applicationContext()));
+		.doOnRepeat(context -> reset(context.applicationContext()));
 
 			BackoffConfig backoff = retryConfig.getBackoff();
 			if (backoff != null) {
@@ -141,23 +141,23 @@ public class RetryGatewayFilterFactory extends AbstractGatewayFilterFactory<Retr
 				Throwable exception = context.exception();
 				for (Class<? extends Throwable> retryableClass : retryConfig.getExceptions()) {
 					if (retryableClass.isInstance(exception)
-							|| (exception != null && retryableClass.isInstance(exception.getCause()))) {
+				|| (exception != null && retryableClass.isInstance(exception.getCause()))) {
 						trace("exception or its cause is retryable %s, configured exceptions %s",
-								() -> getExceptionNameWithCause(exception), retryConfig::getExceptions);
+					() -> getExceptionNameWithCause(exception), retryConfig::getExceptions);
 
 						HttpMethod httpMethod = exchange.getRequest().getMethod();
 						boolean retryableMethod = retryConfig.getMethods().contains(httpMethod);
 						trace("retryableMethod: %b, httpMethod %s, configured methods %s", () -> retryableMethod,
-								() -> httpMethod, retryConfig::getMethods);
+					() -> httpMethod, retryConfig::getMethods);
 						return retryableMethod;
 					}
 				}
 				trace("exception or its cause is not retryable %s, configured exceptions %s",
-						() -> getExceptionNameWithCause(exception), retryConfig::getExceptions);
+			() -> getExceptionNameWithCause(exception), retryConfig::getExceptions);
 				return false;
 			};
 			exceptionRetry = Retry.onlyIf(retryContextPredicate)
-					.doOnRetry(context -> reset(context.applicationContext())).retryMax(retryConfig.getRetries());
+		.doOnRetry(context -> reset(context.applicationContext())).retryMax(retryConfig.getRetries());
 			BackoffConfig backoff = retryConfig.getBackoff();
 			if (backoff != null) {
 				exceptionRetry = exceptionRetry.backoff(getBackoff(backoff));
@@ -174,9 +174,9 @@ public class RetryGatewayFilterFactory extends AbstractGatewayFilterFactory<Retr
 			@Override
 			public String toString() {
 				return filterToStringCreator(RetryGatewayFilterFactory.this).append("routeId", retryConfig.getRouteId())
-						.append("retries", retryConfig.getRetries()).append("series", retryConfig.getSeries())
-						.append("statuses", retryConfig.getStatuses()).append("methods", retryConfig.getMethods())
-						.append("exceptions", retryConfig.getExceptions()).toString();
+			.append("retries", retryConfig.getRetries()).append("series", retryConfig.getSeries())
+			.append("statuses", retryConfig.getStatuses()).append("methods", retryConfig.getMethods())
+			.append("exceptions", retryConfig.getExceptions()).toString();
 			}
 		};
 	}
@@ -197,7 +197,7 @@ public class RetryGatewayFilterFactory extends AbstractGatewayFilterFactory<Retr
 
 	private Backoff getBackoff(BackoffConfig backoff) {
 		return Backoff.exponential(backoff.firstBackoff, backoff.maxBackoff, backoff.factor,
-				backoff.basedOnPreviousValue);
+	backoff.basedOnPreviousValue);
 	}
 
 	public boolean exceedsMaxIterations(ServerWebExchange exchange, RetryConfig retryConfig) {
@@ -206,7 +206,7 @@ public class RetryGatewayFilterFactory extends AbstractGatewayFilterFactory<Retr
 		// TODO: deal with null iteration
 		boolean exceeds = iteration != null && iteration >= retryConfig.getRetries();
 		trace("exceedsMaxIterations %b, iteration %d, configured retries %d", () -> exceeds, () -> iteration,
-				retryConfig::getRetries);
+	retryConfig::getRetries);
 		return exceeds;
 	}
 
@@ -234,14 +234,14 @@ public class RetryGatewayFilterFactory extends AbstractGatewayFilterFactory<Retr
 
 			// chain.filter returns a Mono<Void>
 			Publisher<Void> publisher = chain.filter(exchange)
-					// .log("retry-filter", Level.INFO)
-					.doOnSuccess(aVoid -> updateIteration(exchange)).doOnError(throwable -> updateIteration(exchange));
+		// .log("retry-filter", Level.INFO)
+		.doOnSuccess(aVoid -> updateIteration(exchange)).doOnError(throwable -> updateIteration(exchange));
 
 			if (retry != null) {
 				// retryWhen returns a Mono<Void>
 				// retry needs to go before repeat
 				publisher = ((Mono<Void>) publisher)
-						.retryWhen(reactor.util.retry.Retry.withThrowable(retry.withApplicationContext(exchange)));
+			.retryWhen(reactor.util.retry.Retry.withThrowable(retry.withApplicationContext(exchange)));
 			}
 			if (repeat != null) {
 				// repeatWhen returns a Flux<Void>
@@ -297,7 +297,7 @@ public class RetryGatewayFilterFactory extends AbstractGatewayFilterFactory<Retr
 		public void validate() {
 			Assert.isTrue(this.retries > 0, "retries must be greater than 0");
 			Assert.isTrue(!this.series.isEmpty() || !this.statuses.isEmpty() || !this.exceptions.isEmpty(),
-					"series, status and exceptions may not all be empty");
+		"series, status and exceptions may not all be empty");
 			Assert.notEmpty(this.methods, "methods may not be empty");
 			if (this.backoff != null) {
 				this.backoff.validate();
@@ -314,7 +314,7 @@ public class RetryGatewayFilterFactory extends AbstractGatewayFilterFactory<Retr
 		}
 
 		public RetryConfig setBackoff(Duration firstBackoff, Duration maxBackoff, int factor,
-				boolean basedOnPreviousValue) {
+	boolean basedOnPreviousValue) {
 			this.backoff = new BackoffConfig(firstBackoff, maxBackoff, factor, basedOnPreviousValue);
 			return this;
 		}

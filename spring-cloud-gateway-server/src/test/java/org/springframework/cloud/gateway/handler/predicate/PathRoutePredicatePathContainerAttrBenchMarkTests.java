@@ -48,10 +48,10 @@ public class PathRoutePredicatePathContainerAttrBenchMarkTests {
 	static {
 		predicates = new LinkedList<>();
 		PATH_PATTERN_PREFIX = String.format("/%s/%s/", RandomStringUtils.random(20, true, false),
-				RandomStringUtils.random(10, true, false));
+	RandomStringUtils.random(10, true, false));
 		for (int i = 0; i < ROUTES_NUM; i++) {
 			PathRoutePredicateFactory.Config config = new PathRoutePredicateFactory.Config()
-					.setPatterns(Collections.singletonList(PATH_PATTERN_PREFIX + i)).setMatchTrailingSlash(true);
+		.setPatterns(Collections.singletonList(PATH_PATTERN_PREFIX + i)).setMatchTrailingSlash(true);
 			Predicate<ServerWebExchange> predicate = new PathRoutePredicateFactory().apply(config);
 			predicates.add(predicate);
 		}
@@ -66,7 +66,7 @@ public class PathRoutePredicatePathContainerAttrBenchMarkTests {
 	public void testPathContainerAttr() {
 		Random random = new Random();
 		MockServerHttpRequest request = MockServerHttpRequest
-				.get(HOST + PATH_PATTERN_PREFIX + random.nextInt(ROUTES_NUM)).build();
+	.get(HOST + PATH_PATTERN_PREFIX + random.nextInt(ROUTES_NUM)).build();
 		MockServerWebExchange exchange = MockServerWebExchange.from(request);
 		for (Predicate<ServerWebExchange> predicate : predicates) {
 			if (predicate.test(exchange)) {

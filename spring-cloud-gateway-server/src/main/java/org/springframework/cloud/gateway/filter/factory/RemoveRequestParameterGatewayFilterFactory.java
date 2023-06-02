@@ -36,8 +36,7 @@ import static org.springframework.util.CollectionUtils.unmodifiableMultiValueMap
 /**
  * @author Thirunavukkarasu Ravichandran
  */
-public class RemoveRequestParameterGatewayFilterFactory
-		extends AbstractGatewayFilterFactory<AbstractGatewayFilterFactory.NameConfig> {
+public class RemoveRequestParameterGatewayFilterFactoryextends AbstractGatewayFilterFactory<AbstractGatewayFilterFactory.NameConfig> {
 
 	public RemoveRequestParameterGatewayFilterFactory() {
 		super(NameConfig.class);
@@ -58,7 +57,7 @@ public class RemoveRequestParameterGatewayFilterFactory
 				queryParams.remove(config.getName());
 
 				URI newUri = UriComponentsBuilder.fromUri(request.getURI())
-						.replaceQueryParams(unmodifiableMultiValueMap(queryParams)).build().toUri();
+			.replaceQueryParams(unmodifiableMultiValueMap(queryParams)).build().toUri();
 
 				ServerHttpRequest updatedRequest = exchange.getRequest().mutate().uri(newUri).build();
 
@@ -68,7 +67,7 @@ public class RemoveRequestParameterGatewayFilterFactory
 			@Override
 			public String toString() {
 				return filterToStringCreator(RemoveRequestParameterGatewayFilterFactory.this)
-						.append("name", config.getName()).toString();
+			.append("name", config.getName()).toString();
 			}
 		};
 	}

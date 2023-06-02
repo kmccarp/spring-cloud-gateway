@@ -54,7 +54,7 @@ public class BetweenRoutePredicateFactory extends AbstractRoutePredicateFactory<
 	@Override
 	public Predicate<ServerWebExchange> apply(Config config) {
 		Assert.isTrue(config.getDatetime1().isBefore(config.getDatetime2()),
-				config.getDatetime1() + " must be before " + config.getDatetime2());
+	config.getDatetime1() + " must be before " + config.getDatetime2());
 
 		return new GatewayPredicate() {
 			@Override

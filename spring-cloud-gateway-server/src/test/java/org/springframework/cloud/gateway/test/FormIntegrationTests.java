@@ -49,7 +49,7 @@ import static org.springframework.http.MediaType.MULTIPART_FORM_DATA;
 class FormIntegrationTests extends BaseWebClientTests {
 
 	public static final MediaType FORM_URL_ENCODED_CONTENT_TYPE = new MediaType(APPLICATION_FORM_URLENCODED,
-			StandardCharsets.UTF_8);
+StandardCharsets.UTF_8);
 
 	@Test
 	void formUrlencodedWorks() {
@@ -59,15 +59,15 @@ class FormIntegrationTests extends BaseWebClientTests {
 
 		// @formatter:off
 		testClient.post().uri("/post").contentType(FORM_URL_ENCODED_CONTENT_TYPE)
-				.body(BodyInserters.fromFormData(formData))
-				.exchange()
-				.expectStatus().isOk()
-				.expectBody(Map.class).consumeWith(result -> {
-					Map map = result.getResponseBody();
-					Map<String, Object> form = getMap(map, "form");
-					assertThat(form).containsEntry("foo", "bar");
-					assertThat(form).containsEntry("baz", "bam");
-				});
+	.body(BodyInserters.fromFormData(formData))
+	.exchange()
+	.expectStatus().isOk()
+	.expectBody(Map.class).consumeWith(result -> {
+			Map map = result.getResponseBody();
+			Map<String, Object> form = getMap(map, "form");
+			assertThat(form).containsEntry("foo", "bar");
+			assertThat(form).containsEntry("baz", "bam");
+		});
 		// @formatter:on
 	}
 
@@ -77,11 +77,11 @@ class FormIntegrationTests extends BaseWebClientTests {
 
 		// @formatter:off
 		testClient.post().uri("/post").contentType(MULTIPART_FORM_DATA)
-				.bodyValue(formData)
-				.exchange()
-				.expectStatus().isOk()
-				.expectBody(Map.class)
-				.consumeWith(result -> assertMultipartData(result.getResponseBody()));
+	.bodyValue(formData)
+	.exchange()
+	.expectStatus().isOk()
+	.expectBody(Map.class)
+	.consumeWith(result -> assertMultipartData(result.getResponseBody()));
 		// @formatter:on
 	}
 

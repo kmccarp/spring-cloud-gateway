@@ -38,8 +38,8 @@ public class CustomBlockHoundIntegration implements BlockHoundIntegration {
 		// Uses
 		// ch.qos.logback.classic.spi.PackagingDataCalculator#getImplementationVersion
 		builder.allowBlockingCallsInside(
-				"org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler",
-				"logError");
+	"org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler",
+	"logError");
 		builder.allowBlockingCallsInside("reactor.util.Loggers$Slf4JLogger", "debug");
 		builder.allowBlockingCallsInside("reactor.util.Loggers$Slf4JLogger", "info");
 		builder.allowBlockingCallsInside("reactor.util.Loggers$Slf4JLogger", "error");
@@ -47,7 +47,7 @@ public class CustomBlockHoundIntegration implements BlockHoundIntegration {
 		// Uses org.springframework.util.JdkIdGenerator#generateId
 		// Uses UUID#randomUUID
 		builder.allowBlockingCallsInside("org.springframework.web.server.session.InMemoryWebSessionStore",
-				"lambda$createWebSession$0");
+	"lambda$createWebSession$0");
 
 		// Uses java.util.Random#nextInt
 		builder.allowBlockingCallsInside("org.springframework.util.MimeTypeUtils", "generateMultipartBoundary");
@@ -56,7 +56,7 @@ public class CustomBlockHoundIntegration implements BlockHoundIntegration {
 
 		// Uses Unsafe#park
 		builder.allowBlockingCallsInside("org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory",
-				"getReactiveConnection");
+	"getReactiveConnection");
 
 		// NETTY RELATED
 
@@ -84,15 +84,15 @@ public class CustomBlockHoundIntegration implements BlockHoundIntegration {
 		// Uses org.springframework.security.crypto.bcrypt.BCrypt#gensalt
 		// Uses java.security.SecureRandom#nextBytes
 		builder.allowBlockingCallsInside(
-				"org.springframework.security.authentication.AbstractUserDetailsReactiveAuthenticationManager",
-				"lambda$authenticate$4");
+	"org.springframework.security.authentication.AbstractUserDetailsReactiveAuthenticationManager",
+	"lambda$authenticate$4");
 
 		// Uses java.io.RandomAccessFile#readBytes
 		builder.allowBlockingCallsInside("org.springframework.context.annotation.ConfigurationClassParser", "parse");
 		builder.allowBlockingCallsInside(
-				"org.springframework.context.annotation.ConfigurationClassBeanDefinitionReader", "loadBeanDefinitions");
+	"org.springframework.context.annotation.ConfigurationClassBeanDefinitionReader", "loadBeanDefinitions");
 		builder.allowBlockingCallsInside("org.springframework.core.type.classreading.SimpleMetadataReader",
-				"getClassReader");
+	"getClassReader");
 
 		builder.allowBlockingCallsInside("io.micrometer.context.ContextRegistry", "loadContextAccessors");
 		builder.allowBlockingCallsInside("io.micrometer.context.ContextRegistry", "loadThreadLocalAccessors");

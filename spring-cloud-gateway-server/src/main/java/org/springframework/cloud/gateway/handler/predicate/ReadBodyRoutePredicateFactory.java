@@ -82,18 +82,18 @@ public class ReadBodyRoutePredicateFactory extends AbstractRoutePredicateFactory
 					catch (ClassCastException e) {
 						if (log.isDebugEnabled()) {
 							log.debug("Predicate test failed because class in predicate "
-									+ "does not match the cached body object", e);
+						+ "does not match the cached body object", e);
 						}
 					}
 					return Mono.just(false);
 				}
 				else {
 					return ServerWebExchangeUtils.cacheRequestBodyAndRequest(exchange,
-							(serverHttpRequest) -> ServerRequest
-									.create(exchange.mutate().request(serverHttpRequest).build(), messageReaders)
-									.bodyToMono(inClass).doOnNext(objectValue -> exchange.getAttributes()
-											.put(CACHE_REQUEST_BODY_OBJECT_KEY, objectValue))
-									.map(objectValue -> config.getPredicate().test(objectValue)));
+				(serverHttpRequest) -> ServerRequest
+			.create(exchange.mutate().request(serverHttpRequest).build(), messageReaders)
+			.bodyToMono(inClass).doOnNext(objectValue -> exchange.getAttributes()
+			.put(CACHE_REQUEST_BODY_OBJECT_KEY, objectValue))
+			.map(objectValue -> config.getPredicate().test(objectValue)));
 				}
 			}
 

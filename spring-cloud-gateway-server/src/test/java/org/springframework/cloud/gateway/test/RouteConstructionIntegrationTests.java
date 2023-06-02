@@ -32,7 +32,7 @@ public class RouteConstructionIntegrationTests {
 	@Test
 	public void routesWithVerificationShouldFail() {
 		assertThatThrownBy(() -> new SpringApplicationBuilder(TestConfig.class).profiles("verification-route").run())
-				.hasMessageContaining("Stop right now!");
+	.hasMessageContaining("Stop right now!");
 	}
 
 	@EnableAutoConfiguration
@@ -47,7 +47,7 @@ public class RouteConstructionIntegrationTests {
 	}
 
 	public static class TestFilterGatewayFilterFactory
-			extends AbstractGatewayFilterFactory<TestFilterGatewayFilterFactory.Config> {
+extends AbstractGatewayFilterFactory<TestFilterGatewayFilterFactory.Config> {
 
 		public TestFilterGatewayFilterFactory() {
 			super(Config.class);

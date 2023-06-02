@@ -59,9 +59,8 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 /**
  * @author fangfeikun
  */
-@SpringBootTest(webEnvironment = RANDOM_PORT,
-		properties = { "spring.cloud.gateway.httpclient.ssl.handshake-timeout=1ms",
-				"spring.main.allow-bean-definition-overriding=true" })
+@SpringBootTest(webEnvironment = RANDOM_PORT,properties = {"spring.cloud.gateway.httpclient.ssl.handshake-timeout=1ms",
+				"spring.main.allow-bean-definition-overriding=true"})
 @DirtiesContext
 @ActiveProfiles("single-cert-ssl")
 class ModifyRequestBodyGatewayFilterFactorySslTimeoutTests extends BaseWebClientTests {
@@ -74,7 +73,7 @@ class ModifyRequestBodyGatewayFilterFactorySslTimeoutTests extends BaseWebClient
 		try {
 			System.err.println("in github = " + System.getenv("GITHUB_ACTIONS"));
 			SslContext sslContext = SslContextBuilder.forClient().trustManager(InsecureTrustManagerFactory.INSTANCE)
-					.build();
+		.build();
 			HttpClient httpClient = HttpClient.create().secure(ssl -> ssl.sslContext(sslContext));
 			setup(new ReactorClientHttpConnector(httpClient), "https://localhost:" + port);
 		}
@@ -87,10 +86,10 @@ class ModifyRequestBodyGatewayFilterFactorySslTimeoutTests extends BaseWebClient
 	@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true")
 	void modifyRequestBodySSLTimeout() {
 		testClient.post().uri("/post").header("Host", "www.modifyrequestbodyssltimeout.org")
-				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_XML_VALUE)
-				.body(BodyInserters.fromValue("request")).exchange().expectStatus()
-				.isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR).expectBody().jsonPath("message")
-				.isEqualTo("handshake timed out after 1ms");
+	.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_XML_VALUE)
+	.body(BodyInserters.fromValue("request")).exchange().expectStatus()
+	.isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR).expectBody().jsonPath("message")
+	.isEqualTo("handshake timed out after 1ms");
 	}
 
 	@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true")
@@ -100,9 +99,9 @@ class ModifyRequestBodyGatewayFilterFactorySslTimeoutTests extends BaseWebClient
 		// long initialUsedDirectMemory = PlatformDependent.usedDirectMemory();
 		for (int i = 0; i < 10; i++) {
 			testClient.post().uri("/post").header("Host", "www.modifyrequestbodyssltimeout.org")
-					.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_XML_VALUE)
-					.body(BodyInserters.fromValue("request")).exchange().expectStatus()
-					.isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+		.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_XML_VALUE)
+		.body(BodyInserters.fromValue("request")).exchange().expectStatus()
+		.isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
 			long usedDirectMemory = PlatformDependent.usedDirectMemory();
 			// Assert.assertTrue(usedDirectMemory - initialUsedDirectMemory < 2 * 10 * 10
 			// * 1024 * 1024);
@@ -114,10 +113,10 @@ class ModifyRequestBodyGatewayFilterFactorySslTimeoutTests extends BaseWebClient
 	@DisabledIfEnvironmentVariable(named = "GITHUB_ACTIONS", matches = "true")
 	void modifyRequestBodyHappenedError() {
 		testClient.post().uri("/post").header("Host", "www.modifyrequestbodyexception.org")
-				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_XML_VALUE)
-				.body(BodyInserters.fromValue("request")).exchange().expectStatus()
-				.isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR).expectBody().jsonPath("message")
-				.isEqualTo("modify body exception");
+	.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_XML_VALUE)
+	.body(BodyInserters.fromValue("request")).exchange().expectStatus()
+	.isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR).expectBody().jsonPath("message")
+	.isEqualTo("modify body exception");
 	}
 
 	@EnableAutoConfiguration
@@ -132,22 +131,18 @@ class ModifyRequestBodyGatewayFilterFactorySslTimeoutTests extends BaseWebClient
 		@DependsOn("testModifyRequestBodyGatewayFilterFactory")
 		RouteLocator testRouteLocator(RouteLocatorBuilder builder) {
 			return builder.routes()
-					.route("test_modify_request_body_ssl_timeout",
-							r -> r.order(-1).host("**.modifyrequestbodyssltimeout.org")
-									.filters(f -> f.modifyRequestBody(String.class, String.class,
-											MediaType.APPLICATION_JSON_VALUE, (serverWebExchange, aVoid) -> {
-												byte[] largeBody = new byte[10 * 1024 * 1024];
-												return Mono.just(new String(largeBody));
-											}))
-									.uri(uri))
-					.route("test_modify_request_body_exception",
-							r -> r.order(-1).host("**.modifyrequestbodyexception.org")
-									.filters(f -> f.modifyRequestBody(String.class, String.class,
-											MediaType.APPLICATION_JSON_VALUE, (serverWebExchange, body) -> {
-												return Mono.error(new Exception("modify body exception"));
-											}))
-									.uri(uri))
-					.build();
+		.route("test_modify_request_body_ssl_timeout",
+	r -> r.order(-1).host("**.modifyrequestbodyssltimeout.org")
+.filters(f -> f.modifyRequestBody(String.class, String.class,MediaType.APPLICATION_JSON_VALUE, (serverWebExchange, aVoid) -> {
+byte[] largeBody = new byte[10 * 1024 * 1024];
+return Mono.just(new String(largeBody));}))
+.uri(uri))
+		.route("test_modify_request_body_exception",
+	r -> r.order(-1).host("**.modifyrequestbodyexception.org")
+.filters(f -> f.modifyRequestBody(String.class, String.class,MediaType.APPLICATION_JSON_VALUE, (serverWebExchange, body) -> {
+return Mono.error(new Exception("modify body exception"));}))
+.uri(uri))
+		.build();
 		}
 
 		@Bean
@@ -158,11 +153,11 @@ class ModifyRequestBodyGatewayFilterFactorySslTimeoutTests extends BaseWebClient
 		@Bean
 		@Primary
 		ModifyRequestBodyGatewayFilterFactory testModifyRequestBodyGatewayFilterFactory(
-				ServerCodecConfigurer codecConfigurer, AtomicInteger count) {
+	ServerCodecConfigurer codecConfigurer, AtomicInteger count) {
 			return new ModifyRequestBodyGatewayFilterFactory(codecConfigurer.getReaders()) {
 				@Override
 				protected Mono<Void> release(ServerWebExchange exchange, CachedBodyOutputMessage outputMessage,
-						Throwable throwable) {
+			Throwable throwable) {
 					if (outputMessage.isCached()) {
 						count.incrementAndGet();
 					}

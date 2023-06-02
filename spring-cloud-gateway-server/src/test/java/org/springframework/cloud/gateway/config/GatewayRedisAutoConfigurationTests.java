@@ -97,7 +97,7 @@ public class GatewayRedisAutoConfigurationTests {
 	 */
 	@Nested
 	@SpringBootTest(classes = GatewayRedisAutoConfigurationTests.Config.class,
-			properties = "spring.cloud.gateway.redis-route-definition-repository.enabled=false")
+properties = "spring.cloud.gateway.redis-route-definition-repository.enabled=false")
 	@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 	class RedisRouteDefinitionRepositoryDisabledByProperty {
 

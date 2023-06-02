@@ -47,8 +47,8 @@ import org.springframework.context.annotation.Configuration;
  * @author Marta Medio
  */
 @Configuration(proxyBeanMethods = false)
-@EnableConfigurationProperties({ LocalResponseCacheProperties.class })
-@ConditionalOnClass({ Weigher.class, Caffeine.class, CaffeineCacheManager.class })
+@EnableConfigurationProperties({LocalResponseCacheProperties.class})
+@ConditionalOnClass({Weigher.class, Caffeine.class, CaffeineCacheManager.class})
 @ConditionalOnEnabledFilter(LocalResponseCacheGatewayFilterFactory.class)
 public class LocalResponseCacheAutoConfiguration {
 
@@ -61,11 +61,11 @@ public class LocalResponseCacheAutoConfiguration {
 	@Bean
 	@Conditional(LocalResponseCacheAutoConfiguration.OnGlobalLocalResponseCacheCondition.class)
 	public GlobalLocalResponseCacheGatewayFilter globalLocalResponseCacheGatewayFilter(
-			ResponseCacheManagerFactory responseCacheManagerFactory,
-			@Qualifier(RESPONSE_CACHE_MANAGER_NAME) CacheManager cacheManager,
-			LocalResponseCacheProperties properties) {
+ResponseCacheManagerFactory responseCacheManagerFactory,
+@Qualifier(RESPONSE_CACHE_MANAGER_NAME) CacheManager cacheManager,
+LocalResponseCacheProperties properties) {
 		return new GlobalLocalResponseCacheGatewayFilter(responseCacheManagerFactory, responseCache(cacheManager),
-				properties.getTimeToLive());
+	properties.getTimeToLive());
 	}
 
 	@Bean(name = RESPONSE_CACHE_MANAGER_NAME)
@@ -76,9 +76,9 @@ public class LocalResponseCacheAutoConfiguration {
 
 	@Bean
 	public LocalResponseCacheGatewayFilterFactory localResponseCacheGatewayFilterFactory(
-			ResponseCacheManagerFactory responseCacheManagerFactory, LocalResponseCacheProperties properties) {
+ResponseCacheManagerFactory responseCacheManagerFactory, LocalResponseCacheProperties properties) {
 		return new LocalResponseCacheGatewayFilterFactory(responseCacheManagerFactory, properties.getTimeToLive(),
-				properties.getSize());
+	properties.getSize());
 	}
 
 	@Bean
@@ -91,7 +91,7 @@ public class LocalResponseCacheAutoConfiguration {
 		return new CacheKeyGenerator();
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public static CaffeineCacheManager createGatewayCacheManager(LocalResponseCacheProperties cacheProperties) {
 		Caffeine caffeine = Caffeine.newBuilder();
 		LOGGER.info("Initializing Caffeine");
@@ -131,7 +131,7 @@ public class LocalResponseCacheAutoConfiguration {
 		}
 
 		@ConditionalOnProperty(name = "spring.cloud.gateway.global-filter.local-response-cache.enabled",
-				havingValue = "true", matchIfMissing = true)
+	havingValue = "true", matchIfMissing = true)
 		static class OnGlobalLocalResponseCachePropertyEnabled {
 
 		}

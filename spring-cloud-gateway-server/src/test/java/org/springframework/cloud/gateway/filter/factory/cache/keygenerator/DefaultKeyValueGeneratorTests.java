@@ -74,7 +74,7 @@ class DefaultKeyValueGeneratorTests {
 
 	public String apply(ServerHttpRequest request) {
 		return CacheKeyGenerator.DEFAULT_KEY_VALUE_GENERATORS.stream().map(generator -> generator.apply(request))
-				.collect(Collectors.joining(CacheKeyGenerator.KEY_SEPARATOR));
+	.collect(Collectors.joining(CacheKeyGenerator.KEY_SEPARATOR));
 	}
 
 }

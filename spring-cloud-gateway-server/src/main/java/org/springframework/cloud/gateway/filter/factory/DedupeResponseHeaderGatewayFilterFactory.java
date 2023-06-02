@@ -32,36 +32,36 @@ import static org.springframework.cloud.gateway.support.GatewayToStringStyler.fi
 
 /*
 Use case: Both your legacy backend and your API gateway add CORS header values. So, your consumer ends up with
-          Access-Control-Allow-Credentials: true, true
-          Access-Control-Allow-Origin: https://musk.mars, https://musk.mars
+				cess-Control-Allow-Credentials: true, true
+				cess-Control-Allow-Origin: https://musk.mars, https://musk.mars
 (The one from the gateway will be the first of the two.) To fix, add
-          DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+				dupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
 
 Configuration parameters:
 - name
-    String representing response header names, space separated. Required.
+		ring representing response header names, space separated. Required.
 - strategy
 	RETAIN_FIRST - Default. Retain the first value only.
 	RETAIN_LAST - Retain the last value only.
 	RETAIN_UNIQUE - Retain all unique values in the order of their first encounter.
 
 Example 1
-      default-filters:
-      - DedupeResponseHeader=Access-Control-Allow-Credentials
+		default-filters:
+		- DedupeResponseHeader=Access-Control-Allow-Credentials
 
 Response header Access-Control-Allow-Credentials: true, false
 Modified response header Access-Control-Allow-Credentials: true
 
 Example 2
-      default-filters:
-      - DedupeResponseHeader=Access-Control-Allow-Credentials, RETAIN_LAST
+		default-filters:
+		- DedupeResponseHeader=Access-Control-Allow-Credentials, RETAIN_LAST
 
 Response header Access-Control-Allow-Credentials: true, false
 Modified response header Access-Control-Allow-Credentials: false
 
 Example 3
-      default-filters:
-      - DedupeResponseHeader=Access-Control-Allow-Credentials, RETAIN_UNIQUE
+		default-filters:
+		- DedupeResponseHeader=Access-Control-Allow-Credentials, RETAIN_UNIQUE
 
 Response header Access-Control-Allow-Credentials: true, true
 Modified response header Access-Control-Allow-Credentials: true
@@ -70,8 +70,7 @@ Modified response header Access-Control-Allow-Credentials: true
 /**
  * @author Vitaliy Pavlyuk
  */
-public class DedupeResponseHeaderGatewayFilterFactory
-		extends AbstractGatewayFilterFactory<DedupeResponseHeaderGatewayFilterFactory.Config> {
+public class DedupeResponseHeaderGatewayFilterFactoryextends AbstractGatewayFilterFactory<DedupeResponseHeaderGatewayFilterFactory.Config> {
 
 	private static final String STRATEGY_KEY = "strategy";
 
@@ -90,13 +89,13 @@ public class DedupeResponseHeaderGatewayFilterFactory
 			@Override
 			public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 				return chain.filter(exchange)
-						.then(Mono.fromRunnable(() -> dedupe(exchange.getResponse().getHeaders(), config)));
+			.then(Mono.fromRunnable(() -> dedupe(exchange.getResponse().getHeaders(), config)));
 			}
 
 			@Override
 			public String toString() {
 				return filterToStringCreator(DedupeResponseHeaderGatewayFilterFactory.this)
-						.append(config.getName(), config.getStrategy()).toString();
+			.append(config.getName(), config.getStrategy()).toString();
 			}
 		};
 	}

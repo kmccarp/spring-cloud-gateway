@@ -32,7 +32,7 @@ public class ResponseCacheSizeWeigher implements Weigher<String, Object> {
 	public int weigh(String key, Object value) {
 		if (value instanceof CachedResponse cached) {
 			return cached.headers().getContentLength() > -1 ? (int) cached.headers().getContentLength()
-					: estimateContentLength(cached);
+		: estimateContentLength(cached);
 		}
 		else {
 			return 0;

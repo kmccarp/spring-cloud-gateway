@@ -47,7 +47,7 @@ public class HttpStatusTests extends BaseWebClientTests {
 	@Test
 	void notFoundResponseWorks() {
 		testClient.get().uri("/status/404").exchange().expectStatus().isEqualTo(HttpStatus.NOT_FOUND)
-				.expectBody(String.class).isEqualTo("Failed with 404");
+	.expectBody(String.class).isEqualTo("Failed with 404");
 	}
 
 	@Test
@@ -65,15 +65,15 @@ public class HttpStatusTests extends BaseWebClientTests {
 	@Test
 	void serverErrorResponseWorks() {
 		testClient.get().uri("/status/500").exchange().expectStatus().isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR)
-				.expectBody(String.class).isEqualTo("Failed with 500");
+	.expectBody(String.class).isEqualTo("Failed with 500");
 	}
 
 	@Test
 	void normalErrorPageWorks() {
 		testClient.get().uri("/exception").exchange().expectStatus().isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR)
-				.expectBody(Map.class)
-				.consumeWith(result -> assertThat(result.getResponseBody()).hasSizeGreaterThanOrEqualTo(5)
-						.containsKeys("timestamp", "path", "status", "error", "message"));
+	.expectBody(Map.class)
+	.consumeWith(result -> assertThat(result.getResponseBody()).hasSizeGreaterThanOrEqualTo(5)
+.containsKeys("timestamp", "path", "status", "error", "message"));
 	}
 
 	@EnableAutoConfiguration

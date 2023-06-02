@@ -32,8 +32,7 @@ import static org.springframework.cloud.gateway.support.GatewayToStringStyler.fi
  *
  * @author Spencer Gibb, Thirunavukkarasu Ravichandran
  */
-public class SecureHeadersGatewayFilterFactory
-		extends AbstractGatewayFilterFactory<SecureHeadersGatewayFilterFactory.Config> {
+public class SecureHeadersGatewayFilterFactoryextends AbstractGatewayFilterFactory<SecureHeadersGatewayFilterFactory.Config> {
 
 	/**
 	 * Xss-Protection header name.
@@ -123,7 +122,7 @@ public class SecureHeadersGatewayFilterFactory
 
 					if (isEnabled(disabled, X_PERMITTED_CROSS_DOMAIN_POLICIES_HEADER)) {
 						headers.addIfAbsent(X_PERMITTED_CROSS_DOMAIN_POLICIES_HEADER,
-								config.getPermittedCrossDomainPolicies());
+					config.getPermittedCrossDomainPolicies());
 					}
 				}));
 			}

@@ -73,7 +73,7 @@ public class WeightCalculatorWebFilter implements WebFilter, Ordered, SmartAppli
 	private final AtomicBoolean routeLocatorInitialized = new AtomicBoolean();
 
 	public WeightCalculatorWebFilter(ObjectProvider<RouteLocator> routeLocator,
-			ConfigurationService configurationService) {
+ConfigurationService configurationService) {
 		this.routeLocator = routeLocator;
 		this.configurationService = configurationService;
 	}
@@ -106,10 +106,10 @@ public class WeightCalculatorWebFilter implements WebFilter, Ordered, SmartAppli
 	public boolean supportsEventType(Class<? extends ApplicationEvent> eventType) {
 		// from config file
 		return PredicateArgsEvent.class.isAssignableFrom(eventType) ||
-		// from java dsl
-				WeightDefinedEvent.class.isAssignableFrom(eventType) ||
-				// force initialization
-				RefreshRoutesEvent.class.isAssignableFrom(eventType);
+	// from java dsl
+	WeightDefinedEvent.class.isAssignableFrom(eventType) ||
+	// force initialization
+	RefreshRoutesEvent.class.isAssignableFrom(eventType);
 	}
 
 	@Override
@@ -288,7 +288,7 @@ public class WeightCalculatorWebFilter implements WebFilter, Ordered, SmartAppli
 		@Override
 		public String toString() {
 			return new ToStringCreator(this).append("group", group).append("weights", weights)
-					.append("normalizedWeights", normalizedWeights).append("rangeIndexes", rangeIndexes).toString();
+		.append("normalizedWeights", normalizedWeights).append("rangeIndexes", rangeIndexes).toString();
 		}
 
 	}

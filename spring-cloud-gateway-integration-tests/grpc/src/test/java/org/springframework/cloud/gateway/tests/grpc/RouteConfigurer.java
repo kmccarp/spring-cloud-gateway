@@ -70,7 +70,7 @@ public class RouteConfigurer {
 		}
 
 		ResponseEntity<String> exchange = restTemplate.exchange(url("/actuator/gateway/routes/" + routeId),
-				HttpMethod.POST, new HttpEntity<>(route), String.class);
+	HttpMethod.POST, new HttpEntity<>(route), String.class);
 
 		assert exchange.getStatusCode() == HttpStatus.CREATED;
 
@@ -79,7 +79,7 @@ public class RouteConfigurer {
 
 	private void refreshRoutes() {
 		ResponseEntity<String> exchange = restTemplate.exchange(url("/actuator/gateway/refresh"), HttpMethod.POST,
-				new HttpEntity<>(""), String.class);
+	new HttpEntity<>(""), String.class);
 
 		assert exchange.getStatusCode() == HttpStatus.OK;
 	}
@@ -98,10 +98,10 @@ public class RouteConfigurer {
 			throw new RuntimeException(e);
 		}
 		SSLConnectionSocketFactory sslSocketFactory = new SSLConnectionSocketFactory(sslContext,
-				NoopHostnameVerifier.INSTANCE);
+	NoopHostnameVerifier.INSTANCE);
 
 		Registry<ConnectionSocketFactory> socketFactoryRegistry = RegistryBuilder.<ConnectionSocketFactory>create()
-				.register("https", sslSocketFactory).register("http", new PlainConnectionSocketFactory()).build();
+	.register("https", sslSocketFactory).register("http", new PlainConnectionSocketFactory()).build();
 
 		HttpClientConnectionManager connectionManager = new BasicHttpClientConnectionManager(socketFactoryRegistry);
 		CloseableHttpClient httpClient = HttpClients.custom().setConnectionManager(connectionManager).build();

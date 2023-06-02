@@ -72,7 +72,7 @@ public class AddRequestParameterGatewayFilterFactory extends AbstractNameValueGa
 			@Override
 			public String toString() {
 				return filterToStringCreator(AddRequestParameterGatewayFilterFactory.this)
-						.append(config.getName(), config.getValue()).toString();
+			.append(config.getName(), config.getValue()).toString();
 			}
 		};
 	}

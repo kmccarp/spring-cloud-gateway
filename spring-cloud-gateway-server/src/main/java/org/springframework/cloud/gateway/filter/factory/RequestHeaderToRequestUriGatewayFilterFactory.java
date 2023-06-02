@@ -36,8 +36,7 @@ import static org.springframework.cloud.gateway.support.GatewayToStringStyler.fi
  *
  * @author Toshiaki Maki
  */
-public class RequestHeaderToRequestUriGatewayFilterFactory
-		extends AbstractChangeRequestUriGatewayFilterFactory<AbstractGatewayFilterFactory.NameConfig> {
+public class RequestHeaderToRequestUriGatewayFilterFactoryextends AbstractChangeRequestUriGatewayFilterFactory<AbstractGatewayFilterFactory.NameConfig> {
 
 	private final Logger log = LoggerFactory.getLogger(RequestHeaderToRequestUriGatewayFilterFactory.class);
 
@@ -59,7 +58,7 @@ public class RequestHeaderToRequestUriGatewayFilterFactory
 			@Override
 			public String toString() {
 				return filterToStringCreator(RequestHeaderToRequestUriGatewayFilterFactory.this)
-						.append("name", config.getName()).toString();
+			.append("name", config.getName()).toString();
 			}
 		};
 	}

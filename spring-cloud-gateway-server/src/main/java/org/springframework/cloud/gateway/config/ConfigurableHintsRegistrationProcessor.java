@@ -60,32 +60,28 @@ class ConfigurableHintsRegistrationProcessor implements BeanFactoryInitializatio
 	private static final String ROOT_GATEWAY_PACKAGE_NAME = "org.springframework.cloud.gateway";
 
 	private static final Set<String> circuitBreakerConditionalClasses = Set.of(
-			"org.springframework.web.reactive.DispatcherHandler",
-			"org.springframework.cloud.circuitbreaker.resilience4j.ReactiveResilience4JAutoConfiguration",
-			"org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreakerFactory",
-			"org.springframework.cloud.circuitbreaker.resilience4j.ReactiveResilience4JCircuitBreakerFactory");
+"org.springframework.web.reactive.DispatcherHandler",
+"org.springframework.cloud.circuitbreaker.resilience4j.ReactiveResilience4JAutoConfiguration",
+"org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreakerFactory",
+"org.springframework.cloud.circuitbreaker.resilience4j.ReactiveResilience4JCircuitBreakerFactory");
 
 	private static final Map<Class<?>, Set<String>> beansConditionalOnClasses = Map.of(
-			TokenRelayGatewayFilterFactory.class,
-			Set.of("org.springframework.security.oauth2.client.OAuth2AuthorizedClient",
-					"org.springframework.security.web.server.SecurityWebFilterChain",
-					"org.springframework.boot.autoconfigure.security.SecurityProperties"),
-			JsonToGrpcGatewayFilterFactory.class, Set.of("io.grpc.Channel"), RedisRateLimiter.class,
-			Set.of("org.springframework.data.redis.core.RedisTemplate",
-					"org.springframework.web.reactive.DispatcherHandler"),
-			SpringCloudCircuitBreakerResilience4JFilterFactory.class, circuitBreakerConditionalClasses,
-			FallbackHeadersGatewayFilterFactory.class, circuitBreakerConditionalClasses,
-			LocalResponseCacheGatewayFilterFactory.class,
-			Set.of("com.github.benmanes.caffeine.cache.Weigher", "com.github.benmanes.caffeine.cache.Caffeine",
-					"org.springframework.cache.caffeine.CaffeineCacheManager"));
+TokenRelayGatewayFilterFactory.class,
+Set.of("org.springframework.security.oauth2.client.OAuth2AuthorizedClient","org.springframework.security.web.server.SecurityWebFilterChain","org.springframework.boot.autoconfigure.security.SecurityProperties"),
+JsonToGrpcGatewayFilterFactory.class, Set.of("io.grpc.Channel"), RedisRateLimiter.class,
+Set.of("org.springframework.data.redis.core.RedisTemplate","org.springframework.web.reactive.DispatcherHandler"),
+SpringCloudCircuitBreakerResilience4JFilterFactory.class, circuitBreakerConditionalClasses,
+FallbackHeadersGatewayFilterFactory.class, circuitBreakerConditionalClasses,
+LocalResponseCacheGatewayFilterFactory.class,
+Set.of("com.github.benmanes.caffeine.cache.Weigher", "com.github.benmanes.caffeine.cache.Caffeine","org.springframework.cache.caffeine.CaffeineCacheManager"));
 
 	@Override
 	public BeanFactoryInitializationAotContribution processAheadOfTime(ConfigurableListableBeanFactory beanFactory) {
 		return (generationContext, beanFactoryInitializationCode) -> {
 			ReflectionHints hints = generationContext.getRuntimeHints().reflection();
 			getConfigurableTypes().forEach(clazz -> hints.registerType(TypeReference.of(clazz),
-					hint -> hint.withMembers(MemberCategory.DECLARED_FIELDS, MemberCategory.INVOKE_DECLARED_METHODS,
-							MemberCategory.INVOKE_DECLARED_CONSTRUCTORS)));
+		hint -> hint.withMembers(MemberCategory.DECLARED_FIELDS, MemberCategory.INVOKE_DECLARED_METHODS,
+	MemberCategory.INVOKE_DECLARED_CONSTRUCTORS)));
 		};
 	}
 
@@ -107,12 +103,12 @@ class ConfigurableHintsRegistrationProcessor implements BeanFactoryInitializatio
 	private static void addGenericsForClass(Set<Class<?>> genericsToAdd, ResolvableType resolvableType) {
 		if (resolvableType.getSuperType().hasGenerics()) {
 			genericsToAdd.addAll(Arrays.stream(resolvableType.getSuperType().getGenerics()).map(ResolvableType::toClass)
-					.collect(Collectors.toSet()));
+		.collect(Collectors.toSet()));
 		}
 	}
 
 	private static void addSuperTypesForClass(ResolvableType resolvableType, Set<Class<?>> supertypesToAdd,
-			Set<Class<?>> genericsToAdd) {
+Set<Class<?>> genericsToAdd) {
 		ResolvableType superType = resolvableType.getSuperType();
 		if (!ResolvableType.NONE.equals(superType)) {
 			addGenericsForClass(genericsToAdd, superType);
@@ -121,7 +117,7 @@ class ConfigurableHintsRegistrationProcessor implements BeanFactoryInitializatio
 		}
 	}
 
-	@SuppressWarnings({ "rawtypes" })
+	@SuppressWarnings({"rawtypes"})
 	private static Set<Class<?>> getClassesToAdd() {
 		Set<Class<?>> classesToAdd = new HashSet<>();
 		ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider(false);

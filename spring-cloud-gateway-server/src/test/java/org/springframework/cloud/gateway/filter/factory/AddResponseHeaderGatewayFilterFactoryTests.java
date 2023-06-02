@@ -47,7 +47,7 @@ class AddResponseHeaderGatewayFilterFactoryTests extends BaseWebClientTests {
 		String host = "www.addresponseheader.org";
 		String expectedValue = "Bar";
 		testClient.get().uri(uri).header("Host", host).exchange().expectHeader().valueEquals("X-Request-Foo",
-				expectedValue);
+	expectedValue);
 	}
 
 	@Test
@@ -76,11 +76,11 @@ class AddResponseHeaderGatewayFilterFactoryTests extends BaseWebClientTests {
 		@Bean
 		public RouteLocator testRouteLocator(RouteLocatorBuilder builder) {
 			return builder.routes()
-					.route("add_response_header_java_test",
-							r -> r.path("/get").and().host("{sub}.addresponseheaderjava.org").filters(
-									f -> f.prefixPath("/httpbin").addResponseHeader("example", "myresponsevalue-{sub}"))
-									.uri(uri))
-					.build();
+		.route("add_response_header_java_test",
+	r -> r.path("/get").and().host("{sub}.addresponseheaderjava.org").filters(
+f -> f.prefixPath("/httpbin").addResponseHeader("example", "myresponsevalue-{sub}"))
+.uri(uri))
+		.build();
 		}
 
 	}

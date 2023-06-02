@@ -54,7 +54,7 @@ public class WebClientHttpRoutingFilter implements GlobalFilter, Ordered {
 	private volatile List<HttpHeadersFilter> headersFilters;
 
 	public WebClientHttpRoutingFilter(WebClient webClient,
-			ObjectProvider<List<HttpHeadersFilter>> headersFiltersProvider) {
+ObjectProvider<List<HttpHeadersFilter>> headersFiltersProvider) {
 		this.webClient = webClient;
 		this.headersFiltersProvider = headersFiltersProvider;
 	}
@@ -106,17 +106,17 @@ public class WebClientHttpRoutingFilter implements GlobalFilter, Ordered {
 		}
 
 		return headersSpec.exchangeToMono(Mono::just)
-				// .log("webClient route")
-				.flatMap(res -> {
-					ServerHttpResponse response = exchange.getResponse();
-					response.getHeaders().putAll(res.headers().asHttpHeaders());
-					response.setStatusCode(res.statusCode());
-					// Defer committing the response until all route filters have run
-					// Put client response as ServerWebExchange attribute and write
-					// response later NettyWriteResponseFilter
-					exchange.getAttributes().put(CLIENT_RESPONSE_ATTR, res);
-					return chain.filter(exchange);
-				});
+	// .log("webClient route")
+	.flatMap(res -> {
+		ServerHttpResponse response = exchange.getResponse();
+		response.getHeaders().putAll(res.headers().asHttpHeaders());
+		response.setStatusCode(res.statusCode());
+		// Defer committing the response until all route filters have run
+		// Put client response as ServerWebExchange attribute and write
+		// response later NettyWriteResponseFilter
+		exchange.getAttributes().put(CLIENT_RESPONSE_ATTR, res);
+		return chain.filter(exchange);
+	});
 	}
 
 	private boolean requiresBody(HttpMethod method) {

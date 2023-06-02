@@ -38,8 +38,7 @@ import org.springframework.core.annotation.AnnotationAwareOrderComparator;
 /**
  * @author Spencer Gibb
  */
-public class CachingRouteLocator
-		implements Ordered, RouteLocator, ApplicationListener<RefreshRoutesEvent>, ApplicationEventPublisherAware {
+public class CachingRouteLocatorimplements Ordered, RouteLocator, ApplicationListener<RefreshRoutesEvent>, ApplicationEventPublisherAware {
 
 	private static final Log log = LogFactory.getLog(CachingRouteLocator.class);
 
@@ -85,24 +84,24 @@ public class CachingRouteLocator
 		try {
 			if (this.cache.containsKey(CACHE_KEY) && event.isScoped()) {
 				final Mono<List<Route>> scopedRoutes = fetch(event.getMetadata()).collect(Collectors.toList())
-						.onErrorResume(s -> Mono.just(List.of()));
+			.onErrorResume(s -> Mono.just(List.of()));
 
 				scopedRoutes.subscribe(scopedRoutesList -> {
 					Flux.concat(Flux.fromIterable(scopedRoutesList), getNonScopedRoutes(event)).materialize()
-							.collect(Collectors.toList()).subscribe(signals -> {
-								applicationEventPublisher.publishEvent(new RefreshRoutesResultEvent(this));
-								cache.put(CACHE_KEY, signals);
-							}, this::handleRefreshError);
+				.collect(Collectors.toList()).subscribe(signals -> {
+						applicationEventPublisher.publishEvent(new RefreshRoutesResultEvent(this));
+						cache.put(CACHE_KEY, signals);
+					}, this::handleRefreshError);
 				}, this::handleRefreshError);
 			}
 			else {
 				final Mono<List<Route>> allRoutes = fetch().collect(Collectors.toList());
 
 				allRoutes.subscribe(list -> Flux.fromIterable(list).materialize().collect(Collectors.toList())
-						.subscribe(signals -> {
-							applicationEventPublisher.publishEvent(new RefreshRoutesResultEvent(this));
-							cache.put(CACHE_KEY, signals);
-						}, this::handleRefreshError), this::handleRefreshError);
+			.subscribe(signals -> {
+				applicationEventPublisher.publishEvent(new RefreshRoutesResultEvent(this));
+				cache.put(CACHE_KEY, signals);
+			}, this::handleRefreshError), this::handleRefreshError);
 			}
 		}
 		catch (Throwable e) {
@@ -112,7 +111,7 @@ public class CachingRouteLocator
 
 	private Flux<Route> getNonScopedRoutes(RefreshRoutesEvent scopedEvent) {
 		return this.getRoutes()
-				.filter(route -> !RouteLocator.matchMetadata(route.getMetadata(), scopedEvent.getMetadata()));
+	.filter(route -> !RouteLocator.matchMetadata(route.getMetadata(), scopedEvent.getMetadata()));
 	}
 
 	private void handleRefreshError(Throwable throwable) {

@@ -51,7 +51,7 @@ public class RouteToRequestUrlFilter implements GlobalFilter, Ordered {
 	/* for testing */
 	static boolean hasAnotherScheme(URI uri) {
 		return schemePattern.matcher(uri.getSchemeSpecificPart()).matches() && uri.getHost() == null
-				&& uri.getRawPath() == null;
+	&& uri.getRawPath() == null;
 	}
 
 	@Override
@@ -86,8 +86,8 @@ public class RouteToRequestUrlFilter implements GlobalFilter, Ordered {
 		}
 
 		URI mergedUrl = UriComponentsBuilder.fromUri(uri)
-				// .uri(routeUri)
-				.scheme(routeUri.getScheme()).host(routeUri.getHost()).port(routeUri.getPort()).build(encoded).toUri();
+	// .uri(routeUri)
+	.scheme(routeUri.getScheme()).host(routeUri.getHost()).port(routeUri.getPort()).build(encoded).toUri();
 		exchange.getAttributes().put(GATEWAY_REQUEST_URL_ATTR, mergedUrl);
 		return chain.filter(exchange);
 	}

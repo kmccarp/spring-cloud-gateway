@@ -77,7 +77,7 @@ class RouteDefinitionMetricsTests {
 	@Test
 	void shouldReportMultipleRoutes() {
 		List<RouteDefinition> multipleRoutes = Arrays.asList(new RouteDefinition(), new RouteDefinition(),
-				new RouteDefinition(), new RouteDefinition(), new RouteDefinition());
+	new RouteDefinition(), new RouteDefinition(), new RouteDefinition());
 		when(routeDefinitionLocator.getRouteDefinitions()).thenReturn(Flux.fromStream(multipleRoutes.stream()));
 
 		RefreshRoutesEvent refreshRoutesEvent = new RefreshRoutesEvent(this);

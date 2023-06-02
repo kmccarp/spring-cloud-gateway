@@ -88,8 +88,8 @@ public class GatewayFilterSpecTests {
 		Route.AsyncBuilder routeBuilder = Route.async().id("123").uri("abc:123").predicate(exchange -> true);
 
 		when(context.getBean(ModifyResponseBodyGatewayFilterFactory.class)).thenReturn(
-				new ModifyResponseBodyGatewayFilterFactory(HandlerStrategies.withDefaults().messageReaders(),
-						Collections.emptySet(), Collections.emptySet()));
+	new ModifyResponseBodyGatewayFilterFactory(HandlerStrategies.withDefaults().messageReaders(),
+Collections.emptySet(), Collections.emptySet()));
 
 		RouteLocatorBuilder.Builder routes = new RouteLocatorBuilder(context).routes();
 		GatewayFilterSpec spec = new GatewayFilterSpec(routeBuilder, routes);
@@ -99,8 +99,8 @@ public class GatewayFilterSpecTests {
 		assertThat(route.getFilters()).hasSize(1);
 
 		assertFilter(route.getFilters().get(0),
-				ModifyResponseBodyGatewayFilterFactory.ModifyResponseGatewayFilter.class,
-				NettyWriteResponseFilter.WRITE_RESPONSE_FILTER_ORDER - 1);
+	ModifyResponseBodyGatewayFilterFactory.ModifyResponseGatewayFilter.class,
+	NettyWriteResponseFilter.WRITE_RESPONSE_FILTER_ORDER - 1);
 	}
 
 	@Test
@@ -109,8 +109,8 @@ public class GatewayFilterSpecTests {
 		Route.AsyncBuilder routeBuilder = Route.async().id("123").uri("abc:123").predicate(exchange -> true);
 
 		when(context.getBean(ModifyResponseBodyGatewayFilterFactory.class)).thenReturn(
-				new ModifyResponseBodyGatewayFilterFactory(HandlerStrategies.withDefaults().messageReaders(),
-						Collections.emptySet(), Collections.emptySet()));
+	new ModifyResponseBodyGatewayFilterFactory(HandlerStrategies.withDefaults().messageReaders(),
+Collections.emptySet(), Collections.emptySet()));
 
 		RouteLocatorBuilder.Builder routes = new RouteLocatorBuilder(context).routes();
 		GatewayFilterSpec spec = new GatewayFilterSpec(routeBuilder, routes);
@@ -120,8 +120,8 @@ public class GatewayFilterSpecTests {
 		assertThat(route.getFilters()).hasSize(1);
 
 		assertFilter(route.getFilters().get(0),
-				ModifyResponseBodyGatewayFilterFactory.ModifyResponseGatewayFilter.class,
-				NettyWriteResponseFilter.WRITE_RESPONSE_FILTER_ORDER - 1);
+	ModifyResponseBodyGatewayFilterFactory.ModifyResponseGatewayFilter.class,
+	NettyWriteResponseFilter.WRITE_RESPONSE_FILTER_ORDER - 1);
 	}
 
 	@Test
@@ -130,20 +130,20 @@ public class GatewayFilterSpecTests {
 		Route.AsyncBuilder routeBuilder = Route.async().id("123").uri("abc:123").predicate(exchange -> true);
 
 		when(context.getBean(ModifyResponseBodyGatewayFilterFactory.class)).thenReturn(
-				new ModifyResponseBodyGatewayFilterFactory(HandlerStrategies.withDefaults().messageReaders(),
-						Collections.emptySet(), Collections.emptySet()));
+	new ModifyResponseBodyGatewayFilterFactory(HandlerStrategies.withDefaults().messageReaders(),
+Collections.emptySet(), Collections.emptySet()));
 
 		RouteLocatorBuilder.Builder routes = new RouteLocatorBuilder(context).routes();
 		GatewayFilterSpec spec = new GatewayFilterSpec(routeBuilder, routes);
 		spec.modifyResponseBody(String.class, String.class, MediaType.APPLICATION_JSON_VALUE,
-				(exchange, s) -> Mono.just(s));
+	(exchange, s) -> Mono.just(s));
 
 		Route route = routeBuilder.build();
 		assertThat(route.getFilters()).hasSize(1);
 
 		assertFilter(route.getFilters().get(0),
-				ModifyResponseBodyGatewayFilterFactory.ModifyResponseGatewayFilter.class,
-				NettyWriteResponseFilter.WRITE_RESPONSE_FILTER_ORDER - 1);
+	ModifyResponseBodyGatewayFilterFactory.ModifyResponseGatewayFilter.class,
+	NettyWriteResponseFilter.WRITE_RESPONSE_FILTER_ORDER - 1);
 	}
 
 	@Test
@@ -152,20 +152,20 @@ public class GatewayFilterSpecTests {
 		Route.AsyncBuilder routeBuilder = Route.async().id("123").uri("abc:123").predicate(exchange -> true);
 
 		when(context.getBean(ModifyResponseBodyGatewayFilterFactory.class)).thenReturn(
-				new ModifyResponseBodyGatewayFilterFactory(HandlerStrategies.withDefaults().messageReaders(),
-						Collections.emptySet(), Collections.emptySet()));
+	new ModifyResponseBodyGatewayFilterFactory(HandlerStrategies.withDefaults().messageReaders(),
+Collections.emptySet(), Collections.emptySet()));
 
 		RouteLocatorBuilder.Builder routes = new RouteLocatorBuilder(context).routes();
 		GatewayFilterSpec spec = new GatewayFilterSpec(routeBuilder, routes);
 		spec.modifyResponseBody((smth) -> new ModifyResponseBodyGatewayFilterFactory.Config()
-				.setRewriteFunction(String.class, String.class, (exchange, s) -> Mono.just(s)));
+	.setRewriteFunction(String.class, String.class, (exchange, s) -> Mono.just(s)));
 
 		Route route = routeBuilder.build();
 		assertThat(route.getFilters()).hasSize(1);
 
 		assertFilter(route.getFilters().get(0),
-				ModifyResponseBodyGatewayFilterFactory.ModifyResponseGatewayFilter.class,
-				NettyWriteResponseFilter.WRITE_RESPONSE_FILTER_ORDER - 1);
+	ModifyResponseBodyGatewayFilterFactory.ModifyResponseGatewayFilter.class,
+	NettyWriteResponseFilter.WRITE_RESPONSE_FILTER_ORDER - 1);
 	}
 
 	protected static class MyOrderedFilter implements GatewayFilter, Ordered {

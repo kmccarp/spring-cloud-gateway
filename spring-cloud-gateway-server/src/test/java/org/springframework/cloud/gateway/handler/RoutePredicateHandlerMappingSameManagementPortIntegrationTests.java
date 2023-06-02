@@ -52,7 +52,7 @@ public class RoutePredicateHandlerMappingSameManagementPortIntegrationTests exte
 	@Test
 	public void requestsToGatewaySucceed() {
 		testClient.mutate().baseUrl("http://localhost:" + samePort).build().get().uri("/get").exchange().expectStatus()
-				.isOk();
+	.isOk();
 	}
 
 	@EnableAutoConfiguration

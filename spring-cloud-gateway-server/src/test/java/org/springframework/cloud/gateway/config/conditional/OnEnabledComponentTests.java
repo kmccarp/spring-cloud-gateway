@@ -51,7 +51,7 @@ class OnEnabledComponentTests {
 		when(conditionContext.getEnvironment()).thenReturn(environment);
 
 		ConditionOutcome outcome = onEnabledComponent.getMatchOutcome(conditionContext,
-				mockMetaData(EnabledComponent.class));
+	mockMetaData(EnabledComponent.class));
 
 		assertThat(outcome.isMatch()).isTrue();
 	}
@@ -64,7 +64,7 @@ class OnEnabledComponentTests {
 		environment.setProperty("spring.cloud.gateway." + componentName + ".enabled", "false");
 
 		ConditionOutcome outcome = onEnabledComponent.getMatchOutcome(conditionContext,
-				mockMetaData(DisabledComponent.class));
+	mockMetaData(DisabledComponent.class));
 
 		assertThat(outcome.isMatch()).isFalse();
 		assertThat(outcome.getMessage()).contains("DisabledComponent").contains("bean is not available");
@@ -73,7 +73,7 @@ class OnEnabledComponentTests {
 	private AnnotatedTypeMetadata mockMetaData(Class<?> value) {
 		AnnotatedTypeMetadata metadata = mock(AnnotatedTypeMetadata.class);
 		when(metadata.getAnnotationAttributes(eq(ConditionalOnEnabledFilter.class.getName())))
-				.thenReturn(Collections.singletonMap("value", value));
+	.thenReturn(Collections.singletonMap("value", value));
 		return metadata;
 	}
 

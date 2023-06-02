@@ -42,7 +42,7 @@ public class AddResponseHeaderGatewayFilterFactory extends AbstractNameValueGate
 			@Override
 			public String toString() {
 				return filterToStringCreator(AddResponseHeaderGatewayFilterFactory.this)
-						.append(config.getName(), config.getValue()).toString();
+			.append(config.getName(), config.getValue()).toString();
 			}
 		};
 	}

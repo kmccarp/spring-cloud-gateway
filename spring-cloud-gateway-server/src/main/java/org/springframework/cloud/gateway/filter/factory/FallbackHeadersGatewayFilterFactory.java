@@ -30,8 +30,7 @@ import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.C
  * @author Olga Maciaszek-Sharma
  * @author Ryan Baxter
  */
-public class FallbackHeadersGatewayFilterFactory
-		extends AbstractGatewayFilterFactory<FallbackHeadersGatewayFilterFactory.Config> {
+public class FallbackHeadersGatewayFilterFactoryextends AbstractGatewayFilterFactory<FallbackHeadersGatewayFilterFactory.Config> {
 
 	public FallbackHeadersGatewayFilterFactory() {
 		super(Config.class);
@@ -58,7 +57,7 @@ public class FallbackHeadersGatewayFilterFactory
 	}
 
 	private ServerWebExchange addFallbackHeaders(Config config, ServerWebExchange exchange,
-			Throwable executionException) {
+Throwable executionException) {
 		ServerHttpRequest.Builder requestBuilder = exchange.getRequest().mutate();
 		requestBuilder.header(config.executionExceptionTypeHeaderName, executionException.getClass().getName());
 		requestBuilder.header(config.executionExceptionMessageHeaderName, executionException.getMessage());

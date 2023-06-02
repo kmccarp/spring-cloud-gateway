@@ -66,40 +66,40 @@ public class NettyWriteResponseFilter implements GlobalFilter, Ordered {
 		// until the NettyRoutingFilter is run
 		// @formatter:off
 		return chain.filter(exchange)
-				.then(Mono.defer(() -> {
-					Connection connection = exchange.getAttribute(CLIENT_RESPONSE_CONN_ATTR);
+	.then(Mono.defer(() -> {
+		Connection connection = exchange.getAttribute(CLIENT_RESPONSE_CONN_ATTR);
 
-					if (connection == null) {
-						return Mono.empty();
-					}
-					if (log.isTraceEnabled()) {
-						log.trace("NettyWriteResponseFilter start inbound: "
-								+ connection.channel().id().asShortText() + ", outbound: "
-								+ exchange.getLogPrefix());
-					}
-					ServerHttpResponse response = exchange.getResponse();
+		if (connection == null) {
+			return Mono.empty();
+		}
+		if (log.isTraceEnabled()) {
+			log.trace("NettyWriteResponseFilter start inbound: "
+		+ connection.channel().id().asShortText() + ", outbound: "
+		+ exchange.getLogPrefix());
+		}
+		ServerHttpResponse response = exchange.getResponse();
 
-					// TODO: needed?
-					final Flux<DataBuffer> body = connection
-							.inbound()
-							.receive()
-							.retain()
-							.map(byteBuf -> wrap(byteBuf, response));
+		// TODO: needed?
+		final Flux<DataBuffer> body = connection
+	.inbound()
+	.receive()
+	.retain()
+	.map(byteBuf -> wrap(byteBuf, response));
 
-					MediaType contentType = null;
-					try {
-						contentType = response.getHeaders().getContentType();
-					}
-					catch (Exception e) {
-						if (log.isTraceEnabled()) {
-							log.trace("invalid media type", e);
-						}
-					}
-					return (isStreamingMediaType(contentType)
-							? response.writeAndFlushWith(body.map(Flux::just))
-							: response.writeWith(body));
-				})).doOnCancel(() -> cleanup(exchange))
-				.doOnError(throwable -> cleanup(exchange));
+		MediaType contentType = null;
+		try {
+			contentType = response.getHeaders().getContentType();
+		}
+		catch (Exception e) {
+			if (log.isTraceEnabled()) {
+				log.trace("invalid media type", e);
+			}
+		}
+		return (isStreamingMediaType(contentType)
+	? response.writeAndFlushWith(body.map(Flux::just))
+	: response.writeWith(body));
+	})).doOnCancel(() -> cleanup(exchange))
+	.doOnError(throwable -> cleanup(exchange));
 		// @formatter:on
 	}
 

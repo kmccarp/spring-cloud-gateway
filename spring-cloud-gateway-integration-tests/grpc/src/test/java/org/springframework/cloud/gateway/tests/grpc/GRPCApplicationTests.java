@@ -40,8 +40,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 /**
  * @author Alberto C. Ríos
  */
-@SpringBootTest(classes = org.springframework.cloud.gateway.tests.grpc.GRPCApplication.class,
-		webEnvironment = WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = org.springframework.cloud.gateway.tests.grpc.GRPCApplication.class,webEnvironment = WebEnvironment.RANDOM_PORT)
 public class GRPCApplicationTests {
 
 	@LocalServerPort
@@ -59,7 +58,7 @@ public class GRPCApplicationTests {
 		ManagedChannel channel = createSecuredChannel(gatewayPort);
 
 		final HelloResponse response = HelloServiceGrpc.newBlockingStub(channel)
-				.hello(HelloRequest.newBuilder().setFirstName("Sir").setLastName("FromClient").build());
+	.hello(HelloRequest.newBuilder().setFirstName("Sir").setLastName("FromClient").build());
 
 		Assertions.assertThat(response.getGreeting()).isEqualTo("Hello, Sir FromClient");
 	}
@@ -68,8 +67,8 @@ public class GRPCApplicationTests {
 		TrustManager[] trustAllCerts = createTrustAllTrustManager();
 
 		return NettyChannelBuilder.forAddress("localhost", port).useTransportSecurity()
-				.sslContext(GrpcSslContexts.forClient().trustManager(trustAllCerts[0]).build()).negotiationType(TLS)
-				.build();
+	.sslContext(GrpcSslContexts.forClient().trustManager(trustAllCerts[0]).build()).negotiationType(TLS)
+	.build();
 	}
 
 	@Test
@@ -78,7 +77,7 @@ public class GRPCApplicationTests {
 
 		try {
 			HelloServiceGrpc.newBlockingStub(channel)
-					.hello(HelloRequest.newBuilder().setFirstName("failWithRuntimeException!").build());
+		.hello(HelloRequest.newBuilder().setFirstName("failWithRuntimeException!").build());
 		}
 		catch (StatusRuntimeException e) {
 			Assertions.assertThat(FAILED_PRECONDITION.getCode()).isEqualTo(e.getStatus().getCode());
@@ -87,7 +86,7 @@ public class GRPCApplicationTests {
 	}
 
 	private TrustManager[] createTrustAllTrustManager() {
-		return new TrustManager[] { new X509TrustManager() {
+		return new TrustManager[]{new X509TrustManager() {
 			public X509Certificate[] getAcceptedIssuers() {
 				return new X509Certificate[0];
 			}
@@ -97,7 +96,7 @@ public class GRPCApplicationTests {
 
 			public void checkServerTrusted(X509Certificate[] certs, String authType) {
 			}
-		} };
+		}};
 	}
 
 }

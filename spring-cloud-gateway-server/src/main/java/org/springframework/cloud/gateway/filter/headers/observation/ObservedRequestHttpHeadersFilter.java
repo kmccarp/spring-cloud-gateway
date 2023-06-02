@@ -51,7 +51,7 @@ public class ObservedRequestHttpHeadersFilter implements HttpHeadersFilter {
 	}
 
 	public ObservedRequestHttpHeadersFilter(ObservationRegistry observationRegistry,
-			@Nullable GatewayObservationConvention customGatewayObservationConvention) {
+@Nullable GatewayObservationConvention customGatewayObservationConvention) {
 		this.observationRegistry = observationRegistry;
 		this.customGatewayObservationConvention = customGatewayObservationConvention;
 	}
@@ -66,15 +66,15 @@ public class ObservedRequestHttpHeadersFilter implements HttpHeadersFilter {
 		Observation parentObservation = getParentObservation(exchange);
 		GatewayContext gatewayContext = new GatewayContext(newHeaders, exchange.getRequest(), exchange);
 		Observation childObservation = GatewayDocumentedObservation.GATEWAY_HTTP_CLIENT_OBSERVATION.observation(
-				this.customGatewayObservationConvention, DefaultGatewayObservationConvention.INSTANCE,
-				() -> gatewayContext, this.observationRegistry);
+	this.customGatewayObservationConvention, DefaultGatewayObservationConvention.INSTANCE,
+	() -> gatewayContext, this.observationRegistry);
 		if (parentObservation != null) {
 			childObservation.parentObservation(parentObservation);
 		}
 		childObservation.start();
 		if (log.isDebugEnabled()) {
 			log.debug("Client observation  " + childObservation + " created for the request. New headers are "
-					+ newHeaders);
+		+ newHeaders);
 		}
 		exchange.getAttributes().put(ServerWebExchangeUtils.GATEWAY_OBSERVATION_ATTR, childObservation);
 		return newHeaders;

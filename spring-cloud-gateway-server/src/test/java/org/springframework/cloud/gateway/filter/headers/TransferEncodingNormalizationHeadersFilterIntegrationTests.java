@@ -66,11 +66,11 @@ public class TransferEncodingNormalizationHeadersFilterIntegrationTests {
 
 		// Issue a crafted request with smuggling attempt
 		assert200With("Should Fail",
-				StreamUtils.copyToByteArray(classLoader.getResourceAsStream("transfer-encoding/invalid-request.bin")));
+	StreamUtils.copyToByteArray(classLoader.getResourceAsStream("transfer-encoding/invalid-request.bin")));
 
 		// Issue a legit request, which should not fail
 		assert200With("Should Not Fail",
-				StreamUtils.copyToByteArray(classLoader.getResourceAsStream("transfer-encoding/valid-request.bin")));
+	StreamUtils.copyToByteArray(classLoader.getResourceAsStream("transfer-encoding/valid-request.bin")));
 	}
 
 	private void assert200With(String name, byte[] payload) throws Exception {
@@ -104,7 +104,7 @@ public class TransferEncodingNormalizationHeadersFilterIntegrationTests {
 	@RestController
 	public static class TestConfig {
 
-		@PostMapping(value = "/echo", produces = { MediaType.APPLICATION_JSON_VALUE })
+		@PostMapping(value = "/echo", produces = {MediaType.APPLICATION_JSON_VALUE})
 		public Message message(@RequestBody Message message) throws IOException {
 			return message;
 		}
@@ -112,8 +112,8 @@ public class TransferEncodingNormalizationHeadersFilterIntegrationTests {
 		@Bean
 		public RouteLocator routeLocator(RouteLocatorBuilder builder) {
 			return builder.routes()
-					.route("echo", r -> r.path("/route/echo").filters(f -> f.stripPrefix(1)).uri("lb://xferenc"))
-					.build();
+		.route("echo", r -> r.path("/route/echo").filters(f -> f.stripPrefix(1)).uri("lb://xferenc"))
+		.build();
 		}
 
 	}
@@ -144,7 +144,7 @@ public class TransferEncodingNormalizationHeadersFilterIntegrationTests {
 		@Bean
 		public ServiceInstanceListSupplier staticServiceInstanceListSupplier() {
 			return ServiceInstanceListSuppliers.from("xferenc",
-					new DefaultServiceInstance("xferenc" + "-1", "xferenc", "localhost", port, false));
+		new DefaultServiceInstance("xferenc" + "-1", "xferenc", "localhost", port, false));
 		}
 
 	}

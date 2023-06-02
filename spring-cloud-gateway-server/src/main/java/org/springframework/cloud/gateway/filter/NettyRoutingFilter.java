@@ -88,7 +88,7 @@ public class NettyRoutingFilter implements GlobalFilter, Ordered {
 	private volatile List<HttpHeadersFilter> headersFilters;
 
 	public NettyRoutingFilter(HttpClient httpClient, ObjectProvider<List<HttpHeadersFilter>> headersFiltersProvider,
-			HttpClientProperties properties) {
+HttpClientProperties properties) {
 		this.httpClient = httpClient;
 		this.headersFiltersProvider = headersFiltersProvider;
 		this.properties = properties;
@@ -141,7 +141,7 @@ public class NettyRoutingFilter implements GlobalFilter, Ordered {
 		}).request(method).uri(url).send((req, nettyOutbound) -> {
 			if (log.isTraceEnabled()) {
 				nettyOutbound.withConnection(connection -> log.trace("outbound route: "
-						+ connection.channel().id().asShortText() + ", inbound: " + exchange.getLogPrefix()));
+			+ connection.channel().id().asShortText() + ", inbound: " + exchange.getLogPrefix()));
 			}
 			return nettyOutbound.send(request.getBody().map(this::getByteBuf));
 		}).responseConnection((res, connection) -> {
@@ -168,10 +168,10 @@ public class NettyRoutingFilter implements GlobalFilter, Ordered {
 			// make sure headers filters run after setting status so it is
 			// available in response
 			HttpHeaders filteredResponseHeaders = HttpHeadersFilter.filter(getHeadersFilters(), headers, exchange,
-					Type.RESPONSE);
+		Type.RESPONSE);
 
 			if (!filteredResponseHeaders.containsKey(HttpHeaders.TRANSFER_ENCODING)
-					&& filteredResponseHeaders.containsKey(HttpHeaders.CONTENT_LENGTH)) {
+		&& filteredResponseHeaders.containsKey(HttpHeaders.CONTENT_LENGTH)) {
 				// It is not valid to have both the transfer-encoding header and
 				// the content-length header.
 				// Remove the transfer-encoding header in the response if the
@@ -189,10 +189,10 @@ public class NettyRoutingFilter implements GlobalFilter, Ordered {
 		Duration responseTimeout = getResponseTimeout(route);
 		if (responseTimeout != null) {
 			responseFlux = responseFlux
-					.timeout(responseTimeout,
-							Mono.error(new TimeoutException("Response took longer than timeout: " + responseTimeout)))
-					.onErrorMap(TimeoutException.class,
-							th -> new ResponseStatusException(HttpStatus.GATEWAY_TIMEOUT, th.getMessage(), th));
+		.timeout(responseTimeout,
+	Mono.error(new TimeoutException("Response took longer than timeout: " + responseTimeout)))
+		.onErrorMap(TimeoutException.class,
+	th -> new ResponseStatusException(HttpStatus.GATEWAY_TIMEOUT, th.getMessage(), th));
 		}
 
 		return responseFlux.then(chain.filter(exchange));
@@ -226,7 +226,7 @@ public class NettyRoutingFilter implements GlobalFilter, Ordered {
 			else {
 				// TODO: log warning here, not throw error?
 				throw new IllegalStateException("Unable to set status code " + clientResponse.status().code()
-						+ " on response of type " + response.getClass().getName());
+			+ " on response of type " + response.getClass().getName());
 			}
 		}
 	}

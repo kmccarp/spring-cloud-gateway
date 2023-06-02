@@ -35,7 +35,7 @@ public class CachingRouteDefinitionLocatorTests {
 		RouteDefinition routeDef1 = routeDef(1);
 		RouteDefinition routeDef2 = routeDef(2);
 		CachingRouteDefinitionLocator locator = new CachingRouteDefinitionLocator(
-				() -> Flux.just(routeDef2, routeDef1));
+	() -> Flux.just(routeDef2, routeDef1));
 
 		List<RouteDefinition> routes = locator.getRouteDefinitions().collectList().block();
 
@@ -47,7 +47,7 @@ public class CachingRouteDefinitionLocatorTests {
 		RouteDefinition routeDef1 = routeDef(1);
 		RouteDefinition routeDef2 = routeDef(2);
 		CachingRouteDefinitionLocator locator = new CachingRouteDefinitionLocator(
-				new StubRouteDefinitionLocator(Flux.just(routeDef2), Flux.just(routeDef1, routeDef2)));
+	new StubRouteDefinitionLocator(Flux.just(routeDef2), Flux.just(routeDef1, routeDef2)));
 
 		List<RouteDefinition> routes = locator.getRouteDefinitions().collectList().block();
 		assertThat(routes).containsExactlyInAnyOrder(routeDef2);
@@ -63,16 +63,16 @@ public class CachingRouteDefinitionLocatorTests {
 
 		CountDownLatch latch = new CountDownLatch(1);
 		CachingRouteDefinitionLocator locator = new CachingRouteDefinitionLocator(
-				new StubRouteDefinitionLocator(Flux.just(routeDef1), Flux.defer(() -> {
-					try {
-						latch.await();
-					}
-					catch (InterruptedException e) {
-						Thread.currentThread().interrupt();
-						throw new IllegalStateException(e);
-					}
-					return Flux.just(routeDef1, routeDef2);
-				}).subscribeOn(Schedulers.single())));
+	new StubRouteDefinitionLocator(Flux.just(routeDef1), Flux.defer(() -> {
+		try {
+			latch.await();
+		}
+		catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+			throw new IllegalStateException(e);
+		}
+		return Flux.just(routeDef1, routeDef2);
+	}).subscribeOn(Schedulers.single())));
 
 		List<RouteDefinition> routes = locator.getRouteDefinitions().collectList().block();
 		assertThat(routes).containsExactlyInAnyOrder(routeDef1);
@@ -91,7 +91,7 @@ public class CachingRouteDefinitionLocatorTests {
 		RouteDefinition routeDef2 = routeDef(2);
 
 		CachingRouteDefinitionLocator locator = new CachingRouteDefinitionLocator(new StubRouteDefinitionLocator(
-				Flux.just(routeDef1), Flux.defer(() -> Flux.just(routeDef1, routeDef2))));
+	Flux.just(routeDef1), Flux.defer(() -> Flux.just(routeDef1, routeDef2))));
 
 		List<RouteDefinition> routes = locator.getRouteDefinitions().collectList().block();
 		assertThat(routes).containsExactlyInAnyOrder(routeDef1);

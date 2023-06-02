@@ -48,8 +48,8 @@ public class HostRoutePredicateFactoryTests extends BaseWebClientTests {
 
 	public void expectHostRoute(String host, String routeId) {
 		testClient.get().uri("/get").header("Host", host).exchange().expectStatus().isOk().expectHeader()
-				.valueEquals(HANDLER_MAPPER_HEADER, RoutePredicateHandlerMapping.class.getSimpleName()).expectHeader()
-				.valueEquals(ROUTE_ID_HEADER, routeId);
+	.valueEquals(HANDLER_MAPPER_HEADER, RoutePredicateHandlerMapping.class.getSimpleName()).expectHeader()
+	.valueEquals(ROUTE_ID_HEADER, routeId);
 	}
 
 	@Test
@@ -92,7 +92,7 @@ public class HostRoutePredicateFactoryTests extends BaseWebClientTests {
 		@Bean
 		public RouteLocator testRouteLocator(RouteLocatorBuilder builder) {
 			return builder.routes().route("host_multi_dsl", r -> r.host("**.hostmultidsl1.org", "**.hostmultidsl2.org")
-					.filters(f -> f.prefixPath("/httpbin")).uri(uri)).build();
+		.filters(f -> f.prefixPath("/httpbin")).uri(uri)).build();
 		}
 
 	}

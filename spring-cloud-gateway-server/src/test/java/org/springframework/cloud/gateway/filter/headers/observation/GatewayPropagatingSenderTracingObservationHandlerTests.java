@@ -55,7 +55,7 @@ class GatewayPropagatingSenderTracingObservationHandlerTests {
 	};
 
 	GatewayPropagatingSenderTracingObservationHandler handler = new GatewayPropagatingSenderTracingObservationHandler(
-			tracer, propagator, Collections.singletonList("remote"));
+tracer, propagator, Collections.singletonList("remote"));
 
 	@Test
 	void shouldRemovePropagationFieldsFromTheRequestBeforePropagating() {
@@ -71,7 +71,7 @@ class GatewayPropagatingSenderTracingObservationHandlerTests {
 		handler.onStart(gatewayContext);
 
 		then(headers).doesNotContainKeys("foo", "bar").containsEntry("baz", Collections.singletonList("baz value"))
-				.containsEntry("remote", Collections.singletonList("remote value"));
+	.containsEntry("remote", Collections.singletonList("remote value"));
 	}
 
 }

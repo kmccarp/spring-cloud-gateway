@@ -77,9 +77,9 @@ public class AbstractGatewayControllerEndpoint implements ApplicationEventPublis
 	protected ApplicationEventPublisher publisher;
 
 	public AbstractGatewayControllerEndpoint(RouteDefinitionLocator routeDefinitionLocator,
-			List<GlobalFilter> globalFilters, List<GatewayFilterFactory> gatewayFilters,
-			List<RoutePredicateFactory> routePredicates, RouteDefinitionWriter routeDefinitionWriter,
-			RouteLocator routeLocator) {
+List<GlobalFilter> globalFilters, List<GatewayFilterFactory> gatewayFilters,
+List<RoutePredicateFactory> routePredicates, RouteDefinitionWriter routeDefinitionWriter,
+RouteLocator routeLocator) {
 		this.routeDefinitionLocator = routeDefinitionLocator;
 		this.globalFilters = globalFilters;
 		this.GatewayFilters = gatewayFilters;
@@ -115,7 +115,7 @@ public class AbstractGatewayControllerEndpoint implements ApplicationEventPublis
 
 	private Map<String, Object> convertToMap(List<String> byMetadata) {
 		return byMetadata.stream().map(keyValueStr -> keyValueStr.split(":"))
-				.collect(Collectors.toMap(kv -> kv[0], kv -> kv.length > 1 ? kv[1] : null));
+	.collect(Collectors.toMap(kv -> kv[0], kv -> kv.length > 1 ? kv[1] : null));
 	}
 
 	@GetMapping("/globalfilters")
@@ -157,12 +157,12 @@ public class AbstractGatewayControllerEndpoint implements ApplicationEventPublis
 	public Mono<ResponseEntity<Object>> save(@PathVariable String id, @RequestBody RouteDefinition route) {
 
 		return Mono.just(route).doOnNext(this::validateRouteDefinition)
-				.flatMap(routeDefinition -> this.routeDefinitionWriter.save(Mono.just(routeDefinition).map(r -> {
-					r.setId(id);
-					log.debug("Saving route: " + route);
-					return r;
-				})).then(Mono.defer(() -> Mono.just(ResponseEntity.created(URI.create("/routes/" + id)).build()))))
-				.switchIfEmpty(Mono.defer(() -> Mono.just(ResponseEntity.badRequest().build())));
+	.flatMap(routeDefinition -> this.routeDefinitionWriter.save(Mono.just(routeDefinition).map(r -> {
+		r.setId(id);
+		log.debug("Saving route: " + route);
+		return r;
+	})).then(Mono.defer(() -> Mono.just(ResponseEntity.created(URI.create("/routes/" + id)).build()))))
+	.switchIfEmpty(Mono.defer(() -> Mono.just(ResponseEntity.badRequest().build())));
 	}
 
 	@PostMapping("/routes")
@@ -174,11 +174,11 @@ public class AbstractGatewayControllerEndpoint implements ApplicationEventPublis
 		});
 
 		return Flux.fromIterable(routes)
-				.flatMap(routeDefinition -> this.routeDefinitionWriter.save(Mono.just(routeDefinition).map(r -> {
-					log.debug("Saving route: " + routeDefinition);
-					return r;
-				}))).then(Mono.defer(() -> Mono.just(ResponseEntity.ok().build())))
-				.switchIfEmpty(Mono.defer(() -> Mono.just(ResponseEntity.badRequest().build())));
+	.flatMap(routeDefinition -> this.routeDefinitionWriter.save(Mono.just(routeDefinition).map(r -> {
+		log.debug("Saving route: " + routeDefinition);
+		return r;
+	}))).then(Mono.defer(() -> Mono.just(ResponseEntity.ok().build())))
+	.switchIfEmpty(Mono.defer(() -> Mono.just(ResponseEntity.badRequest().build())));
 	}
 
 	private void validateRouteId(RouteDefinition routeDefinition) {
@@ -189,10 +189,10 @@ public class AbstractGatewayControllerEndpoint implements ApplicationEventPublis
 
 	private void validateRouteDefinition(RouteDefinition routeDefinition) {
 		Set<String> unavailableFilterDefinitions = routeDefinition.getFilters().stream().filter(rd -> !isAvailable(rd))
-				.map(FilterDefinition::getName).collect(Collectors.toSet());
+	.map(FilterDefinition::getName).collect(Collectors.toSet());
 
 		Set<String> unavailablePredicatesDefinitions = routeDefinition.getPredicates().stream()
-				.filter(rd -> !isAvailable(rd)).map(PredicateDefinition::getName).collect(Collectors.toSet());
+	.filter(rd -> !isAvailable(rd)).map(PredicateDefinition::getName).collect(Collectors.toSet());
 		if (!unavailableFilterDefinitions.isEmpty()) {
 			handleUnavailableDefinition(FilterDefinition.class.getSimpleName(), unavailableFilterDefinitions);
 		}
@@ -226,26 +226,26 @@ public class AbstractGatewayControllerEndpoint implements ApplicationEventPublis
 
 	private boolean isAvailable(FilterDefinition filterDefinition) {
 		return GatewayFilters.stream()
-				.anyMatch(gatewayFilterFactory -> filterDefinition.getName().equals(gatewayFilterFactory.name()));
+	.anyMatch(gatewayFilterFactory -> filterDefinition.getName().equals(gatewayFilterFactory.name()));
 	}
 
 	private boolean isAvailable(PredicateDefinition predicateDefinition) {
 		return routePredicates.stream()
-				.anyMatch(routePredicate -> predicateDefinition.getName().equals(routePredicate.name()));
+	.anyMatch(routePredicate -> predicateDefinition.getName().equals(routePredicate.name()));
 	}
 
 	@DeleteMapping("/routes/{id}")
 	public Mono<ResponseEntity<Object>> delete(@PathVariable String id) {
 		return this.routeDefinitionWriter.delete(Mono.just(id))
-				.then(Mono.defer(() -> Mono.just(ResponseEntity.ok().build())))
-				.onErrorResume(t -> t instanceof NotFoundException, t -> Mono.just(ResponseEntity.notFound().build()));
+	.then(Mono.defer(() -> Mono.just(ResponseEntity.ok().build())))
+	.onErrorResume(t -> t instanceof NotFoundException, t -> Mono.just(ResponseEntity.notFound().build()));
 	}
 
 	@GetMapping("/routes/{id}/combinedfilters")
 	public Mono<HashMap<String, Object>> combinedfilters(@PathVariable String id) {
 		// TODO: missing global filters
 		return this.routeLocator.getRoutes().filter(route -> route.getId().equals(id)).reduce(new HashMap<>(),
-				this::putItem);
+	this::putItem);
 	}
 
 }

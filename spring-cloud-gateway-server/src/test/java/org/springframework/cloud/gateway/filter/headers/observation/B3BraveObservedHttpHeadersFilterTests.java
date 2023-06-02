@@ -57,11 +57,11 @@ class B3BraveObservedHttpHeadersFilterTests {
 	TestSpanHandler testSpanHandler = new TestSpanHandler();
 
 	Tracing tracing = Tracing.newBuilder()
-			.propagationFactory(B3Propagation.newFactoryBuilder().injectFormat(B3Propagation.Format.SINGLE).build())
-			.addSpanHandler(testSpanHandler).sampler(Sampler.ALWAYS_SAMPLE).build();
+.propagationFactory(B3Propagation.newFactoryBuilder().injectFormat(B3Propagation.Format.SINGLE).build())
+.addSpanHandler(testSpanHandler).sampler(Sampler.ALWAYS_SAMPLE).build();
 
 	Tracer tracer = new BraveTracer(tracing.tracer(), new BraveCurrentTraceContext(tracing.currentTraceContext()),
-			new BraveBaggageManager());
+new BraveBaggageManager());
 
 	Propagator propagator = new BravePropagator(tracing);
 
@@ -69,16 +69,14 @@ class B3BraveObservedHttpHeadersFilterTests {
 	void shouldWorkWithB3SingleHeader() {
 		TestObservationRegistry observationRegistry = TestObservationRegistry.create();
 		observationRegistry.observationConfig()
-				.observationHandler(
-						new ObservationHandler.FirstMatchingCompositeObservationHandler(
-								new GatewayPropagatingSenderTracingObservationHandler(tracer, propagator,
-										Collections.singletonList("X-A")),
-								new DefaultTracingObservationHandler(tracer)));
+	.observationHandler(
+new ObservationHandler.FirstMatchingCompositeObservationHandler(new GatewayPropagatingSenderTracingObservationHandler(tracer, propagator,
+										Collections.singletonList("X-A")),new DefaultTracingObservationHandler(tracer)));
 
 		Observation.createNotStarted("parent", observationRegistry).observe(() -> {
 			// given
 			MockServerHttpRequest.BaseBuilder<?> builder = MockServerHttpRequest
-					.get("http://localhost:8080/{foo}", "get").header("X-A", "aValue");
+		.get("http://localhost:8080/{foo}", "get").header("X-A", "aValue");
 			TraceContext context = tracer.currentTraceContext().context();
 			propagator.inject(context, builder, (b, k, v) -> b.header(k, v));
 
@@ -88,16 +86,16 @@ class B3BraveObservedHttpHeadersFilterTests {
 			ServerWebExchangeUtils.putUriTemplateVariables(exchange, Map.of("foo", "get"));
 			exchange.getResponse().setStatusCode(HttpStatusCode.valueOf(200));
 			Route route = Route.async().id("foo").uri("http://localhost:8080/").order(1)
-					.predicate(serverWebExchange -> true).build();
+		.predicate(serverWebExchange -> true).build();
 			exchange.getAttributes().put(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR, route);
 			// Parent observation
 			Context ctx = Context
-					.of(Map.of(ObservationThreadLocalAccessor.KEY, observationRegistry.getCurrentObservation()));
+		.of(Map.of(ObservationThreadLocalAccessor.KEY, observationRegistry.getCurrentObservation()));
 			exchange.getAttributes().put(ServerWebExchangeUtils.GATEWAY_REACTOR_CONTEXT_ATTR, ctx);
 
 			// and
 			ObservedRequestHttpHeadersFilter requestHttpHeadersFilter = new ObservedRequestHttpHeadersFilter(
-					observationRegistry);
+		observationRegistry);
 			ObservedResponseHttpHeadersFilter responseHttpHeadersFilter = new ObservedResponseHttpHeadersFilter();
 
 			// when
@@ -108,12 +106,12 @@ class B3BraveObservedHttpHeadersFilterTests {
 			assertThat(headers).containsOnlyKeys("X-A", "b3").doesNotContainEntry("b3", request.getHeaders().get("b3"));
 			assertThat(headers.get("b3").get(0)).matches("^" + context.traceId() + "-(.*)-1-" + context.spanId() + "$");
 			List<FinishedSpan> finishedSpans = testSpanHandler.spans().stream().map(BraveFinishedSpan::new)
-					.collect(Collectors.toList());
+		.collect(Collectors.toList());
 			SpansAssert.then(finishedSpans).hasASpanWithName("HTTP GET",
-					spanAssert -> spanAssert.hasTag("spring.cloud.gateway.route.id", "foo").hasTag("http.method", "GET")
-							.hasTag("http.status_code", "200")
-							.hasTag("spring.cloud.gateway.route.uri", "http://localhost:8080/")
-							.hasTag("http.uri", "http://localhost:8080/get"));
+		spanAssert -> spanAssert.hasTag("spring.cloud.gateway.route.id", "foo").hasTag("http.method", "GET")
+	.hasTag("http.status_code", "200")
+	.hasTag("spring.cloud.gateway.route.uri", "http://localhost:8080/")
+	.hasTag("http.uri", "http://localhost:8080/get"));
 		});
 	}
 

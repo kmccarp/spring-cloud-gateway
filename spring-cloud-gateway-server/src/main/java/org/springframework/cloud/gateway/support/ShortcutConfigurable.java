@@ -53,7 +53,7 @@ public interface ShortcutConfigurable {
 		// RoutePredicateFactory has name hints and this has a fake key name
 		// replace with the matching key hint
 		if (key.startsWith(NameUtils.GENERATED_NAME_PREFIX) && !argHints.shortcutFieldOrder().isEmpty()
-				&& entryIdx < args.size() && entryIdx < argHints.shortcutFieldOrder().size()) {
+	&& entryIdx < args.size() && entryIdx < argHints.shortcutFieldOrder().size()) {
 			key = argHints.shortcutFieldOrder().get(entryIdx);
 		}
 		return key;
@@ -101,7 +101,7 @@ public interface ShortcutConfigurable {
 		DEFAULT {
 			@Override
 			public Map<String, Object> normalize(Map<String, String> args, ShortcutConfigurable shortcutConf,
-					SpelExpressionParser parser, BeanFactory beanFactory) {
+		SpelExpressionParser parser, BeanFactory beanFactory) {
 				Map<String, Object> map = new HashMap<>();
 				int entryIdx = 0;
 				for (Map.Entry<String, String> entry : args.entrySet()) {
@@ -121,15 +121,15 @@ public interface ShortcutConfigurable {
 		GATHER_LIST {
 			@Override
 			public Map<String, Object> normalize(Map<String, String> args, ShortcutConfigurable shortcutConf,
-					SpelExpressionParser parser, BeanFactory beanFactory) {
+		SpelExpressionParser parser, BeanFactory beanFactory) {
 				Map<String, Object> map = new HashMap<>();
 				// field order should be of size 1
 				List<String> fieldOrder = shortcutConf.shortcutFieldOrder();
 				Assert.isTrue(fieldOrder != null && fieldOrder.size() == 1,
-						"Shortcut Configuration Type GATHER_LIST must have shortcutFieldOrder of size 1");
+			"Shortcut Configuration Type GATHER_LIST must have shortcutFieldOrder of size 1");
 				String fieldName = fieldOrder.get(0);
 				map.put(fieldName, args.values().stream().map(value -> getValue(parser, beanFactory, value))
-						.collect(Collectors.toList()));
+			.collect(Collectors.toList()));
 				return map;
 			}
 		},
@@ -140,12 +140,12 @@ public interface ShortcutConfigurable {
 		GATHER_LIST_TAIL_FLAG {
 			@Override
 			public Map<String, Object> normalize(Map<String, String> args, ShortcutConfigurable shortcutConf,
-					SpelExpressionParser parser, BeanFactory beanFactory) {
+		SpelExpressionParser parser, BeanFactory beanFactory) {
 				Map<String, Object> map = new HashMap<>();
 				// field order should be of size 1
 				List<String> fieldOrder = shortcutConf.shortcutFieldOrder();
 				Assert.isTrue(fieldOrder != null && fieldOrder.size() == 2,
-						"Shortcut Configuration Type GATHER_LIST_HEAD must have shortcutFieldOrder of size 2");
+			"Shortcut Configuration Type GATHER_LIST_HEAD must have shortcutFieldOrder of size 2");
 				List<String> values = new ArrayList<>(args.values());
 				if (!values.isEmpty()) {
 					// strip boolean flag if last entry is true or false
@@ -158,13 +158,13 @@ public interface ShortcutConfigurable {
 				}
 				String fieldName = fieldOrder.get(0);
 				map.put(fieldName, values.stream().map(value -> getValue(parser, beanFactory, value))
-						.collect(Collectors.toList()));
+			.collect(Collectors.toList()));
 				return map;
 			}
 		};
 
 		public abstract Map<String, Object> normalize(Map<String, String> args, ShortcutConfigurable shortcutConf,
-				SpelExpressionParser parser, BeanFactory beanFactory);
+	SpelExpressionParser parser, BeanFactory beanFactory);
 
 	}
 
@@ -178,10 +178,10 @@ public interface ShortcutConfigurable {
 			this.beanFactoryResolver = new BeanFactoryResolver(beanFactory);
 			Environment env = beanFactory.getBean(Environment.class);
 			boolean restrictive = env.getProperty("spring.cloud.gateway.restrictive-property-accessor.enabled",
-					Boolean.class, true);
+		Boolean.class, true);
 			if (restrictive) {
 				delegate = SimpleEvaluationContext.forPropertyAccessors(new RestrictivePropertyAccessor())
-						.withMethodResolvers((context, targetObject, name, argumentTypes) -> null).build();
+			.withMethodResolvers((context, targetObject, name, argumentTypes) -> null).build();
 			}
 			else {
 				delegate = SimpleEvaluationContext.forReadOnlyDataBinding().build();

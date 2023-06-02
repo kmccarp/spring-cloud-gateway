@@ -31,8 +31,7 @@ import io.micrometer.tracing.propagation.Propagator;
  * @author Marcin Grzejszczak
  * @since 4.0.0
  */
-public class GatewayPropagatingSenderTracingObservationHandler
-		extends PropagatingSenderTracingObservationHandler<GatewayContext> {
+public class GatewayPropagatingSenderTracingObservationHandlerextends PropagatingSenderTracingObservationHandler<GatewayContext> {
 
 	private final Propagator propagator;
 
@@ -45,7 +44,7 @@ public class GatewayPropagatingSenderTracingObservationHandler
 	 * @param remoteFields remote fields to be propagated over the wire
 	 */
 	public GatewayPropagatingSenderTracingObservationHandler(Tracer tracer, Propagator propagator,
-			List<String> remoteFields) {
+List<String> remoteFields) {
 		super(tracer, propagator);
 		this.propagator = propagator;
 		this.remoteFieldsLowerCase = remoteFields.stream().map(s -> s.toLowerCase(Locale.ROOT)).toList();
@@ -54,8 +53,8 @@ public class GatewayPropagatingSenderTracingObservationHandler
 	@Override
 	public void onStart(GatewayContext context) {
 		this.propagator.fields().stream()
-				.filter(field -> !remoteFieldsLowerCase.contains(field.toLowerCase(Locale.ROOT)))
-				.forEach(s -> Objects.requireNonNull(context.getCarrier()).remove(s));
+	.filter(field -> !remoteFieldsLowerCase.contains(field.toLowerCase(Locale.ROOT)))
+	.forEach(s -> Objects.requireNonNull(context.getCarrier()).remove(s));
 		super.onStart(context);
 	}
 

@@ -64,10 +64,10 @@ public class ReadBodyRoutePredicateFactoryTests {
 		Event messageChannelEvent = new Event("message.channels", "bar");
 
 		webClient.post().uri("/events").body(BodyInserters.fromValue(messageEvent)).exchange().expectStatus().isOk()
-				.expectBody().jsonPath("$.headers.Hello").isEqualTo("World");
+	.expectBody().jsonPath("$.headers.Hello").isEqualTo("World");
 
 		webClient.post().uri("/events").body(BodyInserters.fromValue(messageChannelEvent)).exchange().expectStatus()
-				.isOk().expectBody().jsonPath("$.headers.World").isEqualTo("Hello");
+	.isOk().expectBody().jsonPath("$.headers.World").isEqualTo("Hello");
 
 	}
 
@@ -81,8 +81,8 @@ public class ReadBodyRoutePredicateFactoryTests {
 
 	@EnableAutoConfiguration
 	@SpringBootConfiguration
-	@LoadBalancerClients({ @LoadBalancerClient(name = "message", configuration = TestLoadBalancerConfig.class),
-			@LoadBalancerClient(name = "messageChannel", configuration = TestLoadBalancerConfig.class) })
+	@LoadBalancerClients({@LoadBalancerClient(name = "message", configuration = TestLoadBalancerConfig.class),
+@LoadBalancerClient(name = "messageChannel", configuration = TestLoadBalancerConfig.class)})
 	@Import(PermitAllSecurityConfiguration.class)
 	@RestController
 	public static class TestConfig {
@@ -90,13 +90,13 @@ public class ReadBodyRoutePredicateFactoryTests {
 		@Bean
 		public RouteLocator routeLocator(RouteLocatorBuilder builder) {
 			return builder.routes()
-					.route(p -> p.path("/events").and().method(HttpMethod.POST).and()
-							.readBody(Event.class, eventPredicate("message.channels"))
-							.filters(f -> f.setPath("/messageChannel/events")).uri("lb://messageChannel"))
-					.route(p -> p.path("/events").and().method(HttpMethod.POST).and()
-							.readBody(Event.class, eventPredicate("message")).filters(f -> f.setPath("/message/events"))
-							.uri("lb://message"))
-					.build();
+		.route(p -> p.path("/events").and().method(HttpMethod.POST).and()
+	.readBody(Event.class, eventPredicate("message.channels"))
+	.filters(f -> f.setPath("/messageChannel/events")).uri("lb://messageChannel"))
+		.route(p -> p.path("/events").and().method(HttpMethod.POST).and()
+	.readBody(Event.class, eventPredicate("message")).filters(f -> f.setPath("/message/events"))
+	.uri("lb://message"))
+		.build();
 		}
 
 		private Predicate<Event> eventPredicate(String type) {

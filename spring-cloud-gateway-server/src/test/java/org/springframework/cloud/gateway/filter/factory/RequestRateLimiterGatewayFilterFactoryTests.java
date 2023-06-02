@@ -98,7 +98,7 @@ public class RequestRateLimiterGatewayFilterFactoryTests extends BaseWebClientTe
 	}
 
 	private void assertFilterFactory(KeyResolver keyResolver, String key, boolean allowed, HttpStatus expectedStatus,
-			Boolean denyEmptyKey) {
+Boolean denyEmptyKey) {
 
 		String tokensRemaining = allowed ? "1" : "0";
 
@@ -112,12 +112,12 @@ public class RequestRateLimiterGatewayFilterFactoryTests extends BaseWebClientTe
 		MockServerWebExchange exchange = MockServerWebExchange.from(request);
 		exchange.getResponse().setStatusCode(HttpStatus.OK);
 		exchange.getAttributes().put(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR,
-				Route.async().id("myroute").predicate(ex -> true).uri("http://localhost").build());
+	Route.async().id("myroute").predicate(ex -> true).uri("http://localhost").build());
 
 		when(this.filterChain.filter(exchange)).thenReturn(Mono.empty());
 
 		RequestRateLimiterGatewayFilterFactory factory = this.context
-				.getBean(RequestRateLimiterGatewayFilterFactory.class);
+	.getBean(RequestRateLimiterGatewayFilterFactory.class);
 		if (denyEmptyKey != null) {
 			factory.setDenyEmptyKey(denyEmptyKey);
 		}
@@ -130,7 +130,7 @@ public class RequestRateLimiterGatewayFilterFactoryTests extends BaseWebClientTe
 		response.subscribe(aVoid -> {
 			assertThat(exchange.getResponse().getStatusCode()).isEqualTo(expectedStatus);
 			assertThat(exchange.getResponse().getHeaders()).containsEntry("X-Tokens-Remaining",
-					Collections.singletonList(tokensRemaining));
+		Collections.singletonList(tokensRemaining));
 		});
 
 	}

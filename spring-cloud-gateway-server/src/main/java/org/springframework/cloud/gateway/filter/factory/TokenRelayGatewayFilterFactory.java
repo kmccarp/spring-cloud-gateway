@@ -46,25 +46,25 @@ public class TokenRelayGatewayFilterFactory extends AbstractGatewayFilterFactory
 	@Override
 	public GatewayFilter apply(Object config) {
 		return (exchange, chain) -> exchange.getPrincipal()
-				// .log("token-relay-filter")
-				.filter(principal -> principal instanceof OAuth2AuthenticationToken)
-				.cast(OAuth2AuthenticationToken.class)
-				.flatMap(authentication -> authorizedClient(exchange, authentication))
-				.map(OAuth2AuthorizedClient::getAccessToken).map(token -> withBearerAuth(exchange, token))
-				// TODO: adjustable behavior if empty
-				.defaultIfEmpty(exchange).flatMap(chain::filter);
+	// .log("token-relay-filter")
+	.filter(principal -> principal instanceof OAuth2AuthenticationToken)
+	.cast(OAuth2AuthenticationToken.class)
+	.flatMap(authentication -> authorizedClient(exchange, authentication))
+	.map(OAuth2AuthorizedClient::getAccessToken).map(token -> withBearerAuth(exchange, token))
+	// TODO: adjustable behavior if empty
+	.defaultIfEmpty(exchange).flatMap(chain::filter);
 	}
 
 	private Mono<OAuth2AuthorizedClient> authorizedClient(ServerWebExchange exchange,
-			OAuth2AuthenticationToken oauth2Authentication) {
+OAuth2AuthenticationToken oauth2Authentication) {
 		String clientRegistrationId = oauth2Authentication.getAuthorizedClientRegistrationId();
 		OAuth2AuthorizeRequest request = OAuth2AuthorizeRequest.withClientRegistrationId(clientRegistrationId)
-				.principal(oauth2Authentication).build();
+	.principal(oauth2Authentication).build();
 		ReactiveOAuth2AuthorizedClientManager clientManager = clientManagerProvider.getIfAvailable();
 		if (clientManager == null) {
 			return Mono.error(new IllegalStateException(
-					"No ReactiveOAuth2AuthorizedClientManager bean was found. Did you include the "
-							+ "org.springframework.boot:spring-boot-starter-oauth2-client dependency?"));
+		"No ReactiveOAuth2AuthorizedClientManager bean was found. Did you include the "
+	+ "org.springframework.boot:spring-boot-starter-oauth2-client dependency?"));
 		}
 		// TODO: use Mono.defer() for request above?
 		return clientManager.authorize(request);
@@ -72,7 +72,7 @@ public class TokenRelayGatewayFilterFactory extends AbstractGatewayFilterFactory
 
 	private ServerWebExchange withBearerAuth(ServerWebExchange exchange, OAuth2AccessToken accessToken) {
 		return exchange.mutate().request(r -> r.headers(headers -> headers.setBearerAuth(accessToken.getTokenValue())))
-				.build();
+	.build();
 	}
 
 }

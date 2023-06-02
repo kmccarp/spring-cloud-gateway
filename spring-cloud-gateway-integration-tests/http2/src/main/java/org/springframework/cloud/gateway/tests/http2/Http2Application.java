@@ -41,8 +41,7 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootConfiguration
 @EnableAutoConfiguration
 @RestController
-@LoadBalancerClients({ @LoadBalancerClient(name = "myservice", configuration = Http2Application.MyServiceConf.class),
-		@LoadBalancerClient(name = "nossl", configuration = Http2Application.NosslServiceConf.class) })
+@LoadBalancerClients({@LoadBalancerClient(name = "myservice", configuration = Http2Application.MyServiceConf.class),@LoadBalancerClient(name = "nossl", configuration = Http2Application.NosslServiceConf.class)})
 public class Http2Application {
 
 	private static Log log = LogFactory.getLog(Http2Application.class);
@@ -55,9 +54,9 @@ public class Http2Application {
 	@Bean
 	public RouteLocator myRouteLocator(RouteLocatorBuilder builder) {
 		return builder.routes().route(r -> r.path("/myprefix/**").filters(f -> f.stripPrefix(1)).uri("lb://myservice"))
-				.route(r -> r.path("/nossl/**").filters(f -> f.stripPrefix(1)).uri("lb://nossl"))
-				.route(r -> r.path("/neverssl/**").filters(f -> f.stripPrefix(1)).uri("http://neverssl.com"))
-				.route(r -> r.path("/httpbin/**").uri("https://nghttp2.org")).build();
+	.route(r -> r.path("/nossl/**").filters(f -> f.stripPrefix(1)).uri("lb://nossl"))
+	.route(r -> r.path("/neverssl/**").filters(f -> f.stripPrefix(1)).uri("http://neverssl.com"))
+	.route(r -> r.path("/httpbin/**").uri("https://nghttp2.org")).build();
 	}
 
 	public static void main(String[] args) {
@@ -71,7 +70,7 @@ public class Http2Application {
 			Integer port = env.getProperty("local.server.port", Integer.class, 8443);
 			log.info("local.server.port = " + port);
 			return ServiceInstanceListSuppliers.from("myservice",
-					new DefaultServiceInstance("myservice-1", "myservice", "localhost", port, true));
+		new DefaultServiceInstance("myservice-1", "myservice", "localhost", port, true));
 		}
 
 	}
@@ -83,7 +82,7 @@ public class Http2Application {
 			int port = Integer.parseInt(System.getProperty("nossl.port", "8080"));
 			log.info("nossl.port = " + port);
 			return ServiceInstanceListSuppliers.from("nossl",
-					new DefaultServiceInstance("nossl-1", "nossl", "localhost", port, false));
+		new DefaultServiceInstance("nossl-1", "nossl", "localhost", port, false));
 		}
 
 	}

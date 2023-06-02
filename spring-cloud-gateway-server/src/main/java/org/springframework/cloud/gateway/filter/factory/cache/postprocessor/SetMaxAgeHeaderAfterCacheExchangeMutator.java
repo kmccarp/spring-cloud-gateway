@@ -75,7 +75,7 @@ public class SetMaxAgeHeaderAfterCacheExchangeMutator implements AfterCacheExcha
 
 	private static void rewriteCacheControlMaxAge(HttpHeaders headers, long seconds) {
 		boolean isMaxAgePresent = headers.getCacheControl() != null
-				&& headers.getCacheControl().contains(MAX_AGE_PREFIX);
+	&& headers.getCacheControl().contains(MAX_AGE_PREFIX);
 
 		if (isMaxAgePresent) {
 			List<String> cacheControlHeaders = headers.get(HttpHeaders.CACHE_CONTROL);
@@ -85,7 +85,7 @@ public class SetMaxAgeHeaderAfterCacheExchangeMutator implements AfterCacheExcha
 				if (value.contains(MAX_AGE_PREFIX)) {
 					if (seconds == -1) {
 						List<String> removedMaxAgeList = Arrays.stream(value.split(","))
-								.filter(i -> !i.trim().startsWith(MAX_AGE_PREFIX)).collect(Collectors.toList());
+					.filter(i -> !i.trim().startsWith(MAX_AGE_PREFIX)).collect(Collectors.toList());
 						value = String.join(",", removedMaxAgeList);
 					}
 					else {

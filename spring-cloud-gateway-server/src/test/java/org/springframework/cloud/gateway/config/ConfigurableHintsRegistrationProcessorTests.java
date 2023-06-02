@@ -51,14 +51,14 @@ class ConfigurableHintsRegistrationProcessorTests {
 	private final TestGenerationContext generationContext = new TestGenerationContext();
 
 	private final BeanFactoryInitializationCode beanFactoryInitializationCode = new MockBeanFactoryInitializationCode(
-			generationContext);
+generationContext);
 
 	private final DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
 
 	@Test
 	void shouldRegisterReflectionHintsForTypeAndSuperTypesAndGenerics() {
 		BeanDefinition beanDefinition = BeanDefinitionBuilder
-				.rootBeanDefinition(SpringCloudCircuitBreakerResilience4JFilterFactory.class).getBeanDefinition();
+	.rootBeanDefinition(SpringCloudCircuitBreakerResilience4JFilterFactory.class).getBeanDefinition();
 		beanFactory.registerBeanDefinition("test", beanDefinition);
 
 		BeanFactoryInitializationAotContribution contribution = processor.processAheadOfTime(beanFactory);

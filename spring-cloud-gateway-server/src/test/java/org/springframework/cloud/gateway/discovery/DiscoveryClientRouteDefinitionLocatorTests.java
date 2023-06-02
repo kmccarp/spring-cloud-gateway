@@ -41,20 +41,18 @@ import static org.springframework.cloud.gateway.filter.factory.RewritePathGatewa
 import static org.springframework.cloud.gateway.filter.factory.RewritePathGatewayFilterFactory.REPLACEMENT_KEY;
 import static org.springframework.cloud.gateway.handler.predicate.RoutePredicateFactory.PATTERN_KEY;
 
-@SpringBootTest(classes = DiscoveryClientRouteDefinitionLocatorTests.Config.class,
-		properties = { "spring.cloud.gateway.discovery.locator.enabled=true",
+@SpringBootTest(classes = DiscoveryClientRouteDefinitionLocatorTests.Config.class,properties = {"spring.cloud.gateway.discovery.locator.enabled=true",
 				"spring.cloud.gateway.discovery.locator.route-id-prefix=testedge_",
 				"spring.cloud.gateway.discovery.locator.include-expression=metadata['edge'] == 'true'",
 				"spring.cloud.gateway.discovery.locator.lower-case-service-id=true"
 		/*
-		 * "spring.cloud.gateway.discovery.locator.predicates[0].name=Path",
-		 * "spring.cloud.gateway.discovery.locator.predicates[0].args[pattern]='/'+serviceId.toLowerCase()+'/**'",
-		 * "spring.cloud.gateway.discovery.locator.filters[0].name=RewritePath",
-		 * "spring.cloud.gateway.discovery.locator.filters[0].args[regexp]='/' + serviceId.toLowerCase() + '/(?<remaining>.*)'"
-		 * ,
-		 * "spring.cloud.gateway.discovery.locator.filters[0].args[replacement]='/$\\\\{remaining}'",
-		 */
-		})
+* "spring.cloud.gateway.discovery.locator.predicates[0].name=Path",
+* "spring.cloud.gateway.discovery.locator.predicates[0].args[pattern]='/'+serviceId.toLowerCase()+'/**'",
+* "spring.cloud.gateway.discovery.locator.filters[0].name=RewritePath",
+* "spring.cloud.gateway.discovery.locator.filters[0].args[regexp]='/' + serviceId.toLowerCase() + '/(?<remaining>.*)'"
+* ,
+* "spring.cloud.gateway.discovery.locator.filters[0].args[replacement]='/$\\\\{remaining}'",
+ */})
 public class DiscoveryClientRouteDefinitionLocatorTests {
 
 	@Autowired(required = false)
@@ -81,7 +79,7 @@ public class DiscoveryClientRouteDefinitionLocatorTests {
 		FilterDefinition filter = definition.getFilters().get(0);
 		assertThat(filter.getName()).isEqualTo("RewritePath");
 		assertThat(filter.getArgs()).hasSize(2).containsEntry(REGEXP_KEY, "/service1/?(?<remaining>.*)")
-				.containsEntry(REPLACEMENT_KEY, "/${remaining}");
+	.containsEntry(REPLACEMENT_KEY, "/${remaining}");
 
 		RouteDefinition definition2 = definitions.get(1);
 		assertThat(definition2.getId()).isEqualTo("testedge_service3");
@@ -97,7 +95,7 @@ public class DiscoveryClientRouteDefinitionLocatorTests {
 		FilterDefinition filter2 = definition2.getFilters().get(0);
 		assertThat(filter2.getName()).isEqualTo("RewritePath");
 		assertThat(filter2.getArgs()).hasSize(2).containsEntry(REGEXP_KEY, "/service3/?(?<remaining>.*)")
-				.containsEntry(REPLACEMENT_KEY, "/${remaining}");
+	.containsEntry(REPLACEMENT_KEY, "/${remaining}");
 	}
 
 	@SpringBootConfiguration
@@ -115,20 +113,20 @@ public class DiscoveryClientRouteDefinitionLocatorTests {
 		}
 
 		private void whenInstance(ReactiveDiscoveryClient discoveryClient, String serviceId,
-				Map<String, String> metadata) {
+	Map<String, String> metadata) {
 			if ("SERVICE1".equals(serviceId) || "Service2".equals(serviceId)) {
 				DefaultServiceInstance instance1 = new DefaultServiceInstance(serviceId + "8001", serviceId,
-						"localhost", 8001, false, metadata);
+			"localhost", 8001, false, metadata);
 				when(discoveryClient.getInstances(serviceId)).thenReturn(Flux.just(instance1));
 			}
 			else if ("service3".equalsIgnoreCase(serviceId)) {
 				// given 3 instances, only one routedefinition should be created
 				DefaultServiceInstance instance2 = new DefaultServiceInstance(serviceId + "8002", serviceId,
-						"localhost", 8002, false, Collections.emptyMap());
+			"localhost", 8002, false, Collections.emptyMap());
 				DefaultServiceInstance instance3 = new DefaultServiceInstance(serviceId + "8003", serviceId,
-						"localhost", 8003, false, metadata);
+			"localhost", 8003, false, metadata);
 				DefaultServiceInstance instance4 = new DefaultServiceInstance(serviceId + "8004", serviceId,
-						"localhost", 8004, false, metadata);
+			"localhost", 8004, false, metadata);
 				when(discoveryClient.getInstances(serviceId)).thenReturn(Flux.just(instance2, instance3, instance4));
 			}
 		}

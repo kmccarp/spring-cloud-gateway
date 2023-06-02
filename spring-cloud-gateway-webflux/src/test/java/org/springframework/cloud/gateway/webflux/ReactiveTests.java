@@ -65,9 +65,9 @@ public class ReactiveTests {
 	@Test
 	public void postBytes() throws Exception {
 		ResponseEntity<List<Foo>> result = rest.exchange(RequestEntity
-				.post(rest.getRestTemplate().getUriTemplateHandler().expand("/bytes")).body("hello foo".getBytes()),
-				new ParameterizedTypeReference<List<Foo>>() {
-				});
+.post(rest.getRestTemplate().getUriTemplateHandler().expand("/bytes")).body("hello foo".getBytes()),
+	new ParameterizedTypeReference<List<Foo>>() {
+	});
 		assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(result.getBody().iterator().next().getName()).isEqualTo("hello foo");
 	}
@@ -75,10 +75,10 @@ public class ReactiveTests {
 	@Test
 	public void post() throws Exception {
 		ResponseEntity<List<Bar>> result = rest.exchange(
-				RequestEntity.post(rest.getRestTemplate().getUriTemplateHandler().expand("/bars"))
-						.body(Collections.singletonList(Collections.singletonMap("name", "foo"))),
-				new ParameterizedTypeReference<List<Bar>>() {
-				});
+	RequestEntity.post(rest.getRestTemplate().getUriTemplateHandler().expand("/bars"))
+.body(Collections.singletonList(Collections.singletonMap("name", "foo"))),
+	new ParameterizedTypeReference<List<Bar>>() {
+	});
 		assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(result.getBody().iterator().next().getName()).isEqualTo("hello foo");
 	}
@@ -86,10 +86,10 @@ public class ReactiveTests {
 	@Test
 	public void postFlux() throws Exception {
 		ResponseEntity<List<Bar>> result = rest.exchange(
-				RequestEntity.post(rest.getRestTemplate().getUriTemplateHandler().expand("/flux/bars"))
-						.body(Collections.singletonList(Collections.singletonMap("name", "foo"))),
-				new ParameterizedTypeReference<List<Bar>>() {
-				});
+	RequestEntity.post(rest.getRestTemplate().getUriTemplateHandler().expand("/flux/bars"))
+.body(Collections.singletonList(Collections.singletonMap("name", "foo"))),
+	new ParameterizedTypeReference<List<Bar>>() {
+	});
 		assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(result.getBody().iterator().next().getName()).isEqualTo("hello foo");
 	}
@@ -97,9 +97,9 @@ public class ReactiveTests {
 	@Test
 	public void get() throws Exception {
 		ResponseEntity<List<Foo>> result = rest.exchange(
-				RequestEntity.get(rest.getRestTemplate().getUriTemplateHandler().expand("/foos")).build(),
-				new ParameterizedTypeReference<List<Foo>>() {
-				});
+	RequestEntity.get(rest.getRestTemplate().getUriTemplateHandler().expand("/foos")).build(),
+	new ParameterizedTypeReference<List<Foo>>() {
+	});
 		assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(result.getBody().iterator().next().getName()).isEqualTo("hello");
 	}
@@ -107,9 +107,9 @@ public class ReactiveTests {
 	@Test
 	public void forward() throws Exception {
 		ResponseEntity<List<Foo>> result = rest.exchange(
-				RequestEntity.get(rest.getRestTemplate().getUriTemplateHandler().expand("/forward/foos")).build(),
-				new ParameterizedTypeReference<List<Foo>>() {
-				});
+	RequestEntity.get(rest.getRestTemplate().getUriTemplateHandler().expand("/forward/foos")).build(),
+	new ParameterizedTypeReference<List<Foo>>() {
+	});
 		assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(result.getBody().iterator().next().getName()).isEqualTo("hello");
 	}

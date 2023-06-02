@@ -97,7 +97,7 @@ public class PredicateSpec extends UriSpec {
 	 */
 	public BooleanSpec between(ZonedDateTime datetime1, ZonedDateTime datetime2) {
 		return asyncPredicate(getBean(BetweenRoutePredicateFactory.class)
-				.applyAsync(c -> c.setDatetime1(datetime1).setDatetime2(datetime2)));
+	.applyAsync(c -> c.setDatetime1(datetime1).setDatetime2(datetime2)));
 	}
 
 	/**
@@ -109,7 +109,7 @@ public class PredicateSpec extends UriSpec {
 	 */
 	public BooleanSpec cookie(String name, String regex) {
 		return asyncPredicate(
-				getBean(CookieRoutePredicateFactory.class).applyAsync(c -> c.setName(name).setRegexp(regex)));
+	getBean(CookieRoutePredicateFactory.class).applyAsync(c -> c.setName(name).setRegexp(regex)));
 	}
 
 	/**
@@ -130,7 +130,7 @@ public class PredicateSpec extends UriSpec {
 	 */
 	public BooleanSpec header(String header, String regex) {
 		return asyncPredicate(
-				getBean(HeaderRoutePredicateFactory.class).applyAsync(c -> c.setHeader(header).setRegexp(regex)));
+	getBean(HeaderRoutePredicateFactory.class).applyAsync(c -> c.setHeader(header).setRegexp(regex)));
 	}
 
 	/**
@@ -141,7 +141,7 @@ public class PredicateSpec extends UriSpec {
 	 */
 	public BooleanSpec host(String... pattern) {
 		return asyncPredicate(
-				getBean(HostRoutePredicateFactory.class).applyAsync(c -> c.setPatterns(Arrays.asList(pattern))));
+	getBean(HostRoutePredicateFactory.class).applyAsync(c -> c.setPatterns(Arrays.asList(pattern))));
 	}
 
 	/**
@@ -175,7 +175,7 @@ public class PredicateSpec extends UriSpec {
 	 */
 	public BooleanSpec path(String... patterns) {
 		return asyncPredicate(
-				getBean(PathRoutePredicateFactory.class).applyAsync(c -> c.setPatterns(Arrays.asList(patterns))));
+	getBean(PathRoutePredicateFactory.class).applyAsync(c -> c.setPatterns(Arrays.asList(patterns))));
 	}
 
 	/**
@@ -188,7 +188,7 @@ public class PredicateSpec extends UriSpec {
 	 */
 	public BooleanSpec path(boolean matchTrailingSlash, String... patterns) {
 		return asyncPredicate(getBean(PathRoutePredicateFactory.class)
-				.applyAsync(c -> c.setPatterns(Arrays.asList(patterns)).setMatchTrailingSlash(matchTrailingSlash)));
+	.applyAsync(c -> c.setPatterns(Arrays.asList(patterns)).setMatchTrailingSlash(matchTrailingSlash)));
 	}
 
 	/**
@@ -201,7 +201,7 @@ public class PredicateSpec extends UriSpec {
 	 */
 	public <T> BooleanSpec readBody(Class<T> inClass, Predicate<T> predicate) {
 		return asyncPredicate(
-				getBean(ReadBodyRoutePredicateFactory.class).applyAsync(c -> c.setPredicate(inClass, predicate)));
+	getBean(ReadBodyRoutePredicateFactory.class).applyAsync(c -> c.setPredicate(inClass, predicate)));
 	}
 
 	/**
@@ -212,7 +212,7 @@ public class PredicateSpec extends UriSpec {
 	 */
 	public BooleanSpec query(String param, String regex) {
 		return asyncPredicate(
-				getBean(QueryRoutePredicateFactory.class).applyAsync(c -> c.setParam(param).setRegexp(regex)));
+	getBean(QueryRoutePredicateFactory.class).applyAsync(c -> c.setParam(param).setRegexp(regex)));
 	}
 
 	/**
@@ -287,7 +287,7 @@ public class PredicateSpec extends UriSpec {
 	 */
 	public BooleanSpec weight(String group, int weight) {
 		return asyncPredicate(getBean(WeightRoutePredicateFactory.class)
-				.applyAsync(c -> c.setGroup(group).setRouteId(routeBuilder.getId()).setWeight(weight)));
+	.applyAsync(c -> c.setGroup(group).setRouteId(routeBuilder.getId()).setWeight(weight)));
 	}
 
 	public BooleanSpec cloudFoundryRouteService() {

@@ -39,8 +39,7 @@ import static org.springframework.cloud.gateway.support.ShortcutConfigurable.Sho
 /**
  * @author Spencer Gibb
  */
-public class RemoteAddrRoutePredicateFactory
-		extends AbstractRoutePredicateFactory<RemoteAddrRoutePredicateFactory.Config> {
+public class RemoteAddrRoutePredicateFactoryextends AbstractRoutePredicateFactory<RemoteAddrRoutePredicateFactory.Config> {
 
 	private static final Log log = LogFactory.getLog(RemoteAddrRoutePredicateFactory.class);
 

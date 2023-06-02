@@ -42,7 +42,7 @@ public class RouteDefinitionMetrics implements ApplicationListener<RefreshRoutes
 	private final String metricsPrefix;
 
 	public RouteDefinitionMetrics(MeterRegistry meterRegistry, RouteDefinitionLocator routeLocator,
-			String metricsPrefix) {
+String metricsPrefix) {
 		this.routeLocator = routeLocator;
 
 		if (metricsPrefix.endsWith(".")) {

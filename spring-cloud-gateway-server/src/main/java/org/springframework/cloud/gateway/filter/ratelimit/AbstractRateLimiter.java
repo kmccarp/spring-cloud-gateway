@@ -24,15 +24,14 @@ import org.springframework.cloud.gateway.support.ConfigurationService;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.style.ToStringCreator;
 
-public abstract class AbstractRateLimiter<C> extends AbstractStatefulConfigurable<C>
-		implements RateLimiter<C>, ApplicationListener<FilterArgsEvent> {
+public abstract class AbstractRateLimiter<C> extends AbstractStatefulConfigurable<C>implements RateLimiter<C>, ApplicationListener<FilterArgsEvent> {
 
 	private String configurationPropertyName;
 
 	private ConfigurationService configurationService;
 
 	protected AbstractRateLimiter(Class<C> configClass, String configurationPropertyName,
-			ConfigurationService configurationService) {
+ConfigurationService configurationService) {
 		super(configClass);
 		this.configurationPropertyName = configurationPropertyName;
 		this.configurationService = configurationService;
@@ -59,7 +58,7 @@ public abstract class AbstractRateLimiter<C> extends AbstractStatefulConfigurabl
 		C routeConfig = newConfig();
 		if (this.configurationService != null) {
 			this.configurationService.with(routeConfig).name(this.configurationPropertyName).normalizedProperties(args)
-					.bind();
+		.bind();
 		}
 		getConfig().put(routeId, routeConfig);
 	}
@@ -71,7 +70,7 @@ public abstract class AbstractRateLimiter<C> extends AbstractStatefulConfigurabl
 	@Override
 	public String toString() {
 		return new ToStringCreator(this).append("configurationPropertyName", configurationPropertyName)
-				.append("config", getConfig()).append("configClass", getConfigClass()).toString();
+	.append("config", getConfig()).append("configClass", getConfigClass()).toString();
 	}
 
 }

@@ -49,7 +49,7 @@ import org.springframework.web.reactive.DispatcherHandler;
 @AutoConfigureAfter(RedisReactiveAutoConfiguration.class)
 @AutoConfigureBefore(GatewayAutoConfiguration.class)
 @ConditionalOnBean(ReactiveRedisTemplate.class)
-@ConditionalOnClass({ RedisTemplate.class, DispatcherHandler.class })
+@ConditionalOnClass({RedisTemplate.class, DispatcherHandler.class})
 @ConditionalOnProperty(name = "spring.cloud.gateway.redis.enabled", matchIfMissing = true)
 class GatewayRedisAutoConfiguration {
 
@@ -58,7 +58,7 @@ class GatewayRedisAutoConfiguration {
 	public RedisScript redisRequestRateLimiterScript() {
 		DefaultRedisScript redisScript = new DefaultRedisScript<>();
 		redisScript.setScriptSource(
-				new ResourceScriptSource(new ClassPathResource("META-INF/scripts/request_rate_limiter.lua")));
+	new ResourceScriptSource(new ClassPathResource("META-INF/scripts/request_rate_limiter.lua")));
 		redisScript.setResultType(List.class);
 		return redisScript;
 	}
@@ -66,28 +66,28 @@ class GatewayRedisAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public RedisRateLimiter redisRateLimiter(ReactiveStringRedisTemplate redisTemplate,
-			@Qualifier(RedisRateLimiter.REDIS_SCRIPT_NAME) RedisScript<List<Long>> redisScript,
-			ConfigurationService configurationService) {
+@Qualifier(RedisRateLimiter.REDIS_SCRIPT_NAME) RedisScript<List<Long>> redisScript,
+ConfigurationService configurationService) {
 		return new RedisRateLimiter(redisTemplate, redisScript, configurationService);
 	}
 
 	@Bean
 	@ConditionalOnProperty(value = "spring.cloud.gateway.redis-route-definition-repository.enabled",
-			havingValue = "true")
+havingValue = "true")
 	@ConditionalOnClass(ReactiveRedisTemplate.class)
 	public RedisRouteDefinitionRepository redisRouteDefinitionRepository(
-			ReactiveRedisTemplate<String, RouteDefinition> reactiveRedisTemplate) {
+ReactiveRedisTemplate<String, RouteDefinition> reactiveRedisTemplate) {
 		return new RedisRouteDefinitionRepository(reactiveRedisTemplate);
 	}
 
 	@Bean
 	public ReactiveRedisTemplate<String, RouteDefinition> reactiveRedisRouteDefinitionTemplate(
-			ReactiveRedisConnectionFactory factory) {
+ReactiveRedisConnectionFactory factory) {
 		StringRedisSerializer keySerializer = new StringRedisSerializer();
 		Jackson2JsonRedisSerializer<RouteDefinition> valueSerializer = new Jackson2JsonRedisSerializer<>(
-				RouteDefinition.class);
+	RouteDefinition.class);
 		RedisSerializationContext.RedisSerializationContextBuilder<String, RouteDefinition> builder = RedisSerializationContext
-				.newSerializationContext(keySerializer);
+	.newSerializationContext(keySerializer);
 		RedisSerializationContext<String, RouteDefinition> context = builder.value(valueSerializer).build();
 
 		return new ReactiveRedisTemplate<>(factory, context);

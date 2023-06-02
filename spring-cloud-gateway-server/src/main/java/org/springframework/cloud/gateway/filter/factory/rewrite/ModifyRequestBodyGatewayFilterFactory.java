@@ -43,8 +43,7 @@ import static org.springframework.cloud.gateway.support.GatewayToStringStyler.fi
 /**
  * GatewayFilter that modifies the request body.
  */
-public class ModifyRequestBodyGatewayFilterFactory
-		extends AbstractGatewayFilterFactory<ModifyRequestBodyGatewayFilterFactory.Config> {
+public class ModifyRequestBodyGatewayFilterFactoryextends AbstractGatewayFilterFactory<ModifyRequestBodyGatewayFilterFactory.Config> {
 
 	private final List<HttpMessageReader<?>> messageReaders;
 
@@ -69,8 +68,8 @@ public class ModifyRequestBodyGatewayFilterFactory
 
 				// TODO: flux or mono
 				Mono<?> modifiedBody = serverRequest.bodyToMono(inClass)
-						.flatMap(originalBody -> config.getRewriteFunction().apply(exchange, originalBody))
-						.switchIfEmpty(Mono.defer(() -> (Mono) config.getRewriteFunction().apply(exchange, null)));
+			.flatMap(originalBody -> config.getRewriteFunction().apply(exchange, originalBody))
+			.switchIfEmpty(Mono.defer(() -> (Mono) config.getRewriteFunction().apply(exchange, null)));
 
 				BodyInserter bodyInserter = BodyInserters.fromPublisher(modifiedBody, config.getOutClass());
 				HttpHeaders headers = new HttpHeaders();
@@ -87,25 +86,25 @@ public class ModifyRequestBodyGatewayFilterFactory
 				}
 				CachedBodyOutputMessage outputMessage = new CachedBodyOutputMessage(exchange, headers);
 				return bodyInserter.insert(outputMessage, new BodyInserterContext())
-						// .log("modify_request", Level.INFO)
-						.then(Mono.defer(() -> {
-							ServerHttpRequest decorator = decorate(exchange, headers, outputMessage);
-							return chain.filter(exchange.mutate().request(decorator).build());
-						})).onErrorResume((Function<Throwable, Mono<Void>>) throwable -> release(exchange,
-								outputMessage, throwable));
+			// .log("modify_request", Level.INFO)
+			.then(Mono.defer(() -> {
+				ServerHttpRequest decorator = decorate(exchange, headers, outputMessage);
+				return chain.filter(exchange.mutate().request(decorator).build());
+			})).onErrorResume((Function<Throwable, Mono<Void>>) throwable -> release(exchange,
+			outputMessage, throwable));
 			}
 
 			@Override
 			public String toString() {
 				return filterToStringCreator(ModifyRequestBodyGatewayFilterFactory.this)
-						.append("Content type", config.getContentType()).append("In class", config.getInClass())
-						.append("Out class", config.getOutClass()).toString();
+			.append("Content type", config.getContentType()).append("In class", config.getInClass())
+			.append("Out class", config.getOutClass()).toString();
 			}
 		};
 	}
 
 	protected Mono<Void> release(ServerWebExchange exchange, CachedBodyOutputMessage outputMessage,
-			Throwable throwable) {
+Throwable throwable) {
 		if (outputMessage.isCached()) {
 			return outputMessage.getBody().map(DataBufferUtils::release).then(Mono.error(throwable));
 		}
@@ -113,7 +112,7 @@ public class ModifyRequestBodyGatewayFilterFactory
 	}
 
 	ServerHttpRequestDecorator decorate(ServerWebExchange exchange, HttpHeaders headers,
-			CachedBodyOutputMessage outputMessage) {
+CachedBodyOutputMessage outputMessage) {
 		return new ServerHttpRequestDecorator(exchange.getRequest()) {
 			@Override
 			public HttpHeaders getHeaders() {
@@ -176,7 +175,7 @@ public class ModifyRequestBodyGatewayFilterFactory
 		}
 
 		public <T, R> Config setRewriteFunction(Class<T> inClass, Class<R> outClass,
-				RewriteFunction<T, R> rewriteFunction) {
+	RewriteFunction<T, R> rewriteFunction) {
 			setInClass(inClass);
 			setOutClass(outClass);
 			setRewriteFunction(rewriteFunction);

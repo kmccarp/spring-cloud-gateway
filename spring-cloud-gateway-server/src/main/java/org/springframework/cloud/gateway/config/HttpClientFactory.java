@@ -54,7 +54,7 @@ public class HttpClientFactory extends AbstractFactoryBean<HttpClient> {
 	protected final List<HttpClientCustomizer> customizers;
 
 	public HttpClientFactory(HttpClientProperties properties, ServerProperties serverProperties,
-			List<HttpClientCustomizer> customizers) {
+List<HttpClientCustomizer> customizers) {
 		this.properties = properties;
 		this.serverProperties = serverProperties;
 		this.sslConfigurer = null;
@@ -62,7 +62,7 @@ public class HttpClientFactory extends AbstractFactoryBean<HttpClient> {
 	}
 
 	public HttpClientFactory(HttpClientProperties properties, ServerProperties serverProperties,
-			HttpClientSslConfigurer sslConfigurer, List<HttpClientCustomizer> customizers) {
+HttpClientSslConfigurer sslConfigurer, List<HttpClientCustomizer> customizers) {
 		this.properties = properties;
 		this.serverProperties = serverProperties;
 		this.sslConfigurer = sslConfigurer;
@@ -80,8 +80,8 @@ public class HttpClientFactory extends AbstractFactoryBean<HttpClient> {
 		ConnectionProvider connectionProvider = buildConnectionProvider(properties);
 
 		HttpClient httpClient = HttpClient.create(connectionProvider)
-				// TODO: move customizations to HttpClientCustomizers
-				.httpResponseDecoder(this::httpResponseDecoder);
+	// TODO: move customizations to HttpClientCustomizers
+	.httpResponseDecoder(this::httpResponseDecoder);
 
 		if (serverProperties.getHttp2().isEnabled()) {
 			httpClient = httpClient.protocol(HttpProtocol.HTTP11, HttpProtocol.H2);
@@ -135,7 +135,7 @@ public class HttpClientFactory extends AbstractFactoryBean<HttpClient> {
 	}
 
 	protected ProxyProvider.Builder configureProxyProvider(HttpClientProperties.Proxy proxy,
-			ProxyProvider.TypeSpec proxySpec) {
+ProxyProvider.TypeSpec proxySpec) {
 		ProxyProvider.Builder builder = proxySpec.type(proxy.getType()).host(proxy.getHost());
 
 		PropertyMapper map = PropertyMapper.get();
@@ -171,12 +171,12 @@ public class HttpClientFactory extends AbstractFactoryBean<HttpClient> {
 			ConnectionProvider.Builder builder = ConnectionProvider.builder(pool.getName());
 			if (pool.getType() == FIXED) {
 				builder.maxConnections(pool.getMaxConnections()).pendingAcquireMaxCount(-1)
-						.pendingAcquireTimeout(Duration.ofMillis(pool.getAcquireTimeout()));
+			.pendingAcquireTimeout(Duration.ofMillis(pool.getAcquireTimeout()));
 			}
 			else {
 				// Elastic
 				builder.maxConnections(Integer.MAX_VALUE).pendingAcquireTimeout(Duration.ofMillis(0))
-						.pendingAcquireMaxCount(-1);
+			.pendingAcquireMaxCount(-1);
 			}
 
 			if (pool.getMaxIdleTime() != null) {

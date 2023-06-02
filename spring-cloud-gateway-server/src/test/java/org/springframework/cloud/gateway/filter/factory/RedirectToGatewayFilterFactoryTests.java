@@ -44,19 +44,19 @@ public class RedirectToGatewayFilterFactoryTests extends BaseWebClientTests {
 	@Test
 	public void redirectToFilterWorks() {
 		testClient.get().uri("/").header("Host", "www.redirectto.org").exchange().expectStatus()
-				.isEqualTo(HttpStatus.FOUND).expectHeader().valueEquals(HttpHeaders.LOCATION, "https://example.org");
+	.isEqualTo(HttpStatus.FOUND).expectHeader().valueEquals(HttpHeaders.LOCATION, "https://example.org");
 	}
 
 	@Test
 	public void redirectToRelativeUrlFilterWorks() {
 		testClient.get().uri("/").header("Host", "www.relativeredirect.org").exchange().expectStatus()
-				.isEqualTo(HttpStatus.FOUND).expectHeader().valueEquals(HttpHeaders.LOCATION, "/index.html#/customers");
+	.isEqualTo(HttpStatus.FOUND).expectHeader().valueEquals(HttpHeaders.LOCATION, "/index.html#/customers");
 	}
 
 	@Test
 	public void redirectToRelativeUrlFilterWorksWithStrStatusCode() {
 		testClient.get().uri("/").header("Host", "strcode.relativeredirect.org").exchange().expectStatus()
-				.isEqualTo(HttpStatus.FOUND).expectHeader().valueEquals(HttpHeaders.LOCATION, "/index.html#/customers");
+	.isEqualTo(HttpStatus.FOUND).expectHeader().valueEquals(HttpHeaders.LOCATION, "/index.html#/customers");
 	}
 
 	@Test
@@ -76,11 +76,11 @@ public class RedirectToGatewayFilterFactoryTests extends BaseWebClientTests {
 		@Bean
 		public RouteLocator testRouteLocator(RouteLocatorBuilder builder) {
 			return builder.routes()
-					.route("relative_redirect_uri_object", r -> r.host("strcode.relativeredirect.org")
-							.filters(f -> f.redirect("302", URI.create("/index.html#/customers"))).uri("no://op"))
-					.route("relative_redirect", r -> r.host("**.relativeredirect.org")
-							.filters(f -> f.redirect(302, "/index.html#/customers")).uri("no://op"))
-					.build();
+		.route("relative_redirect_uri_object", r -> r.host("strcode.relativeredirect.org")
+	.filters(f -> f.redirect("302", URI.create("/index.html#/customers"))).uri("no://op"))
+		.route("relative_redirect", r -> r.host("**.relativeredirect.org")
+	.filters(f -> f.redirect(302, "/index.html#/customers")).uri("no://op"))
+		.build();
 		}
 
 	}

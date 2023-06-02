@@ -49,7 +49,7 @@ public class AdaptCachedBodyGlobalFilter implements GlobalFilter, Ordered, Appli
 		// mutated, for example, during a predicate where the body is read, but still
 		// needs to be cached.
 		ServerHttpRequest cachedRequest = exchange.getAttributeOrDefault(CACHED_SERVER_HTTP_REQUEST_DECORATOR_ATTR,
-				null);
+	null);
 		if (cachedRequest != null) {
 			exchange.getAttributes().remove(CACHED_SERVER_HTTP_REQUEST_DECORATOR_ATTR);
 			return chain.filter(exchange.mutate().request(cachedRequest).build());

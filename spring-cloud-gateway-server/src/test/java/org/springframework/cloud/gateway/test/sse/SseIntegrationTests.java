@@ -94,7 +94,7 @@ public class SseIntegrationTests {
 		logger.info("SSE Port: " + this.serverPort);
 
 		this.gatewayContext = new SpringApplicationBuilder(GatewayConfig.class)
-				.properties("sse.server.port:" + this.serverPort, "server.port=0", "spring.jmx.enabled=false").run();
+	.properties("sse.server.port:" + this.serverPort, "server.port=0", "spring.jmx.enabled=false").run();
 
 		ConfigurableEnvironment env = this.gatewayContext.getBean(ConfigurableEnvironment.class);
 		this.gatewayPort = Integer.valueOf(env.getProperty("local.server.port"));
@@ -124,7 +124,7 @@ public class SseIntegrationTests {
 	@Test
 	public void sseAsString() {
 		Flux<String> result = this.webClient.get().uri("/string").accept(TEXT_EVENT_STREAM).retrieve()
-				.bodyToFlux(String.class);
+	.bodyToFlux(String.class);
 
 		StepVerifier.create(result).expectNext("foo 0").expectNext("foo 1").thenCancel().verify(Duration.ofSeconds(5L));
 	}
@@ -132,10 +132,10 @@ public class SseIntegrationTests {
 	@Test
 	public void sseAsPerson() {
 		Flux<Person> result = this.webClient.get().uri("/person").accept(TEXT_EVENT_STREAM).retrieve()
-				.bodyToFlux(Person.class);
+	.bodyToFlux(Person.class);
 
 		StepVerifier.create(result).expectNext(new Person("foo 0")).expectNext(new Person("foo 1")).thenCancel()
-				.verify(Duration.ofSeconds(5L));
+	.verify(Duration.ofSeconds(5L));
 	}
 
 	@Test
@@ -143,8 +143,8 @@ public class SseIntegrationTests {
 	public void sseAsEvent() {
 		ResolvableType type = forClassWithGenerics(ServerSentEvent.class, String.class);
 		Flux<ServerSentEvent<String>> result = this.webClient.get().uri("/event").accept(TEXT_EVENT_STREAM).retrieve()
-				.bodyToFlux(new ParameterizedTypeReference<ServerSentEvent<String>>() {
-				});
+	.bodyToFlux(new ParameterizedTypeReference<ServerSentEvent<String>>() {
+	});
 
 		StepVerifier.create(result).consumeNextWith(event -> {
 			assertThat(event.id()).isEqualTo("0");
@@ -165,8 +165,8 @@ public class SseIntegrationTests {
 	@SuppressWarnings("Duplicates")
 	public void sseAsEventWithoutAcceptHeader() {
 		Flux<ServerSentEvent<String>> result = this.webClient.get().uri("/event").accept(TEXT_EVENT_STREAM).retrieve()
-				.bodyToFlux(new ParameterizedTypeReference<ServerSentEvent<String>>() {
-				});
+	.bodyToFlux(new ParameterizedTypeReference<ServerSentEvent<String>>() {
+	});
 
 		StepVerifier.create(result).consumeNextWith(event -> {
 			assertThat(event.id()).isEqualTo("0");
@@ -229,7 +229,7 @@ public class SseIntegrationTests {
 		@Bean
 		public RouteLocator sseRouteLocator(RouteLocatorBuilder builder) {
 			return builder.routes().route("sse_route", r -> r.alwaysTrue().uri("http://localhost:" + this.port))
-					.build();
+		.build();
 		}
 
 	}

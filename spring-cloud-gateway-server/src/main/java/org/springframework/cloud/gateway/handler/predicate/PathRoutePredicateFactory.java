@@ -58,7 +58,7 @@ public class PathRoutePredicateFactory extends AbstractRoutePredicateFactory<Pat
 	private static void traceMatch(String prefix, Object desired, Object actual, boolean match) {
 		if (log.isTraceEnabled()) {
 			String message = String.format("%s \"%s\" %s against value \"%s\"", prefix, desired,
-					match ? "matches" : "does not match", actual);
+		match ? "matches" : "does not match", actual);
 			log.trace(message);
 		}
 	}
@@ -91,8 +91,8 @@ public class PathRoutePredicateFactory extends AbstractRoutePredicateFactory<Pat
 			@Override
 			public boolean test(ServerWebExchange exchange) {
 				PathContainer path = (PathContainer) exchange.getAttributes().computeIfAbsent(
-						GATEWAY_PREDICATE_PATH_CONTAINER_ATTR,
-						s -> parsePath(exchange.getRequest().getURI().getRawPath()));
+			GATEWAY_PREDICATE_PATH_CONTAINER_ATTR,
+			s -> parsePath(exchange.getRequest().getURI().getRawPath()));
 
 				PathPattern match = null;
 				for (int i = 0; i < pathPatterns.size(); i++) {
@@ -129,7 +129,7 @@ public class PathRoutePredicateFactory extends AbstractRoutePredicateFactory<Pat
 			@Override
 			public String toString() {
 				return String.format("Paths: %s, match trailing slash: %b", config.getPatterns(),
-						config.isMatchTrailingSlash());
+			config.isMatchTrailingSlash());
 			}
 		};
 	}
@@ -179,7 +179,7 @@ public class PathRoutePredicateFactory extends AbstractRoutePredicateFactory<Pat
 		@Override
 		public String toString() {
 			return new ToStringCreator(this).append("patterns", patterns)
-					.append(MATCH_TRAILING_SLASH, matchTrailingSlash).toString();
+		.append(MATCH_TRAILING_SLASH, matchTrailingSlash).toString();
 		}
 
 	}

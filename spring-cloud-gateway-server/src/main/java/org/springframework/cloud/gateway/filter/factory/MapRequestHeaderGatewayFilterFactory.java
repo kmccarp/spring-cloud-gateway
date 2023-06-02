@@ -32,8 +32,7 @@ import static org.springframework.cloud.gateway.support.GatewayToStringStyler.fi
 /**
  * @author Tony Clarke
  */
-public class MapRequestHeaderGatewayFilterFactory
-		extends AbstractGatewayFilterFactory<MapRequestHeaderGatewayFilterFactory.Config> {
+public class MapRequestHeaderGatewayFilterFactoryextends AbstractGatewayFilterFactory<MapRequestHeaderGatewayFilterFactory.Config> {
 
 	/**
 	 * From Header key.
@@ -65,7 +64,7 @@ public class MapRequestHeaderGatewayFilterFactory
 				List<String> headerValues = exchange.getRequest().getHeaders().get(config.getFromHeader());
 
 				ServerHttpRequest request = exchange.getRequest().mutate()
-						.headers(i -> i.addAll(config.getToHeader(), headerValues)).build();
+			.headers(i -> i.addAll(config.getToHeader(), headerValues)).build();
 
 				return chain.filter(exchange.mutate().request(request).build());
 			}
@@ -74,9 +73,9 @@ public class MapRequestHeaderGatewayFilterFactory
 			public String toString() {
 				// @formatter:off
 				return filterToStringCreator(MapRequestHeaderGatewayFilterFactory.this)
-						.append(FROM_HEADER_KEY, config.getFromHeader())
-						.append(TO_HEADER_KEY, config.getToHeader())
-						.toString();
+			.append(FROM_HEADER_KEY, config.getFromHeader())
+			.append(TO_HEADER_KEY, config.getToHeader())
+			.toString();
 				// @formatter:on
 			}
 		};
@@ -110,9 +109,9 @@ public class MapRequestHeaderGatewayFilterFactory
 		public String toString() {
 			// @formatter:off
 			return new ToStringCreator(this)
-					.append("fromHeader", fromHeader)
-					.append("toHeader", toHeader)
-					.toString();
+		.append("fromHeader", fromHeader)
+		.append("toHeader", toHeader)
+		.toString();
 			// @formatter:on
 		}
 

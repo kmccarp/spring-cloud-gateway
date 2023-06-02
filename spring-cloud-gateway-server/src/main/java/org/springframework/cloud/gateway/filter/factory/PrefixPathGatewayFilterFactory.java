@@ -40,8 +40,7 @@ import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.g
 /**
  * @author Spencer Gibb
  */
-public class PrefixPathGatewayFilterFactory
-		extends AbstractGatewayFilterFactory<PrefixPathGatewayFilterFactory.Config> {
+public class PrefixPathGatewayFilterFactoryextends AbstractGatewayFilterFactory<PrefixPathGatewayFilterFactory.Config> {
 
 	/**
 	 * Prefix key.
@@ -92,7 +91,7 @@ public class PrefixPathGatewayFilterFactory
 			@Override
 			public String toString() {
 				return filterToStringCreator(PrefixPathGatewayFilterFactory.this).append("prefix", config.getPrefix())
-						.toString();
+			.toString();
 			}
 		};
 	}

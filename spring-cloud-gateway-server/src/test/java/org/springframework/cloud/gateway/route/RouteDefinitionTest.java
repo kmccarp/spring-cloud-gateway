@@ -38,7 +38,7 @@ public class RouteDefinitionTest {
 		routeDefinition.getMetadata().putAll(newMetadata);
 
 		assertThat(routeDefinition.getMetadata()).hasSize(2).containsAllEntriesOf(originalMetadata)
-				.containsAllEntriesOf(newMetadata);
+	.containsAllEntriesOf(newMetadata);
 	}
 
 	@Test
@@ -62,7 +62,7 @@ public class RouteDefinitionTest {
 		routeDefinition.getMetadata().put("key2", "value2");
 
 		assertThat(routeDefinition.getMetadata()).hasSize(2).containsAllEntriesOf(originalMetadata)
-				.containsEntry("key2", "value2");
+	.containsEntry("key2", "value2");
 	}
 
 }

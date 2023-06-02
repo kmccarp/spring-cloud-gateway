@@ -54,7 +54,7 @@ public class CorsGatewayFilterApplicationListener implements ApplicationListener
 	private static final String ALL_PATHS = "/**";
 
 	public CorsGatewayFilterApplicationListener(GlobalCorsProperties globalCorsProperties,
-			RoutePredicateHandlerMapping routePredicateHandlerMapping, RouteLocator routeLocator) {
+RoutePredicateHandlerMapping routePredicateHandlerMapping, RouteLocator routeLocator) {
 		this.globalCorsProperties = globalCorsProperties;
 		this.routePredicateHandlerMapping = routePredicateHandlerMapping;
 		this.routeLocator = routeLocator;
@@ -106,17 +106,17 @@ public class CorsGatewayFilterApplicationListener implements ApplicationListener
 			final CorsConfiguration corsConfiguration = new CorsConfiguration();
 
 			findValue(corsMetadata, "allowCredentials")
-					.ifPresent(value -> corsConfiguration.setAllowCredentials((Boolean) value));
+		.ifPresent(value -> corsConfiguration.setAllowCredentials((Boolean) value));
 			findValue(corsMetadata, "allowedHeaders")
-					.ifPresent(value -> corsConfiguration.setAllowedHeaders(asList(value)));
+		.ifPresent(value -> corsConfiguration.setAllowedHeaders(asList(value)));
 			findValue(corsMetadata, "allowedMethods")
-					.ifPresent(value -> corsConfiguration.setAllowedMethods(asList(value)));
+		.ifPresent(value -> corsConfiguration.setAllowedMethods(asList(value)));
 			findValue(corsMetadata, "allowedOriginPatterns")
-					.ifPresent(value -> corsConfiguration.setAllowedOriginPatterns(asList(value)));
+		.ifPresent(value -> corsConfiguration.setAllowedOriginPatterns(asList(value)));
 			findValue(corsMetadata, "allowedOrigins")
-					.ifPresent(value -> corsConfiguration.setAllowedOrigins(asList(value)));
+		.ifPresent(value -> corsConfiguration.setAllowedOrigins(asList(value)));
 			findValue(corsMetadata, "exposedHeaders")
-					.ifPresent(value -> corsConfiguration.setExposedHeaders(asList(value)));
+		.ifPresent(value -> corsConfiguration.setExposedHeaders(asList(value)));
 			findValue(corsMetadata, "maxAge").ifPresent(value -> corsConfiguration.setMaxAge(asLong(value)));
 
 			return Optional.of(corsConfiguration);

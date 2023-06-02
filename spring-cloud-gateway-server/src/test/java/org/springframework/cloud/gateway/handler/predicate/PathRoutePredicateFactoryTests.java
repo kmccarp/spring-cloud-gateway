@@ -52,7 +52,7 @@ public class PathRoutePredicateFactoryTests extends BaseWebClientTests {
 	public void trailingSlashReturns404() {
 		// since the configuration does not allow the trailing / to match this should fail
 		testClient.get().uri("/abc/123/function/").header(HttpHeaders.HOST, "www.path.org").exchange().expectStatus()
-				.isNotFound();
+	.isNotFound();
 	}
 
 	@Test
@@ -62,8 +62,8 @@ public class PathRoutePredicateFactoryTests extends BaseWebClientTests {
 
 	private void expectPathRoute(String uri, String host, String routeId) {
 		testClient.get().uri(uri).header(HttpHeaders.HOST, host).exchange().expectStatus().isOk().expectHeader()
-				.valueEquals(HANDLER_MAPPER_HEADER, RoutePredicateHandlerMapping.class.getSimpleName()).expectHeader()
-				.valueEquals(ROUTE_ID_HEADER, routeId);
+	.valueEquals(HANDLER_MAPPER_HEADER, RoutePredicateHandlerMapping.class.getSimpleName()).expectHeader()
+	.valueEquals(ROUTE_ID_HEADER, routeId);
 	}
 
 	@Test
@@ -83,17 +83,17 @@ public class PathRoutePredicateFactoryTests extends BaseWebClientTests {
 	@Test
 	public void pathRouteWorksWithPercent() {
 		testClient.get().uri("/abc/123%/function").header(HttpHeaders.HOST, "www.path.org").exchange().expectStatus()
-				.isOk().expectHeader()
-				.valueEquals(HANDLER_MAPPER_HEADER, RoutePredicateHandlerMapping.class.getSimpleName()).expectHeader()
-				.valueEquals(ROUTE_ID_HEADER, "path_test");
+	.isOk().expectHeader()
+	.valueEquals(HANDLER_MAPPER_HEADER, RoutePredicateHandlerMapping.class.getSimpleName()).expectHeader()
+	.valueEquals(ROUTE_ID_HEADER, "path_test");
 	}
 
 	@Test
 	public void pathRouteWorksWithRegex() {
 		testClient.get().uri("/regex/123").header(HttpHeaders.HOST, "www.pathregex.org").exchange().expectStatus()
-				.isOk().expectHeader()
-				.valueEquals(HANDLER_MAPPER_HEADER, RoutePredicateHandlerMapping.class.getSimpleName()).expectHeader()
-				.valueEquals(ROUTE_ID_HEADER, "path_regex");
+	.isOk().expectHeader()
+	.valueEquals(HANDLER_MAPPER_HEADER, RoutePredicateHandlerMapping.class.getSimpleName()).expectHeader()
+	.valueEquals(ROUTE_ID_HEADER, "path_regex");
 	}
 
 	@Test
@@ -127,11 +127,11 @@ public class PathRoutePredicateFactoryTests extends BaseWebClientTests {
 		@Bean
 		public RouteLocator testRouteLocator(RouteLocatorBuilder builder) {
 			return builder.routes()
-					.route("path_multi_dsl",
-							r -> r.host("**.pathmultidsl.org").and()
-									.path(false, "/anything/multidsl1", "/anything/multidsl3")
-									.filters(f -> f.prefixPath("/httpbin")).uri(uri))
-					.build();
+		.route("path_multi_dsl",
+	r -> r.host("**.pathmultidsl.org").and()
+.path(false, "/anything/multidsl1", "/anything/multidsl3")
+.filters(f -> f.prefixPath("/httpbin")).uri(uri))
+		.build();
 		}
 
 	}

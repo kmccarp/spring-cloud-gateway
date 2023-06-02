@@ -59,7 +59,7 @@ public class ProxyExchangeArgumentResolver implements HandlerMethodArgumentResol
 
 	public void setAutoForwardedHeaders(Set<String> autoForwardedHeaders) {
 		this.autoForwardedHeaders = autoForwardedHeaders == null ? null
-				: autoForwardedHeaders.stream().map(String::toLowerCase).collect(toSet());
+	: autoForwardedHeaders.stream().map(String::toLowerCase).collect(toSet());
 	}
 
 	public void setSensitive(Set<String> sensitive) {
@@ -73,7 +73,7 @@ public class ProxyExchangeArgumentResolver implements HandlerMethodArgumentResol
 
 	@Override
 	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
-			NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 		ProxyExchange<?> proxy = new ProxyExchange<>(rest, webRequest, mavContainer, binderFactory, type(parameter));
 		configureHeaders(proxy);
 		configureAutoForwardedHeaders(proxy, webRequest);

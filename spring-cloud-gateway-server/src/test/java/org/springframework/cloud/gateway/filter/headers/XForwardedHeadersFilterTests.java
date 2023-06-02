@@ -46,7 +46,7 @@ public class XForwardedHeadersFilterTests {
 	@Test
 	public void remoteAddressIsNull() throws Exception {
 		MockServerHttpRequest request = MockServerHttpRequest.get("http://localhost:8080/get")
-				.header(HttpHeaders.HOST, "myhost").build();
+	.header(HttpHeaders.HOST, "myhost").build();
 
 		XForwardedHeadersFilter filter = new XForwardedHeadersFilter();
 
@@ -62,15 +62,15 @@ public class XForwardedHeadersFilterTests {
 	@Test
 	public void xForwardedHeadersDoNotExist() throws Exception {
 		MockServerHttpRequest request = MockServerHttpRequest.get("http://localhost:8080/get")
-				.remoteAddress(new InetSocketAddress(InetAddress.getByName("10.0.0.1"), 80))
-				.header(HttpHeaders.HOST, "myhost").build();
+	.remoteAddress(new InetSocketAddress(InetAddress.getByName("10.0.0.1"), 80))
+	.header(HttpHeaders.HOST, "myhost").build();
 
 		XForwardedHeadersFilter filter = new XForwardedHeadersFilter();
 
 		HttpHeaders headers = filter.filter(request.getHeaders(), MockServerWebExchange.from(request));
 
 		assertThat(headers).containsKeys(X_FORWARDED_FOR_HEADER, X_FORWARDED_HOST_HEADER, X_FORWARDED_PORT_HEADER,
-				X_FORWARDED_PROTO_HEADER);
+	X_FORWARDED_PROTO_HEADER);
 
 		assertThat(headers.getFirst(X_FORWARDED_FOR_HEADER)).isEqualTo("10.0.0.1");
 		assertThat(headers.getFirst(X_FORWARDED_HOST_HEADER)).isEqualTo("localhost:8080");
@@ -81,15 +81,15 @@ public class XForwardedHeadersFilterTests {
 	@Test
 	public void defaultPort() throws Exception {
 		MockServerHttpRequest request = MockServerHttpRequest.get("http://localhost/get")
-				.remoteAddress(new InetSocketAddress(InetAddress.getByName("10.0.0.1"), 80))
-				.header(HttpHeaders.HOST, "myhost").build();
+	.remoteAddress(new InetSocketAddress(InetAddress.getByName("10.0.0.1"), 80))
+	.header(HttpHeaders.HOST, "myhost").build();
 
 		XForwardedHeadersFilter filter = new XForwardedHeadersFilter();
 
 		HttpHeaders headers = filter.filter(request.getHeaders(), MockServerWebExchange.from(request));
 
 		assertThat(headers).containsKeys(X_FORWARDED_FOR_HEADER, X_FORWARDED_HOST_HEADER, X_FORWARDED_PORT_HEADER,
-				X_FORWARDED_PROTO_HEADER);
+	X_FORWARDED_PROTO_HEADER);
 
 		assertThat(headers.getFirst(X_FORWARDED_FOR_HEADER)).isEqualTo("10.0.0.1");
 		assertThat(headers.getFirst(X_FORWARDED_HOST_HEADER)).isEqualTo("localhost");
@@ -100,16 +100,16 @@ public class XForwardedHeadersFilterTests {
 	@Test
 	public void appendsValues() throws Exception {
 		MockServerHttpRequest request = MockServerHttpRequest.get("http://localhost:8080/get")
-				.remoteAddress(new InetSocketAddress(InetAddress.getByName("10.0.0.1"), 80))
-				.header(X_FORWARDED_FOR_HEADER, "192.168.0.2").header(X_FORWARDED_HOST_HEADER, "example.com")
-				.header(X_FORWARDED_PORT_HEADER, "443").header(X_FORWARDED_PROTO_HEADER, "https").build();
+	.remoteAddress(new InetSocketAddress(InetAddress.getByName("10.0.0.1"), 80))
+	.header(X_FORWARDED_FOR_HEADER, "192.168.0.2").header(X_FORWARDED_HOST_HEADER, "example.com")
+	.header(X_FORWARDED_PORT_HEADER, "443").header(X_FORWARDED_PROTO_HEADER, "https").build();
 
 		XForwardedHeadersFilter filter = new XForwardedHeadersFilter();
 
 		HttpHeaders headers = filter.filter(request.getHeaders(), MockServerWebExchange.from(request));
 
 		assertThat(headers).containsKeys(X_FORWARDED_FOR_HEADER, X_FORWARDED_HOST_HEADER, X_FORWARDED_PORT_HEADER,
-				X_FORWARDED_PROTO_HEADER);
+	X_FORWARDED_PROTO_HEADER);
 
 		assertThat(headers.getFirst(X_FORWARDED_FOR_HEADER)).isEqualTo("192.168.0.2,10.0.0.1");
 		assertThat(headers.getFirst(X_FORWARDED_HOST_HEADER)).isEqualTo("example.com,localhost:8080");
@@ -120,10 +120,10 @@ public class XForwardedHeadersFilterTests {
 	@Test
 	public void appendDisabled() throws Exception {
 		MockServerHttpRequest request = MockServerHttpRequest.get("http://localhost:8080/get")
-				.remoteAddress(new InetSocketAddress(InetAddress.getByName("10.0.0.1"), 80))
-				.header(X_FORWARDED_FOR_HEADER, "192.168.0.2").header(X_FORWARDED_HOST_HEADER, "example.com")
-				.header(X_FORWARDED_PORT_HEADER, "443").header(X_FORWARDED_PROTO_HEADER, "https")
-				.header(X_FORWARDED_PREFIX_HEADER, "/prefix").build();
+	.remoteAddress(new InetSocketAddress(InetAddress.getByName("10.0.0.1"), 80))
+	.header(X_FORWARDED_FOR_HEADER, "192.168.0.2").header(X_FORWARDED_HOST_HEADER, "example.com")
+	.header(X_FORWARDED_PORT_HEADER, "443").header(X_FORWARDED_PROTO_HEADER, "https")
+	.header(X_FORWARDED_PREFIX_HEADER, "/prefix").build();
 
 		XForwardedHeadersFilter filter = new XForwardedHeadersFilter();
 		filter.setForAppend(false);
@@ -135,7 +135,7 @@ public class XForwardedHeadersFilterTests {
 		HttpHeaders headers = filter.filter(request.getHeaders(), MockServerWebExchange.from(request));
 
 		assertThat(headers).containsKeys(X_FORWARDED_FOR_HEADER, X_FORWARDED_HOST_HEADER, X_FORWARDED_PORT_HEADER,
-				X_FORWARDED_PROTO_HEADER, X_FORWARDED_PREFIX_HEADER);
+	X_FORWARDED_PROTO_HEADER, X_FORWARDED_PREFIX_HEADER);
 
 		assertThat(headers.getFirst(X_FORWARDED_FOR_HEADER)).isEqualTo("10.0.0.1");
 		assertThat(headers.getFirst(X_FORWARDED_HOST_HEADER)).isEqualTo("localhost:8080");
@@ -147,7 +147,7 @@ public class XForwardedHeadersFilterTests {
 	@Test
 	public void prefixToInfer() throws Exception {
 		MockServerHttpRequest request = MockServerHttpRequest.get("https://originalhost:8080/prefix/get")
-				.remoteAddress(new InetSocketAddress(InetAddress.getByName("10.0.0.1"), 80)).build();
+	.remoteAddress(new InetSocketAddress(InetAddress.getByName("10.0.0.1"), 80)).build();
 
 		XForwardedHeadersFilter filter = new XForwardedHeadersFilter();
 		filter.setPrefixAppend(true);
@@ -156,7 +156,7 @@ public class XForwardedHeadersFilterTests {
 		ServerWebExchange exchange = MockServerWebExchange.from(request);
 		LinkedHashSet<URI> originalUris = new LinkedHashSet<>();
 		originalUris.add(UriComponentsBuilder.fromUriString("https://originalhost:8080/prefix/get/").build().toUri()); // trailing
-																														// slash
+		// slash
 		exchange.getAttributes().put(GATEWAY_ORIGINAL_REQUEST_URL_ATTR, originalUris);
 		URI requestUri = UriComponentsBuilder.fromUriString("https://routedservice:8090/get").build().toUri();
 		exchange.getAttributes().put(GATEWAY_REQUEST_URL_ATTR, requestUri);
@@ -171,7 +171,7 @@ public class XForwardedHeadersFilterTests {
 	@Test
 	public void prefixToInferWhenEqualsResource() throws Exception {
 		MockServerHttpRequest request = MockServerHttpRequest.get("https://originalhost:8080/resource/resource/")
-				.remoteAddress(new InetSocketAddress(InetAddress.getByName("10.0.0.1"), 80)).build();
+	.remoteAddress(new InetSocketAddress(InetAddress.getByName("10.0.0.1"), 80)).build();
 
 		XForwardedHeadersFilter filter = new XForwardedHeadersFilter();
 		filter.setPrefixAppend(true);
@@ -180,8 +180,8 @@ public class XForwardedHeadersFilterTests {
 		ServerWebExchange exchange = MockServerWebExchange.from(request);
 		LinkedHashSet<URI> originalUris = new LinkedHashSet<>();
 		originalUris.add(
-				UriComponentsBuilder.fromUriString("https://originalhost:8080/resource/resource/").build().toUri()); // trailing
-																														// slash
+	UriComponentsBuilder.fromUriString("https://originalhost:8080/resource/resource/").build().toUri()); // trailing
+		// slash
 		exchange.getAttributes().put(GATEWAY_ORIGINAL_REQUEST_URL_ATTR, originalUris);
 		URI requestUri = UriComponentsBuilder.fromUriString("https://routedservice:8090/resource").build().toUri();
 		exchange.getAttributes().put(GATEWAY_REQUEST_URL_ATTR, requestUri);
@@ -196,7 +196,7 @@ public class XForwardedHeadersFilterTests {
 	@Test
 	public void prefixAddedWithoutTrailingSlash() throws Exception {
 		MockServerHttpRequest request = MockServerHttpRequest.get("https://originalhost:8080/foo/bar")
-				.remoteAddress(new InetSocketAddress(InetAddress.getByName("10.0.0.1"), 80)).build();
+	.remoteAddress(new InetSocketAddress(InetAddress.getByName("10.0.0.1"), 80)).build();
 
 		XForwardedHeadersFilter filter = new XForwardedHeadersFilter();
 		filter.setPrefixAppend(true);
@@ -217,7 +217,7 @@ public class XForwardedHeadersFilterTests {
 	@Test
 	public void noPrefixToInfer() throws Exception {
 		MockServerHttpRequest request = MockServerHttpRequest.get("https://originalhost:8080/get")
-				.remoteAddress(new InetSocketAddress(InetAddress.getByName("10.0.0.1"), 80)).build();
+	.remoteAddress(new InetSocketAddress(InetAddress.getByName("10.0.0.1"), 80)).build();
 
 		XForwardedHeadersFilter filter = new XForwardedHeadersFilter();
 		filter.setPrefixAppend(true);
@@ -242,7 +242,7 @@ public class XForwardedHeadersFilterTests {
 	@Test
 	public void routedPathInRequestPathButNotPrefix() throws Exception {
 		MockServerHttpRequest request = MockServerHttpRequest.get("https://originalhost:8080/get")
-				.remoteAddress(new InetSocketAddress(InetAddress.getByName("10.0.0.1"), 80)).build();
+	.remoteAddress(new InetSocketAddress(InetAddress.getByName("10.0.0.1"), 80)).build();
 
 		XForwardedHeadersFilter filter = new XForwardedHeadersFilter();
 		filter.setPrefixAppend(true);
@@ -267,7 +267,7 @@ public class XForwardedHeadersFilterTests {
 	@Test
 	public void allDisabled() throws Exception {
 		MockServerHttpRequest request = MockServerHttpRequest.get("http://localhost:8080/get")
-				.remoteAddress(new InetSocketAddress(InetAddress.getByName("10.0.0.1"), 80)).build();
+	.remoteAddress(new InetSocketAddress(InetAddress.getByName("10.0.0.1"), 80)).build();
 
 		XForwardedHeadersFilter filter = new XForwardedHeadersFilter();
 		filter.setForEnabled(false);
@@ -284,8 +284,8 @@ public class XForwardedHeadersFilterTests {
 	@Test
 	public void allowDuplicateEntriesInXForwardedForHeader() throws Exception {
 		MockServerHttpRequest request = MockServerHttpRequest.get("http://localhost:8080/get")
-				.remoteAddress(new InetSocketAddress(InetAddress.getByName("10.0.0.1"), 80))
-				.header(X_FORWARDED_FOR_HEADER, "10.0.0.1").build();
+	.remoteAddress(new InetSocketAddress(InetAddress.getByName("10.0.0.1"), 80))
+	.header(X_FORWARDED_FOR_HEADER, "10.0.0.1").build();
 
 		XForwardedHeadersFilter filter = new XForwardedHeadersFilter();
 
@@ -299,8 +299,8 @@ public class XForwardedHeadersFilterTests {
 	@Test
 	public void nullValuesSkipped() throws Exception {
 		MockServerHttpRequest request = MockServerHttpRequest.get("/get")
-				.remoteAddress(new InetSocketAddress(InetAddress.getByName("10.0.0.1"), 80))
-				.header(X_FORWARDED_FOR_HEADER, "10.0.0.1").build();
+	.remoteAddress(new InetSocketAddress(InetAddress.getByName("10.0.0.1"), 80))
+	.header(X_FORWARDED_FOR_HEADER, "10.0.0.1").build();
 
 		XForwardedHeadersFilter filter = new XForwardedHeadersFilter();
 

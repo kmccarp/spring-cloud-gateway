@@ -47,7 +47,7 @@ final class HttpComponentsClientHttpRequest extends AbstractBufferingClientHttpR
 	private final HttpContext httpContext;
 
 	HttpComponentsClientHttpRequest(final HttpClient httpClient, final HttpUriRequest httpRequest,
-			final HttpContext httpContext) {
+final HttpContext httpContext) {
 		this.httpClient = httpClient;
 		this.httpRequest = httpRequest;
 		this.httpContext = httpContext;
@@ -71,7 +71,7 @@ final class HttpComponentsClientHttpRequest extends AbstractBufferingClientHttpR
 
 	@Override
 	protected ClientHttpResponse executeInternal(final HttpHeaders headers, final byte[] bufferedOutput)
-			throws IOException {
+throws IOException {
 		addHeaders(headers);
 		attachBodyRequest(bufferedOutput);
 
@@ -86,7 +86,7 @@ final class HttpComponentsClientHttpRequest extends AbstractBufferingClientHttpR
 				httpRequest.addHeader(headerName, headerValue);
 			}
 			else if (!CONTENT_LENGTH_HEADER_NAME.equalsIgnoreCase(headerName)
-					&& !TRANSFER_ENCODING_HEADER_NAME.equalsIgnoreCase(headerName)) {
+		&& !TRANSFER_ENCODING_HEADER_NAME.equalsIgnoreCase(headerName)) {
 				final Iterator<String> it = headerValues.iterator();
 				while (it.hasNext()) {
 					String value = it.next();

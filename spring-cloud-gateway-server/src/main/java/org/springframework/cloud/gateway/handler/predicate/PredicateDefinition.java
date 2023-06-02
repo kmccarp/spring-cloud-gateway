@@ -46,7 +46,7 @@ public class PredicateDefinition {
 		int eqIdx = text.indexOf('=');
 		if (eqIdx <= 0) {
 			throw new ValidationException(
-					"Unable to parse PredicateDefinition text '" + text + "'" + ", must be of the form name=value");
+		"Unable to parse PredicateDefinition text '" + text + "'" + ", must be of the form name=value");
 		}
 		setName(text.substring(0, eqIdx));
 

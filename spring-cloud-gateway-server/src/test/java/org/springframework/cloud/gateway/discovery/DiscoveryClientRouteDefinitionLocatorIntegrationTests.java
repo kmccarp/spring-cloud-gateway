@@ -37,9 +37,8 @@ import org.springframework.context.annotation.Bean;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(classes = DiscoveryClientRouteDefinitionLocatorIntegrationTests.Config.class,
-		properties = { "spring.cloud.gateway.discovery.locator.enabled=true",
-				"spring.cloud.gateway.discovery.locator.route-id-prefix=test__" })
+@SpringBootTest(classes = DiscoveryClientRouteDefinitionLocatorIntegrationTests.Config.class,properties = {"spring.cloud.gateway.discovery.locator.enabled=true",
+				"spring.cloud.gateway.discovery.locator.route-id-prefix=test__"})
 public class DiscoveryClientRouteDefinitionLocatorIntegrationTests {
 
 	@Autowired
@@ -54,7 +53,7 @@ public class DiscoveryClientRouteDefinitionLocatorIntegrationTests {
 	@Test
 	public void newServiceAddsRoute() throws Exception {
 		List<Route> routes = routeLocator.getRoutes().filter(route -> route.getId().startsWith("test__")).collectList()
-				.block();
+	.block();
 		assertThat(routes).hasSize(1);
 
 		discoveryClient.multiple();
@@ -83,10 +82,10 @@ public class DiscoveryClientRouteDefinitionLocatorIntegrationTests {
 		AtomicBoolean single = new AtomicBoolean(true);
 
 		DefaultServiceInstance instance1 = new DefaultServiceInstance("service1_1", "service1", "localhost", 8001,
-				false);
+	false);
 
 		DefaultServiceInstance instance2 = new DefaultServiceInstance("service2_1", "service2", "localhost", 8001,
-				false);
+	false);
 
 		public void multiple() {
 			single.set(false);

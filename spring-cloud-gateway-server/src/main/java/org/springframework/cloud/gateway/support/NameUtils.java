@@ -57,7 +57,7 @@ public final class NameUtils {
 
 	public static String normalizeGlobalFilterName(Class<? extends GlobalFilter> clazz) {
 		return removeGarbage(clazz.getSimpleName().replace(GlobalFilter.class.getSimpleName(), "")).replace("Filter",
-				"");
+	"");
 	}
 
 	public static String normalizeFilterFactoryNameAsProperty(Class<? extends GatewayFilterFactory> clazz) {

@@ -69,23 +69,23 @@ public class SecureHeadersGatewayFilterFactoryUnitTests {
 	@Test
 	public void addAllHeadersIfNothingIsDisabled() {
 		SecureHeadersGatewayFilterFactory filterFactory = new SecureHeadersGatewayFilterFactory(
-				new SecureHeadersProperties());
+	new SecureHeadersProperties());
 		filter = filterFactory.apply(new Config());
 
 		filter.filter(exchange, filterChain).block();
 
 		ServerHttpResponse response = exchange.getResponse();
 		assertThat(response.getHeaders()).containsKeys(X_XSS_PROTECTION_HEADER, STRICT_TRANSPORT_SECURITY_HEADER,
-				X_FRAME_OPTIONS_HEADER, X_CONTENT_TYPE_OPTIONS_HEADER, REFERRER_POLICY_HEADER,
-				CONTENT_SECURITY_POLICY_HEADER, X_DOWNLOAD_OPTIONS_HEADER, X_PERMITTED_CROSS_DOMAIN_POLICIES_HEADER);
+	X_FRAME_OPTIONS_HEADER, X_CONTENT_TYPE_OPTIONS_HEADER, REFERRER_POLICY_HEADER,
+	CONTENT_SECURITY_POLICY_HEADER, X_DOWNLOAD_OPTIONS_HEADER, X_PERMITTED_CROSS_DOMAIN_POLICIES_HEADER);
 	}
 
 	@Test
 	public void doNotAddDisabledHeaders() {
 		SecureHeadersProperties properties = new SecureHeadersProperties();
 		properties.setDisable(asList("x-xss-protection", "strict-transport-security", "x-frame-options",
-				"x-content-type-options", "referrer-policy", "content-security-policy", "x-download-options",
-				"x-permitted-cross-domain-policies"));
+	"x-content-type-options", "referrer-policy", "content-security-policy", "x-download-options",
+	"x-permitted-cross-domain-policies"));
 
 		SecureHeadersGatewayFilterFactory filterFactory = new SecureHeadersGatewayFilterFactory(properties);
 		filter = filterFactory.apply(new Config());
@@ -94,8 +94,8 @@ public class SecureHeadersGatewayFilterFactoryUnitTests {
 
 		ServerHttpResponse response = captor.getValue().getResponse();
 		assertThat(response.getHeaders()).doesNotContainKeys(X_XSS_PROTECTION_HEADER, STRICT_TRANSPORT_SECURITY_HEADER,
-				X_FRAME_OPTIONS_HEADER, X_CONTENT_TYPE_OPTIONS_HEADER, REFERRER_POLICY_HEADER,
-				CONTENT_SECURITY_POLICY_HEADER, X_DOWNLOAD_OPTIONS_HEADER, X_PERMITTED_CROSS_DOMAIN_POLICIES_HEADER);
+	X_FRAME_OPTIONS_HEADER, X_CONTENT_TYPE_OPTIONS_HEADER, REFERRER_POLICY_HEADER,
+	CONTENT_SECURITY_POLICY_HEADER, X_DOWNLOAD_OPTIONS_HEADER, X_PERMITTED_CROSS_DOMAIN_POLICIES_HEADER);
 
 	}
 
@@ -103,7 +103,7 @@ public class SecureHeadersGatewayFilterFactoryUnitTests {
 	public void overrideSomeHeaders() {
 		SecureHeadersProperties properties = new SecureHeadersProperties();
 		SecureHeadersGatewayFilterFactory filterFactory = new SecureHeadersGatewayFilterFactory(
-				new SecureHeadersProperties());
+	new SecureHeadersProperties());
 		Config config = new Config();
 		config.setStrictTransportSecurity("max-age=65535");
 		config.setReferrerPolicy("referrer");
@@ -113,22 +113,22 @@ public class SecureHeadersGatewayFilterFactoryUnitTests {
 
 		ServerHttpResponse response = exchange.getResponse();
 		assertThat(response.getHeaders()).containsKeys(X_XSS_PROTECTION_HEADER, STRICT_TRANSPORT_SECURITY_HEADER,
-				X_FRAME_OPTIONS_HEADER, X_CONTENT_TYPE_OPTIONS_HEADER, REFERRER_POLICY_HEADER,
-				CONTENT_SECURITY_POLICY_HEADER, X_DOWNLOAD_OPTIONS_HEADER, X_PERMITTED_CROSS_DOMAIN_POLICIES_HEADER);
+	X_FRAME_OPTIONS_HEADER, X_CONTENT_TYPE_OPTIONS_HEADER, REFERRER_POLICY_HEADER,
+	CONTENT_SECURITY_POLICY_HEADER, X_DOWNLOAD_OPTIONS_HEADER, X_PERMITTED_CROSS_DOMAIN_POLICIES_HEADER);
 
 		assertThat(response.getHeaders().get(STRICT_TRANSPORT_SECURITY_HEADER)).containsOnly("max-age=65535");
 		assertThat(response.getHeaders().get(REFERRER_POLICY_HEADER)).containsOnly("referrer");
 
 		assertThat(response.getHeaders().get(X_XSS_PROTECTION_HEADER))
-				.containsOnly(properties.getXssProtectionHeader());
+	.containsOnly(properties.getXssProtectionHeader());
 		assertThat(response.getHeaders().get(X_FRAME_OPTIONS_HEADER)).containsOnly(properties.getFrameOptions());
 		assertThat(response.getHeaders().get(X_CONTENT_TYPE_OPTIONS_HEADER))
-				.containsOnly(properties.getContentTypeOptions());
+	.containsOnly(properties.getContentTypeOptions());
 		assertThat(response.getHeaders().get(CONTENT_SECURITY_POLICY_HEADER))
-				.containsOnly(properties.getContentSecurityPolicy());
+	.containsOnly(properties.getContentSecurityPolicy());
 		assertThat(response.getHeaders().get(X_DOWNLOAD_OPTIONS_HEADER)).containsOnly(properties.getDownloadOptions());
 		assertThat(response.getHeaders().get(X_PERMITTED_CROSS_DOMAIN_POLICIES_HEADER))
-				.containsOnly(properties.getPermittedCrossDomainPolicies());
+	.containsOnly(properties.getPermittedCrossDomainPolicies());
 
 	}
 
@@ -136,12 +136,12 @@ public class SecureHeadersGatewayFilterFactoryUnitTests {
 	public void doesNotDuplicateHeaders() {
 		String originalHeaderValue = "original-header-value";
 		SecureHeadersGatewayFilterFactory filterFactory = new SecureHeadersGatewayFilterFactory(
-				new SecureHeadersProperties());
+	new SecureHeadersProperties());
 		Config config = new Config();
 
-		String[] headers = { X_XSS_PROTECTION_HEADER, STRICT_TRANSPORT_SECURITY_HEADER, X_FRAME_OPTIONS_HEADER,
-				X_CONTENT_TYPE_OPTIONS_HEADER, REFERRER_POLICY_HEADER, CONTENT_SECURITY_POLICY_HEADER,
-				X_DOWNLOAD_OPTIONS_HEADER, X_PERMITTED_CROSS_DOMAIN_POLICIES_HEADER };
+		String[] headers = {X_XSS_PROTECTION_HEADER, STRICT_TRANSPORT_SECURITY_HEADER, X_FRAME_OPTIONS_HEADER,
+	X_CONTENT_TYPE_OPTIONS_HEADER, REFERRER_POLICY_HEADER, CONTENT_SECURITY_POLICY_HEADER,
+	X_DOWNLOAD_OPTIONS_HEADER, X_PERMITTED_CROSS_DOMAIN_POLICIES_HEADER};
 
 		for (String header : headers) {
 			filter = filterFactory.apply(config);

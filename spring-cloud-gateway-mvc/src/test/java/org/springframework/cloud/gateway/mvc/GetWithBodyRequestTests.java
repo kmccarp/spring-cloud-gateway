@@ -88,11 +88,11 @@ public class GetWithBodyRequestTests {
 		final HttpEntity<Foo> entity = new HttpEntity<>(bodyRequest, headers);
 
 		final ResponseEntity<Foo> response = rest.exchange("/proxy/get-with-body-request", HttpMethod.GET, entity,
-				Foo.class);
+	Foo.class);
 
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(response.getBody()).isInstanceOfSatisfying(Foo.class,
-				foo -> assertThat(foo.getName()).isEqualTo("hello world"));
+	foo -> assertThat(foo.getName()).isEqualTo("hello world"));
 	}
 
 	@SpringBootApplication
@@ -108,7 +108,7 @@ public class GetWithBodyRequestTests {
 		@Bean
 		public ProxyExchangeArgumentResolver proxyExchangeArgumentResolver(final ProxyProperties proxy) {
 			ProxyExchangeArgumentResolver resolver = new ProxyExchangeArgumentResolver(
-					generateConfiguredRestTemplate());
+		generateConfiguredRestTemplate());
 			resolver.setHeaders(proxy.convertHeaders());
 			resolver.setAutoForwardedHeaders(proxy.getAutoForward());
 			resolver.setSensitive(proxy.getSensitive());

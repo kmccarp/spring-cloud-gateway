@@ -53,8 +53,7 @@ import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.r
 /**
  * @author Ryan Baxter
  */
-public abstract class SpringCloudCircuitBreakerFilterFactory
-		extends AbstractGatewayFilterFactory<SpringCloudCircuitBreakerFilterFactory.Config> {
+public abstract class SpringCloudCircuitBreakerFilterFactoryextends AbstractGatewayFilterFactory<SpringCloudCircuitBreakerFilterFactory.Config> {
 
 	/** CircuitBreaker component name. */
 	public static final String NAME = "CircuitBreaker";
@@ -69,7 +68,7 @@ public abstract class SpringCloudCircuitBreakerFilterFactory
 	private volatile DispatcherHandler dispatcherHandler;
 
 	public SpringCloudCircuitBreakerFilterFactory(ReactiveCircuitBreakerFactory reactiveCircuitBreakerFactory,
-			ObjectProvider<DispatcherHandler> dispatcherHandlerProvider) {
+ObjectProvider<DispatcherHandler> dispatcherHandlerProvider) {
 		super(Config.class);
 		this.reactiveCircuitBreakerFactory = reactiveCircuitBreakerFactory;
 		this.dispatcherHandlerProvider = dispatcherHandlerProvider;
@@ -92,8 +91,8 @@ public abstract class SpringCloudCircuitBreakerFilterFactory
 	public GatewayFilter apply(Config config) {
 		ReactiveCircuitBreaker cb = reactiveCircuitBreakerFactory.create(config.getId());
 		Set<HttpStatus> statuses = config.getStatusCodes().stream().map(HttpStatusHolder::parse)
-				.filter(statusHolder -> statusHolder.getHttpStatus() != null).map(HttpStatusHolder::getHttpStatus)
-				.collect(Collectors.toSet());
+	.filter(statusHolder -> statusHolder.getHttpStatus() != null).map(HttpStatusHolder::getHttpStatus)
+	.collect(Collectors.toSet());
 
 		return new GatewayFilter() {
 			@Override
@@ -117,11 +116,11 @@ public abstract class SpringCloudCircuitBreakerFilterFactory
 					boolean encoded = containsEncodedParts(uri);
 
 					String expandedFallbackUri = ServerWebExchangeUtils.expand(exchange,
-							config.getFallbackUri().getPath());
+				config.getFallbackUri().getPath());
 					String fullFallbackUri = String.format("%s:%s", config.getFallbackUri().getScheme(),
-							expandedFallbackUri);
+				expandedFallbackUri);
 					URI requestUrl = UriComponentsBuilder.fromUri(uri).host(null).port(null)
-							.uri(URI.create(fullFallbackUri)).scheme(null).build(encoded).toUri();
+				.uri(URI.create(fullFallbackUri)).scheme(null).build(encoded).toUri();
 
 					exchange.getAttributes().put(GATEWAY_REQUEST_URL_ATTR, requestUrl);
 					exchange.getAttributes().remove(GATEWAY_PREDICATE_PATH_CONTAINER_ATTR);
@@ -138,7 +137,7 @@ public abstract class SpringCloudCircuitBreakerFilterFactory
 			@Override
 			public String toString() {
 				return filterToStringCreator(SpringCloudCircuitBreakerFilterFactory.this)
-						.append("name", config.getName()).append("fallback", config.fallbackUri).toString();
+			.append("name", config.getName()).append("fallback", config.fallbackUri).toString();
 			}
 		};
 	}
@@ -147,7 +146,7 @@ public abstract class SpringCloudCircuitBreakerFilterFactory
 
 	private void addExceptionDetails(Throwable t, ServerWebExchange exchange) {
 		ofNullable(t).ifPresent(
-				exception -> exchange.getAttributes().put(CIRCUITBREAKER_EXECUTION_EXCEPTION_ATTR, exception));
+	exception -> exchange.getAttributes().put(CIRCUITBREAKER_EXECUTION_EXCEPTION_ATTR, exception));
 	}
 
 	@Override

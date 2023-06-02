@@ -59,8 +59,8 @@ public class GatewayProperties {
 	private List<FilterDefinition> defaultFilters = new ArrayList<>();
 
 	private List<MediaType> streamingMediaTypes = Arrays.asList(MediaType.TEXT_EVENT_STREAM,
-			new MediaType("application", "stream+json"), new MediaType("application", "grpc"),
-			new MediaType("application", "grpc+protobuf"), new MediaType("application", "grpc+json"));
+new MediaType("application", "stream+json"), new MediaType("application", "grpc"),
+new MediaType("application", "grpc+protobuf"), new MediaType("application", "grpc+json"));
 
 	/**
 	 * Option to fail on route definition errors, defaults to true. Otherwise, a warning
@@ -106,8 +106,8 @@ public class GatewayProperties {
 	@Override
 	public String toString() {
 		return new ToStringCreator(this).append("routes", routes).append("defaultFilters", defaultFilters)
-				.append("streamingMediaTypes", streamingMediaTypes)
-				.append("failOnRouteDefinitionError", failOnRouteDefinitionError).toString();
+	.append("streamingMediaTypes", streamingMediaTypes)
+	.append("failOnRouteDefinitionError", failOnRouteDefinitionError).toString();
 
 	}
 

@@ -35,11 +35,10 @@ import org.springframework.http.MediaType;
 /**
  * @author Marta Medio
  */
-public class RemoveJsonAttributesResponseBodyGatewayFilterFactory extends
-		AbstractGatewayFilterFactory<RemoveJsonAttributesResponseBodyGatewayFilterFactory.FieldListConfiguration> {
+public class RemoveJsonAttributesResponseBodyGatewayFilterFactory extendsAbstractGatewayFilterFactory<RemoveJsonAttributesResponseBodyGatewayFilterFactory.FieldListConfiguration> {
 
 	public RemoveJsonAttributesResponseBodyGatewayFilterFactory(
-			ModifyResponseBodyGatewayFilterFactory modifyResponseBodyGatewayFilterFactory) {
+ModifyResponseBodyGatewayFilterFactory modifyResponseBodyGatewayFilterFactory) {
 		this.modifyResponseBodyGatewayFilterFactory = modifyResponseBodyGatewayFilterFactory;
 	}
 
@@ -139,7 +138,7 @@ public class RemoveJsonAttributesResponseBodyGatewayFilterFactory extends
 		@Override
 		public String toString() {
 			return new ToStringCreator(this).append("fieldList", fieldList)
-					.append("deleteRecursively", deleteRecursively).toString();
+		.append("deleteRecursively", deleteRecursively).toString();
 		}
 
 	}

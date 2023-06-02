@@ -57,7 +57,7 @@ public class ServerWebExchangeUtilsTests {
 	public void missingVarThrowsException() {
 		MockServerWebExchange exchange = mockExchange(Collections.emptyMap());
 		Assertions.assertThatThrownBy(() -> expand(exchange, "my-{foo}-{baz}"))
-				.isInstanceOf(IllegalArgumentException.class);
+	.isInstanceOf(IllegalArgumentException.class);
 	}
 
 	@Test
@@ -66,28 +66,24 @@ public class ServerWebExchangeUtilsTests {
 		exchange.getAttributes().put(CACHED_REQUEST_BODY_ATTR, "foo");
 
 		ServerWebExchangeUtils
-				.cacheRequestBodyAndRequest(exchange,
-						(serverHttpRequest) -> ServerRequest
-								.create(exchange.mutate().request(serverHttpRequest).build(),
-										HandlerStrategies.withDefaults().messageReaders())
-								.bodyToMono(DefaultDataBuffer.class))
-				.block();
+	.cacheRequestBodyAndRequest(exchange,
+(serverHttpRequest) -> ServerRequest.create(exchange.mutate().request(serverHttpRequest).build(),
+										HandlerStrategies.withDefaults().messageReaders()).bodyToMono(DefaultDataBuffer.class))
+	.block();
 	}
 
 	@Test
 	public void duplicatedCachingDataBufferHandling() {
 		MockServerWebExchange exchange = mockExchange(HttpMethod.POST, Collections.emptyMap());
 		DataBuffer dataBufferBeforeCaching = exchange.getResponse().bufferFactory()
-				.wrap("Cached buffer".getBytes(StandardCharsets.UTF_8));
+	.wrap("Cached buffer".getBytes(StandardCharsets.UTF_8));
 		exchange.getAttributes().put(CACHED_REQUEST_BODY_ATTR, dataBufferBeforeCaching);
 
 		ServerWebExchangeUtils
-				.cacheRequestBodyAndRequest(exchange,
-						(serverHttpRequest) -> ServerRequest
-								.create(exchange.mutate().request(serverHttpRequest).build(),
-										HandlerStrategies.withDefaults().messageReaders())
-								.bodyToMono(DefaultDataBuffer.class))
-				.block();
+	.cacheRequestBodyAndRequest(exchange,
+(serverHttpRequest) -> ServerRequest.create(exchange.mutate().request(serverHttpRequest).build(),
+										HandlerStrategies.withDefaults().messageReaders()).bodyToMono(DefaultDataBuffer.class))
+	.block();
 
 		DataBuffer dataBufferAfterCached = exchange.getAttribute(CACHED_REQUEST_BODY_ATTR);
 

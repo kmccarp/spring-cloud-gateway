@@ -53,8 +53,8 @@ public class GatewayClassPathWarningAutoConfiguration {
 
 		public WebfluxMissingFromClasspathConfiguration() {
 			log.warn(BORDER + "Spring Webflux is missing from the classpath, "
-					+ "which is required for Spring Cloud Gateway at this time. "
-					+ "Please add spring-boot-starter-webflux dependency." + BORDER);
+		+ "which is required for Spring Cloud Gateway at this time. "
+		+ "Please add spring-boot-starter-webflux dependency." + BORDER);
 		}
 
 	}

@@ -60,16 +60,16 @@ public class ModifyResponseBodyGatewayFilterFactoryTests extends BaseWebClientTe
 		URI uri = UriComponentsBuilder.fromUriString(this.baseUri + "/").build(true).toUri();
 
 		testClient.get().uri(uri).header("Host", "www.modifyresponsebodyjava.org").accept(MediaType.APPLICATION_JSON)
-				.exchange().expectBody().json("{\"value\": \"httpbin compatible home\", \"length\": 23}");
+	.exchange().expectBody().json("{\"value\": \"httpbin compatible home\", \"length\": 23}");
 	}
 
 	@Test
 	public void modifyResponeBodyToLarge() {
 		testClient.post().uri("/post").header("Host", "www.modifyresponsebodyjavatoolarge.org")
-				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-				.body(BodyInserters.fromValue(toLarge)).exchange().expectStatus()
-				.isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR).expectBody().jsonPath("message")
-				.isEqualTo("Exceeded limit on max bytes to buffer : 40");
+	.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+	.body(BodyInserters.fromValue(toLarge)).exchange().expectStatus()
+	.isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR).expectBody().jsonPath("message")
+	.isEqualTo("Exceeded limit on max bytes to buffer : 40");
 	}
 
 	@EnableAutoConfiguration
@@ -83,21 +83,19 @@ public class ModifyResponseBodyGatewayFilterFactoryTests extends BaseWebClientTe
 		@Bean
 		public RouteLocator testRouteLocator(RouteLocatorBuilder builder) {
 			return builder.routes().route("modify_response_java_test",
-					r -> r.path("/").and().host("www.modifyresponsebodyjava.org").filters(f -> f.prefixPath("/httpbin")
-							.modifyResponseBody(String.class, Map.class, (webExchange, originalResponse) -> {
-								Map<String, Object> modifiedResponse = new HashMap<>();
-								modifiedResponse.put("value", originalResponse);
-								modifiedResponse.put("length", originalResponse.length());
-								return Mono.just(modifiedResponse);
-							})).uri(uri))
-					.route("modify_response_java_test_to_large",
-							r -> r.path("/").and().host("www.modifyresponsebodyjavatoolarge.org")
-									.filters(f -> f.prefixPath("/httpbin").modifyResponseBody(String.class,
-											String.class, (webExchange, originalResponse) -> {
-												return Mono.just(toLarge);
-											}))
-									.uri(uri))
-					.build();
+		r -> r.path("/").and().host("www.modifyresponsebodyjava.org").filters(f -> f.prefixPath("/httpbin")
+	.modifyResponseBody(String.class, Map.class, (webExchange, originalResponse) -> {
+		Map<String, Object> modifiedResponse = new HashMap<>();
+		modifiedResponse.put("value", originalResponse);
+		modifiedResponse.put("length", originalResponse.length());
+		return Mono.just(modifiedResponse);
+	})).uri(uri))
+		.route("modify_response_java_test_to_large",
+	r -> r.path("/").and().host("www.modifyresponsebodyjavatoolarge.org")
+.filters(f -> f.prefixPath("/httpbin").modifyResponseBody(String.class,String.class, (webExchange, originalResponse) -> {
+return Mono.just(toLarge);}))
+.uri(uri))
+		.build();
 		}
 
 	}

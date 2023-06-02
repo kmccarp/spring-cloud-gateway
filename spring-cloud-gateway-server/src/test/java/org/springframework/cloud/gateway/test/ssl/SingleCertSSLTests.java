@@ -48,7 +48,7 @@ public class SingleCertSSLTests extends BaseWebClientTests {
 	public void setup() throws Exception {
 		try {
 			SslContext sslContext = SslContextBuilder.forClient().trustManager(InsecureTrustManagerFactory.INSTANCE)
-					.build();
+		.build();
 			HttpClient httpClient = HttpClient.create().secure(ssl -> ssl.sslContext(sslContext));
 			setup(new ReactorClientHttpConnector(httpClient), "https://localhost:" + port);
 		}

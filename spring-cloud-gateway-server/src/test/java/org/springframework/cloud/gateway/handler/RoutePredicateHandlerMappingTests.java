@@ -52,7 +52,7 @@ public class RoutePredicateHandlerMappingTests {
 			}
 		};
 		RoutePredicateHandlerMapping mapping = new RoutePredicateHandlerMapping(null, routeLocator,
-				new GlobalCorsProperties(), new MockEnvironment());
+	new GlobalCorsProperties(), new MockEnvironment());
 
 		final Mono<Route> routeMono = mapping.lookupRoute(Mockito.mock(ServerWebExchange.class));
 
@@ -64,17 +64,17 @@ public class RoutePredicateHandlerMappingTests {
 	@Test
 	public void lookupRouteFromAsyncPredicates(CapturedOutput capturedOutput) {
 		Route routeFalse = Route.async().id("routeFalse").uri("http://localhost")
-				.asyncPredicate(swe -> Mono.just(false)).build();
+	.asyncPredicate(swe -> Mono.just(false)).build();
 		Route routeError = Route.async().id("routeError").uri("http://localhost")
-				.asyncPredicate(swe -> Mono.error(new IllegalStateException("boom1"))).build();
+	.asyncPredicate(swe -> Mono.error(new IllegalStateException("boom1"))).build();
 		Route routeFail = Route.async().id("routeFail").uri("http://localhost").asyncPredicate(swe -> {
 			throw new IllegalStateException("boom2");
 		}).build();
 		Route routeTrue = Route.async().id("routeTrue").uri("http://localhost").asyncPredicate(swe -> Mono.just(true))
-				.build();
+	.build();
 		RouteLocator routeLocator = () -> Flux.just(routeFalse, routeError, routeFail, routeTrue).hide();
 		RoutePredicateHandlerMapping mapping = new RoutePredicateHandlerMapping(null, routeLocator,
-				new GlobalCorsProperties(), new MockEnvironment());
+	new GlobalCorsProperties(), new MockEnvironment());
 
 		final Mono<Route> routeMono = mapping.lookupRoute(Mockito.mock(ServerWebExchange.class));
 

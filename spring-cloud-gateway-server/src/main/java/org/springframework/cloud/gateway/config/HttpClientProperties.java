@@ -152,17 +152,17 @@ public class HttpClientProperties {
 	public String toString() {
 		// @formatter:off
 		return new ToStringCreator(this)
-				.append("connectTimeout", connectTimeout)
-				.append("responseTimeout", responseTimeout)
-				.append("maxHeaderSize", maxHeaderSize)
-				.append("maxInitialLineLength", maxInitialLineLength)
-				.append("pool", pool)
-				.append("proxy", proxy)
-				.append("ssl", ssl)
-				.append("websocket", websocket)
-				.append("wiretap", wiretap)
-				.append("compression", compression)
-				.toString();
+	.append("connectTimeout", connectTimeout)
+	.append("responseTimeout", responseTimeout)
+	.append("maxHeaderSize", maxHeaderSize)
+	.append("maxInitialLineLength", maxInitialLineLength)
+	.append("pool", pool)
+	.append("proxy", proxy)
+	.append("ssl", ssl)
+	.append("websocket", websocket)
+	.append("wiretap", wiretap)
+	.append("compression", compression)
+	.toString();
 		// @formatter:on
 
 	}
@@ -275,8 +275,8 @@ public class HttpClientProperties {
 		@Override
 		public String toString() {
 			return "Pool{" + "type=" + type + ", name='" + name + '\'' + ", maxConnections=" + maxConnections
-					+ ", acquireTimeout=" + acquireTimeout + ", maxIdleTime=" + maxIdleTime + ", maxLifeTime="
-					+ maxLifeTime + ", evictionInterval=" + evictionInterval + ", metrics=" + metrics + '}';
+		+ ", acquireTimeout=" + acquireTimeout + ", maxIdleTime=" + maxIdleTime + ", maxLifeTime="
+		+ maxLifeTime + ", evictionInterval=" + evictionInterval + ", metrics=" + metrics + '}';
 		}
 
 		public enum PoolType {
@@ -374,8 +374,8 @@ public class HttpClientProperties {
 		@Override
 		public String toString() {
 			return "Proxy{" + "type='" + type + '\'' + "host='" + host + '\'' + ", port=" + port + ", username='"
-					+ username + '\'' + ", password='" + password + '\'' + ", nonProxyHostsPattern='"
-					+ nonProxyHostsPattern + '\'' + '}';
+		+ username + '\'' + ", password='" + password + '\'' + ", nonProxyHostsPattern='"
+		+ nonProxyHostsPattern + '\'' + '}';
 		}
 
 	}
@@ -499,10 +499,10 @@ public class HttpClientProperties {
 		@Override
 		public String toString() {
 			return new ToStringCreator(this).append("useInsecureTrustManager", useInsecureTrustManager)
-					.append("trustedX509Certificates", trustedX509Certificates)
-					.append("handshakeTimeout", handshakeTimeout)
-					.append("closeNotifyFlushTimeout", closeNotifyFlushTimeout)
-					.append("closeNotifyReadTimeout", closeNotifyReadTimeout).toString();
+		.append("trustedX509Certificates", trustedX509Certificates)
+		.append("handshakeTimeout", handshakeTimeout)
+		.append("closeNotifyFlushTimeout", closeNotifyFlushTimeout)
+		.append("closeNotifyReadTimeout", closeNotifyReadTimeout).toString();
 		}
 
 	}
@@ -534,7 +534,7 @@ public class HttpClientProperties {
 		@Override
 		public String toString() {
 			return new ToStringCreator(this).append("maxFramePayloadLength", maxFramePayloadLength)
-					.append("proxyPing", proxyPing).toString();
+		.append("proxyPing", proxyPing).toString();
 		}
 
 	}

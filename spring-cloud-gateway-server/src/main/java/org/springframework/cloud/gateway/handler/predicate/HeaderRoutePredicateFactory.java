@@ -59,7 +59,7 @@ public class HeaderRoutePredicateFactory extends AbstractRoutePredicateFactory<H
 			@Override
 			public boolean test(ServerWebExchange exchange) {
 				List<String> values = exchange.getRequest().getHeaders().getOrDefault(config.header,
-						Collections.emptyList());
+			Collections.emptyList());
 				if (values.isEmpty()) {
 					return false;
 				}

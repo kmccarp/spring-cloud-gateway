@@ -37,8 +37,7 @@ import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.a
  *
  * @author Ryan Baxter
  */
-public class StripPrefixGatewayFilterFactory
-		extends AbstractGatewayFilterFactory<StripPrefixGatewayFilterFactory.Config> {
+public class StripPrefixGatewayFilterFactoryextends AbstractGatewayFilterFactory<StripPrefixGatewayFilterFactory.Config> {
 
 	/**
 	 * Parts key.
@@ -89,7 +88,7 @@ public class StripPrefixGatewayFilterFactory
 			@Override
 			public String toString() {
 				return filterToStringCreator(StripPrefixGatewayFilterFactory.this).append("parts", config.getParts())
-						.toString();
+			.toString();
 			}
 		};
 	}

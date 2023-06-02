@@ -55,14 +55,14 @@ public class ConfigurationService implements ApplicationEventPublisherAware {
 	private Supplier<Validator> validator;
 
 	public ConfigurationService(BeanFactory beanFactory, ObjectProvider<ConversionService> conversionService,
-			ObjectProvider<Validator> validator) {
+ObjectProvider<Validator> validator) {
 		this.beanFactory = beanFactory;
 		this.conversionService = conversionService::getIfAvailable;
 		this.validator = validator::getIfAvailable;
 	}
 
 	public ConfigurationService(BeanFactory beanFactory, Supplier<ConversionService> conversionService,
-			Supplier<Validator> validator) {
+Supplier<Validator> validator) {
 		this.beanFactory = beanFactory;
 		this.conversionService = conversionService;
 		this.validator = validator;
@@ -86,7 +86,7 @@ public class ConfigurationService implements ApplicationEventPublisherAware {
 	}
 
 	/* for testing */ static <T> T bindOrCreate(Bindable<T> bindable, Map<String, Object> properties,
-			String configurationPropertyName, Validator validator, ConversionService conversionService) {
+String configurationPropertyName, Validator validator, ConversionService conversionService) {
 		// see ConfigurationPropertiesBinder from spring boot for this definition.
 		BindHandler handler = new IgnoreTopLevelConverterNotFoundBindHandler();
 
@@ -95,10 +95,10 @@ public class ConfigurationService implements ApplicationEventPublisherAware {
 		}
 
 		List<ConfigurationPropertySource> propertySources = Collections
-				.singletonList(new MapConfigurationPropertySource(properties));
+	.singletonList(new MapConfigurationPropertySource(properties));
 
 		return new Binder(propertySources, null, conversionService).bindOrCreate(configurationPropertyName, bindable,
-				handler);
+	handler);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -115,7 +115,7 @@ public class ConfigurationService implements ApplicationEventPublisherAware {
 	}
 
 	public static class ConfigurableBuilder<T, C extends Configurable<T> & ShortcutConfigurable>
-			extends AbstractBuilder<T, ConfigurableBuilder<T, C>> {
+extends AbstractBuilder<T, ConfigurableBuilder<T, C>> {
 
 		private final C configurable;
 
@@ -138,7 +138,7 @@ public class ConfigurationService implements ApplicationEventPublisherAware {
 		protected Map<String, Object> normalizeProperties() {
 			if (this.service.beanFactory != null) {
 				return this.configurable.shortcutType().normalize(this.properties, this.configurable,
-						this.service.parser, this.service.beanFactory);
+			this.service.parser, this.service.beanFactory);
 			}
 			return super.normalizeProperties();
 		}
@@ -147,7 +147,7 @@ public class ConfigurationService implements ApplicationEventPublisherAware {
 		protected T doBind() {
 			Bindable<T> bindable = Bindable.of(this.configurable.getConfigClass());
 			T bound = bindOrCreate(bindable, this.normalizedProperties, this.configurable.shortcutFieldPrefix(),
-					/* this.name, */this.service.validator.get(), this.service.conversionService.get());
+		/* this.name, */this.service.validator.get(), this.service.conversionService.get());
 
 			return bound;
 		}
@@ -178,7 +178,7 @@ public class ConfigurationService implements ApplicationEventPublisherAware {
 			T toBind = getTargetObject(this.instance);
 			Bindable<T> bindable = Bindable.ofInstance(toBind);
 			return bindOrCreate(bindable, this.normalizedProperties, this.name, this.service.validator.get(),
-					this.service.conversionService.get());
+		this.service.conversionService.get());
 		}
 
 	}
@@ -235,7 +235,7 @@ public class ConfigurationService implements ApplicationEventPublisherAware {
 			validate();
 			Assert.hasText(this.name, "name may not be empty");
 			Assert.isTrue(this.properties != null || this.normalizedProperties != null,
-					"properties and normalizedProperties both may not be null");
+		"properties and normalizedProperties both may not be null");
 
 			if (this.normalizedProperties == null) {
 				this.normalizedProperties = normalizeProperties();

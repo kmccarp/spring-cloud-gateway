@@ -124,7 +124,7 @@ public class WebSocketIntegrationTests {
 		}
 
 		this.gatewayContext = new SpringApplicationBuilder(GatewayConfig.class)
-				.properties("ws.server.port:" + this.serverPort, "server.port=0", "spring.jmx.enabled=false").run();
+	.properties("ws.server.port:" + this.serverPort, "server.port=0", "spring.jmx.enabled=false").run();
 
 		ConfigurableEnvironment env = this.gatewayContext.getBean(ConfigurableEnvironment.class);
 		this.gatewayPort = Integer.valueOf(env.getProperty("local.server.port"));
@@ -163,10 +163,10 @@ public class WebSocketIntegrationTests {
 		Flux<String> input = Flux.range(1, count).map(index -> "msg-" + index);
 		AtomicReference<List<String>> actualRef = new AtomicReference<>();
 		this.client.execute(getUrl("/echo"),
-				session -> session.send(input.map(session::textMessage))
-						.thenMany(session.receive().take(count).map(WebSocketMessage::getPayloadAsText)).collectList()
-						.doOnNext(actualRef::set).then())
-				.block(TIMEOUT);
+	session -> session.send(input.map(session::textMessage))
+.thenMany(session.receive().take(count).map(WebSocketMessage::getPayloadAsText)).collectList()
+.doOnNext(actualRef::set).then())
+	.block(TIMEOUT);
 		assertThat(actualRef.get()).isNotNull();
 		assertThat(actualRef.get()).isEqualTo(input.collectList().block());
 	}
@@ -179,8 +179,8 @@ public class WebSocketIntegrationTests {
 		this.client.execute(getHttpUrl("/echoForHttp"), session -> {
 			logger.debug("Starting to send messages");
 			return session.send(input.doOnNext(s -> logger.debug("outbound " + s)).map(session::textMessage))
-					.thenMany(session.receive().take(count).map(WebSocketMessage::getPayloadAsText)).collectList()
-					.doOnNext(actualRef::set).then();
+		.thenMany(session.receive().take(count).map(WebSocketMessage::getPayloadAsText)).collectList()
+		.doOnNext(actualRef::set).then();
 		}).block(TIMEOUT);
 		assertThat(actualRef.get()).isNotNull();
 		assertThat(actualRef.get()).isEqualTo(input.collectList().block());
@@ -203,7 +203,7 @@ public class WebSocketIntegrationTests {
 			public Mono<Void> handle(WebSocketSession session) {
 				infoRef.set(session.getHandshakeInfo());
 				return session.receive().map(WebSocketMessage::getPayloadAsText).doOnNext(protocolRef::set)
-						.doOnError(protocolRef::set).then();
+			.doOnError(protocolRef::set).then();
 			}
 		}).block(TIMEOUT);
 
@@ -221,8 +221,8 @@ public class WebSocketIntegrationTests {
 		AtomicReference<Object> headerRef = new AtomicReference<>();
 
 		this.client.execute(getUrl("/custom-header"), headers, session -> session.receive()
-				.map(WebSocketMessage::getPayloadAsText).doOnNext(headerRef::set).doOnError(headerRef::set).then())
-				.block(TIMEOUT);
+	.map(WebSocketMessage::getPayloadAsText).doOnNext(headerRef::set).doOnError(headerRef::set).then())
+	.block(TIMEOUT);
 
 		assertThat(headerRef.get()).isEqualTo("my-header:my-value");
 	}
@@ -238,15 +238,15 @@ public class WebSocketIntegrationTests {
 			});
 		}).block(Duration.ofMillis(5000));
 		assertThat(closeStatus.get().block(Duration.ofMillis(5000)))
-				.isEqualTo(CloseStatus.create(4999, "server-close"));
+	.isEqualTo(CloseStatus.create(4999, "server-close"));
 	}
 
 	@Test
 	public void clientClosing() throws Exception {
 		this.client.execute(getUrl("/client-close"), session -> session.close(CloseStatus.create(4999, "client-close")))
-				.block(Duration.ofMillis(5000));
+	.block(Duration.ofMillis(5000));
 		assertThat(serverCloseStatusSink.asMono().block(Duration.ofMillis(5000)))
-				.isEqualTo(CloseStatus.create(4999, "client-close"));
+	.isEqualTo(CloseStatus.create(4999, "client-close"));
 	}
 
 	@Disabled
@@ -257,7 +257,7 @@ public class WebSocketIntegrationTests {
 		this.client.execute(getUrl("/cookie"), session -> {
 			cookie.set(session.getHandshakeInfo().getHeaders().getFirst("Set-Cookie"));
 			return session.receive().map(WebSocketMessage::getPayloadAsText).doOnNext(receivedCookieRef::set)
-					.doOnError(receivedCookieRef::set).then();
+		.doOnError(receivedCookieRef::set).then();
 		}).block(TIMEOUT);
 		assertThat(receivedCookieRef.get()).isEqualTo("cookie");
 		assertThat(cookie.get()).isEqualTo("project=spring");
@@ -396,7 +396,7 @@ public class WebSocketIntegrationTests {
 		@Bean
 		public RouteLocator wsRouteLocator(RouteLocatorBuilder builder) {
 			return builder.routes().route(r -> r.path("/echoForHttp").uri("lb://wsservice"))
-					.route(r -> r.alwaysTrue().uri("lb:ws://wsservice")).build();
+		.route(r -> r.alwaysTrue().uri("lb:ws://wsservice")).build();
 		}
 
 	}
@@ -409,7 +409,7 @@ public class WebSocketIntegrationTests {
 		@Bean
 		public ServiceInstanceListSupplier staticServiceInstanceListSupplier(Environment env) {
 			return ServiceInstanceListSuppliers.from("wsservice",
-					new DefaultServiceInstance("wsservice-1", "wsservice", "localhost", wsPort, false));
+		new DefaultServiceInstance("wsservice-1", "wsservice", "localhost", wsPort, false));
 		}
 
 	}

@@ -43,13 +43,13 @@ class OnEnabledGlobalFilterTests {
 	@Test
 	void shouldNormalizeGlobalFiltersNames() {
 		List<Class<? extends GlobalFilter>> predicates = Arrays.asList(ForwardPathFilter.class,
-				AdaptCachedBodyGlobalFilter.class, WebsocketRoutingFilter.class);
+	AdaptCachedBodyGlobalFilter.class, WebsocketRoutingFilter.class);
 
 		List<String> resultNames = predicates.stream().map(onEnabledGlobalFilter::normalizeComponentName)
-				.collect(Collectors.toList());
+	.collect(Collectors.toList());
 
 		List<String> expectedNames = Stream.of("forward-path", "adapt-cached-body", "websocket-routing")
-				.map(s -> "global-filter." + s).collect(Collectors.toList());
+	.map(s -> "global-filter." + s).collect(Collectors.toList());
 
 		assertThat(resultNames).isEqualTo(expectedNames);
 	}

@@ -34,8 +34,8 @@ public class RewriteLocationResponseHeaderGatewayFilterFactoryTests extends Base
 	@Test
 	public void rewriteLocationResponseHeaderFilterWorks() {
 		testClient.post().uri("/headers").header("Host", "test1.rewritelocationresponseheader.org").exchange()
-				.expectStatus().isOk().expectHeader()
-				.valueEquals("Location", "https://test1.rewritelocationresponseheader.org/some/object/id");
+	.expectStatus().isOk().expectHeader()
+	.valueEquals("Location", "https://test1.rewritelocationresponseheader.org/some/object/id");
 	}
 
 	@EnableAutoConfiguration

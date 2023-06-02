@@ -120,21 +120,21 @@ public class GatewayMetricsAutoConfigurationTests {
 		@Test
 		public void observabilityBeansMissing() {
 			assertThat(beanFactory.getBeanProvider(ObservedRequestHttpHeadersFilter.class).getIfAvailable(() -> null))
-					.isNull();
+		.isNull();
 			assertThat(beanFactory.getBeanProvider(ObservedResponseHttpHeadersFilter.class).getIfAvailable(() -> null))
-					.isNull();
+		.isNull();
 			assertThat(
-					beanFactory.getBeanProvider(ObservationClosingWebExceptionHandler.class).getIfAvailable(() -> null))
-							.isNull();
+		beanFactory.getBeanProvider(ObservationClosingWebExceptionHandler.class).getIfAvailable(() -> null))
+		.isNull();
 			assertThat(beanFactory.getBeanProvider(GatewayPropagatingSenderTracingObservationHandler.class)
-					.getIfAvailable(() -> null)).isNull();
+		.getIfAvailable(() -> null)).isNull();
 		}
 
 	}
 
 	@Nested
 	@SpringBootTest(classes = CustomTagsProviderConfig.class,
-			properties = "spring.cloud.gateway.metrics.prefix=myprefix.")
+properties = "spring.cloud.gateway.metrics.prefix=myprefix.")
 	public class AddCustomTagsProvider {
 
 		@Autowired(required = false)

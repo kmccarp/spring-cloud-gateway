@@ -39,7 +39,7 @@ public class HttpClientSslConfigurer extends AbstractSslConfigurer<HttpClient, H
 		final HttpClientProperties.Ssl ssl = getSslProperties();
 
 		if ((ssl.getKeyStore() != null && ssl.getKeyStore().length() > 0)
-				|| getTrustedX509CertificatesForTrustManager().length > 0 || ssl.isUseInsecureTrustManager()) {
+	|| getTrustedX509CertificatesForTrustManager().length > 0 || ssl.isUseInsecureTrustManager()) {
 			client = client.secure(sslContextSpec -> {
 				// configure ssl
 				configureSslContext(ssl, sslContextSpec);
@@ -50,7 +50,7 @@ public class HttpClientSslConfigurer extends AbstractSslConfigurer<HttpClient, H
 
 	protected void configureSslContext(HttpClientProperties.Ssl ssl, SslProvider.SslContextSpec sslContextSpec) {
 		SslProvider.ProtocolSslContextSpec clientSslContext = (serverProperties.getHttp2().isEnabled())
-				? Http2SslContextSpec.forClient() : Http11SslContextSpec.forClient();
+	? Http2SslContextSpec.forClient() : Http11SslContextSpec.forClient();
 		clientSslContext.configure(sslContextBuilder -> {
 			X509Certificate[] trustedX509Certificates = getTrustedX509CertificatesForTrustManager();
 			if (trustedX509Certificates.length > 0) {
@@ -69,8 +69,8 @@ public class HttpClientSslConfigurer extends AbstractSslConfigurer<HttpClient, H
 		});
 
 		sslContextSpec.sslContext(clientSslContext).handshakeTimeout(ssl.getHandshakeTimeout())
-				.closeNotifyFlushTimeout(ssl.getCloseNotifyFlushTimeout())
-				.closeNotifyReadTimeout(ssl.getCloseNotifyReadTimeout());
+	.closeNotifyFlushTimeout(ssl.getCloseNotifyFlushTimeout())
+	.closeNotifyReadTimeout(ssl.getCloseNotifyReadTimeout());
 	}
 
 }

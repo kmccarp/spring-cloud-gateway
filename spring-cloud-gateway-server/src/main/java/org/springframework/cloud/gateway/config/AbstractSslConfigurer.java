@@ -87,7 +87,7 @@ public abstract class AbstractSslConfigurer<T, S> {
 		try {
 			if (ssl.getKeyStore() != null && ssl.getKeyStore().length() > 0) {
 				KeyManagerFactory keyManagerFactory = KeyManagerFactory
-						.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+			.getInstance(KeyManagerFactory.getDefaultAlgorithm());
 				char[] keyPassword = ssl.getKeyPassword() != null ? ssl.getKeyPassword().toCharArray() : null;
 
 				if (keyPassword == null && ssl.getKeyStorePassword() != null) {
@@ -110,12 +110,12 @@ public abstract class AbstractSslConfigurer<T, S> {
 
 		try {
 			KeyStore store = ssl.getKeyStoreProvider() != null
-					? KeyStore.getInstance(ssl.getKeyStoreType(), ssl.getKeyStoreProvider())
-					: KeyStore.getInstance(ssl.getKeyStoreType());
+		? KeyStore.getInstance(ssl.getKeyStoreType(), ssl.getKeyStoreProvider())
+		: KeyStore.getInstance(ssl.getKeyStoreType());
 			try {
 				URL url = ResourceUtils.getURL(ssl.getKeyStore());
 				store.load(url.openStream(),
-						ssl.getKeyStorePassword() != null ? ssl.getKeyStorePassword().toCharArray() : null);
+			ssl.getKeyStorePassword() != null ? ssl.getKeyStorePassword().toCharArray() : null);
 			}
 			catch (Exception e) {
 				throw new RuntimeException("Could not load key store ' " + ssl.getKeyStore() + "'", e);

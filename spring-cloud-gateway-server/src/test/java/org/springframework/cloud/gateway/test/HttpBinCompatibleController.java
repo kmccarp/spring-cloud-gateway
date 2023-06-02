@@ -71,8 +71,8 @@ public class HttpBinCompatibleController {
 		return "httpbin compatible home";
 	}
 
-	@RequestMapping(path = "/headers", method = { RequestMethod.GET, RequestMethod.POST },
-			produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(path = "/headers", method = {RequestMethod.GET, RequestMethod.POST},
+produces = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> headers(ServerWebExchange exchange) {
 		Map<String, Object> result = new HashMap<>();
 		result.put("headers", getHeaders(exchange));
@@ -81,7 +81,7 @@ public class HttpBinCompatibleController {
 
 	@PatchMapping("/headers")
 	public ResponseEntity<Map<String, Object>> headersPatch(ServerWebExchange exchange,
-			@RequestBody Map<String, String> headersToAdd) {
+@RequestBody Map<String, String> headersToAdd) {
 		Map<String, Object> result = new HashMap<>();
 		result.put("headers", getHeaders(exchange));
 		ResponseEntity.BodyBuilder responseEntity = ResponseEntity.status(HttpStatus.OK);
@@ -90,8 +90,8 @@ public class HttpBinCompatibleController {
 		return responseEntity.body(result);
 	}
 
-	@RequestMapping(path = "/multivalueheaders", method = { RequestMethod.GET, RequestMethod.POST },
-			produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(path = "/multivalueheaders", method = {RequestMethod.GET, RequestMethod.POST},
+produces = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> multiValueHeaders(ServerWebExchange exchange) {
 		Map<String, Object> result = new HashMap<>();
 		result.put("headers", exchange.getRequest().getHeaders());
@@ -100,7 +100,7 @@ public class HttpBinCompatibleController {
 
 	@GetMapping(path = "/delay/{sec}/**", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Mono<Map<String, Object>> delay(ServerWebExchange exchange, @PathVariable int sec)
-			throws InterruptedException {
+throws InterruptedException {
 		int delay = Math.min(sec, 10);
 		return Mono.just(get(exchange)).delayElement(Duration.ofSeconds(delay));
 	}
@@ -126,28 +126,28 @@ public class HttpBinCompatibleController {
 	}
 
 	@PostMapping(value = "/post", consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
-			produces = MediaType.APPLICATION_JSON_VALUE)
+produces = MediaType.APPLICATION_JSON_VALUE)
 	public Mono<Map<String, Object>> postFormData(@RequestBody Mono<MultiValueMap<String, Part>> parts) {
 		// StringDecoder decoder = StringDecoder.allMimeTypes(true);
 		return parts.flux().flatMap(map -> Flux.fromIterable(map.values())).flatMap(Flux::fromIterable)
-				.filter(part -> part instanceof FilePart).reduce(new HashMap<String, Object>(), (files, part) -> {
-					MediaType contentType = part.headers().getContentType();
-					long contentLength = part.headers().getContentLength();
-					// TODO: get part data
-					files.put(part.name(), "data:" + contentType + ";base64," + contentLength);
-					return files;
-				}).map(files -> Collections.singletonMap("files", files));
+	.filter(part -> part instanceof FilePart).reduce(new HashMap<String, Object>(), (files, part) -> {
+			MediaType contentType = part.headers().getContentType();
+			long contentLength = part.headers().getContentLength();
+			// TODO: get part data
+			files.put(part.name(), "data:" + contentType + ";base64," + contentLength);
+			return files;
+		}).map(files -> Collections.singletonMap("files", files));
 	}
 
 	@PostMapping(path = "/post", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-			produces = MediaType.APPLICATION_JSON_VALUE)
+produces = MediaType.APPLICATION_JSON_VALUE)
 	public Mono<Map<String, Object>> postUrlEncoded(ServerWebExchange exchange) throws IOException {
 		return post(exchange, null);
 	}
 
 	@PostMapping(path = "/post", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Mono<Map<String, Object>> post(ServerWebExchange exchange, @RequestBody(required = false) String body)
-			throws IOException {
+throws IOException {
 		HashMap<String, Object> ret = new HashMap<>();
 		ret.put("headers", getHeaders(exchange));
 		ret.put("data", body);
@@ -169,13 +169,13 @@ public class HttpBinCompatibleController {
 		return ResponseEntity.status(status).body("Failed with " + status);
 	}
 
-	@RequestMapping(value = "/responseheaders/{status}", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/responseheaders/{status}", method = {RequestMethod.GET, RequestMethod.POST})
 	public ResponseEntity<Map<String, Object>> responseHeaders(@PathVariable int status, ServerWebExchange exchange) {
 		HttpHeaders httpHeaders = exchange.getRequest().getHeaders().entrySet().stream()
-				.filter(entry -> entry.getKey().startsWith("X-Test-"))
-				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
-						(list1, list2) -> Stream.concat(list1.stream(), list2.stream()).collect(Collectors.toList()),
-						HttpHeaders::new));
+	.filter(entry -> entry.getKey().startsWith("X-Test-"))
+	.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+(list1, list2) -> Stream.concat(list1.stream(), list2.stream()).collect(Collectors.toList()),
+HttpHeaders::new));
 
 		return ResponseEntity.status(status).headers(httpHeaders).body(Collections.singletonMap("status", status));
 	}
@@ -210,7 +210,7 @@ public class HttpBinCompatibleController {
 
 	@GetMapping("/vary-on-header/**")
 	public ResponseEntity<Map<String, Object>> varyOnAccept(ServerWebExchange exchange,
-			@RequestHeader(name = HEADER_REQ_VARY, required = false) String headerToVary) {
+@RequestHeader(name = HEADER_REQ_VARY, required = false) String headerToVary) {
 		if (headerToVary == null) {
 			return ResponseEntity.badRequest().body(Map.of("error", HEADER_REQ_VARY + " header is mandatory"));
 		}

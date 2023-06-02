@@ -53,7 +53,7 @@ public class LoadBalancerServiceInstanceCookieFilter implements GlobalFilter, Or
 	}
 
 	public LoadBalancerServiceInstanceCookieFilter(
-			ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerClientFactory) {
+ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerClientFactory) {
 		this.loadBalancerClientFactory = loadBalancerClientFactory;
 	}
 
@@ -64,8 +64,8 @@ public class LoadBalancerServiceInstanceCookieFilter implements GlobalFilter, Or
 			return chain.filter(exchange);
 		}
 		LoadBalancerProperties properties = loadBalancerClientFactory != null
-				? loadBalancerClientFactory.getProperties(serviceInstanceResponse.getServer().getServiceId())
-				: loadBalancerProperties;
+	? loadBalancerClientFactory.getProperties(serviceInstanceResponse.getServer().getServiceId())
+	: loadBalancerProperties;
 		if (!properties.getStickySession().isAddServiceInstanceCookie()) {
 			return chain.filter(exchange);
 		}
@@ -76,7 +76,7 @@ public class LoadBalancerServiceInstanceCookieFilter implements GlobalFilter, Or
 		ServerWebExchange newExchange = exchange.mutate().request(exchange.getRequest().mutate().headers((headers) -> {
 			List<String> cookieHeaders = new ArrayList<>(headers.getOrEmpty(HttpHeaders.COOKIE));
 			String serviceInstanceCookie = new HttpCookie(instanceIdCookieName,
-					serviceInstanceResponse.getServer().getInstanceId()).toString();
+		serviceInstanceResponse.getServer().getInstanceId()).toString();
 			cookieHeaders.add(serviceInstanceCookie);
 			headers.put(HttpHeaders.COOKIE, cookieHeaders);
 		}).build()).build();

@@ -134,7 +134,7 @@ public class ShortcutConfigurableTests {
 		args.put("2", "val1");
 		args.put("3", "val2");
 		Map<String, Object> map = ShortcutType.GATHER_LIST.normalize(args, shortcutConfigurable, parser,
-				this.beanFactory);
+	this.beanFactory);
 		assertThat(map).isNotNull().containsKey("values");
 		assertThat((List) map.get("values")).containsExactly(42, "val1", "val2");
 	}
@@ -171,7 +171,7 @@ public class ShortcutConfigurableTests {
 			args.put("4", "false");
 		}
 		Map<String, Object> map = ShortcutType.GATHER_LIST_TAIL_FLAG.normalize(args, shortcutConfigurable, parser,
-				this.beanFactory);
+	this.beanFactory);
 		assertThat(map).isNotNull().containsKey("values");
 		assertThat((List) map.get("values")).containsExactly("val0", "val1", "val2");
 		if (hasTailFlag) {

@@ -50,7 +50,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Dennis Menge
  */
-@SpringBootTest(properties = { "debug=true", "logging.level.org.springframework.cloud.gateway=trace" })
+@SpringBootTest(properties = {"debug=true", "logging.level.org.springframework.cloud.gateway=trace"})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @ActiveProfiles("redis-route-repository")
 @Testcontainers
@@ -81,7 +81,7 @@ public class RedisRouteDefinitionRepositoryTests {
 		redisRouteDefinitionRepository.save(Mono.just(testRouteDefinition)).block();
 
 		List<RouteDefinition> routeDefinitions = redisRouteDefinitionRepository.getRouteDefinitions().collectList()
-				.block();
+	.block();
 
 		assertThat(routeDefinitions.size()).isEqualTo(1);
 		assertThat(routeDefinitions.get(0)).isEqualTo(testRouteDefinition);
@@ -95,7 +95,7 @@ public class RedisRouteDefinitionRepositoryTests {
 		redisRouteDefinitionRepository.save(Mono.just(testRouteDefinition)).block();
 
 		List<RouteDefinition> routeDefinitions = redisRouteDefinitionRepository.getRouteDefinitions().collectList()
-				.block();
+	.block();
 		String routeId = routeDefinitions.get(0).getId();
 
 		// Assert that route has been added.
@@ -118,13 +118,13 @@ public class RedisRouteDefinitionRepositoryTests {
 		FilterDefinition testFilterDefinition = new FilterDefinition();
 		testFilterDefinition.setName("Test");
 		testRouteDefinition.setFilters(
-				Arrays.asList(prefixPathFilterDefinition, redirectToFilterDefinition, testFilterDefinition));
+	Arrays.asList(prefixPathFilterDefinition, redirectToFilterDefinition, testFilterDefinition));
 
 		PredicateDefinition hostRoutePredicateDefinition = new PredicateDefinition("Host=myhost.org");
 		PredicateDefinition methodRoutePredicateDefinition = new PredicateDefinition("Method=GET");
 		PredicateDefinition testPredicateDefinition = new PredicateDefinition("Test=value");
 		testRouteDefinition.setPredicates(
-				Arrays.asList(hostRoutePredicateDefinition, methodRoutePredicateDefinition, testPredicateDefinition));
+	Arrays.asList(hostRoutePredicateDefinition, methodRoutePredicateDefinition, testPredicateDefinition));
 		return testRouteDefinition;
 	}
 
