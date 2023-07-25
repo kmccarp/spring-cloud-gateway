@@ -143,9 +143,7 @@ class ModifyRequestBodyGatewayFilterFactorySslTimeoutTests extends BaseWebClient
 					.route("test_modify_request_body_exception",
 							r -> r.order(-1).host("**.modifyrequestbodyexception.org")
 									.filters(f -> f.modifyRequestBody(String.class, String.class,
-											MediaType.APPLICATION_JSON_VALUE, (serverWebExchange, body) -> {
-												return Mono.error(new Exception("modify body exception"));
-											}))
+											MediaType.APPLICATION_JSON_VALUE, (serverWebExchange, body) -> Mono.error(new Exception("modify body exception"))))
 									.uri(uri))
 					.build();
 		}

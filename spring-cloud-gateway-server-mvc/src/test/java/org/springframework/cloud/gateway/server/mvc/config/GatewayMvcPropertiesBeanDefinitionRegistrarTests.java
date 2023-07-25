@@ -148,8 +148,7 @@ public class GatewayMvcPropertiesBeanDefinitionRegistrarTests {
 			}
 
 		});
-		Map<String, RouterFunction> routerFunctions = routerFunctionsRef.get();
-		return routerFunctions;
+		return routerFunctionsRef.get();
 	}
 
 	@Test
@@ -206,7 +205,7 @@ public class GatewayMvcPropertiesBeanDefinitionRegistrarTests {
 
 	}
 
-	static abstract class AbstractRequestPredicatesVisitor implements RequestPredicates.Visitor {
+	abstract static class AbstractRequestPredicatesVisitor implements RequestPredicates.Visitor {
 
 		@Override
 		public void method(Set<HttpMethod> methods) {
@@ -280,7 +279,7 @@ public class GatewayMvcPropertiesBeanDefinitionRegistrarTests {
 
 	}
 
-	static abstract class AbstractRouterFunctionsVisitor implements RouterFunctions.Visitor {
+	abstract static class AbstractRouterFunctionsVisitor implements RouterFunctions.Visitor {
 
 		@Override
 		public void startNested(RequestPredicate predicate) {

@@ -25,11 +25,11 @@ import org.springframework.web.servlet.function.ServerResponse;
 
 public class RemoveHopByHopResponseHeadersFilter implements ResponseHttpHeadersFilter, Ordered {
 
-	// TODO: configurable
+    // TODO: configurable
 
-	private int order = Ordered.LOWEST_PRECEDENCE - 1;
+    private final int order = Ordered.LOWEST_PRECEDENCE - 1;
 
-	private Set<String> headers = RemoveHopByHopRequestHeadersFilter.HEADERS_REMOVED_ON_REQUEST;
+    private final Set<String> headers = RemoveHopByHopRequestHeadersFilter.HEADERS_REMOVED_ON_REQUEST;
 
 	@Override
 	public HttpHeaders apply(HttpHeaders input, ServerResponse serverResponse) {

@@ -131,7 +131,7 @@ public class ProductionConfigurationTests {
 				RequestEntity.post(rest.getRestTemplate().getUriTemplateHandler().expand("/proxy"))
 						.contentType(MediaType.APPLICATION_JSON)
 						.body(Collections.singletonList(Collections.singletonMap("name", "foo"))),
-				new ParameterizedTypeReference<List<Bar>>() {
+				new ParameterizedTypeReference<>() {
 				});
 		assertThat(result.getBody().iterator().next().getName()).isEqualTo("host=localhost:" + port + ";foo");
 	}
@@ -230,10 +230,10 @@ public class ProductionConfigurationTests {
 	@Test
 	public void deleteWithBody() throws Exception {
 		Foo foo = new Foo("to-be-deleted");
-		ParameterizedTypeReference<Map<String, Foo>> returnType = new ParameterizedTypeReference<Map<String, Foo>>() {
+		ParameterizedTypeReference<Map<String, Foo>> returnType = new ParameterizedTypeReference<>() {
 		};
 		ResponseEntity<Map<String, Foo>> deleteResponse = rest.exchange("/proxy/{id}", HttpMethod.DELETE,
-				new HttpEntity<Foo>(foo), returnType, Collections.singletonMap("id", "123"));
+				new HttpEntity<>(foo), returnType, Collections.singletonMap("id", "123"));
 		assertThat(deleteResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(deleteResponse.getBody().get("deleted")).usingRecursiveComparison().isEqualTo(foo);
 	}

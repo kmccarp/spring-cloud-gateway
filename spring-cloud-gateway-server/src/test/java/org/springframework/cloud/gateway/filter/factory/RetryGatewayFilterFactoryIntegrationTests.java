@@ -303,7 +303,7 @@ public class RetryGatewayFilterFactoryIntegrationTests extends BaseWebClientTest
 	protected static class TestBadLoadBalancerConfig {
 
 		@LocalServerPort
-		protected int port = 0;
+		protected int port;
 
 		@Bean
 		public ServiceInstanceListSupplier staticServiceInstanceListSupplier() {

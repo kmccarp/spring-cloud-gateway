@@ -81,9 +81,7 @@ public class ModifyRequestBodyGatewayFilterFactoryTests extends BaseWebClientTes
 		public RouteLocator testRouteLocator(RouteLocatorBuilder builder) {
 			return builder.routes().route("test_modify_request_body",
 					r -> r.order(-1).host("**.modifyrequestbody.org").filters(f -> f.modifyRequestBody(String.class,
-							String.class, MediaType.APPLICATION_JSON_VALUE, (serverWebExchange, aVoid) -> {
-								return Mono.just("modifyrequest");
-							})).uri(uri))
+							String.class, MediaType.APPLICATION_JSON_VALUE, (serverWebExchange, aVoid) -> Mono.just("modifyrequest"))).uri(uri))
 					.route("test_modify_request_body_empty",
 							r -> r.order(-1).host("**.modifyrequestbodyempty.org")
 									.filters(f -> f.modifyRequestBody(String.class, String.class,
@@ -97,10 +95,8 @@ public class ModifyRequestBodyGatewayFilterFactoryTests extends BaseWebClientTes
 					.route("test_modify_request_body_to_large",
 							r -> r.order(-1).host("**.modifyrequestbodyemptytolarge.org")
 									.filters(f -> f.modifyRequestBody(String.class, String.class,
-											MediaType.APPLICATION_JSON_VALUE, (serverWebExchange, body) -> {
-												return Mono.just(
-														"tolarge-tolarge-tolarge-tolarge-tolarge-tolarge-tolarge-tolarge-tolarge-tolarge-tolarge-tolarge-tolarge-tolarge-tolarge-tolarge");
-											}))
+											MediaType.APPLICATION_JSON_VALUE, (serverWebExchange, body) -> Mono.just(
+														"tolarge-tolarge-tolarge-tolarge-tolarge-tolarge-tolarge-tolarge-tolarge-tolarge-tolarge-tolarge-tolarge-tolarge-tolarge-tolarge")))
 									.uri(uri))
 					.build();
 		}
