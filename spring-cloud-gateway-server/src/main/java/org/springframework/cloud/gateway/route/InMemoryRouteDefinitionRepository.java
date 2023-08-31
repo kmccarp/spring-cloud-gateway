@@ -32,7 +32,7 @@ import static java.util.Collections.synchronizedMap;
  */
 public class InMemoryRouteDefinitionRepository implements RouteDefinitionRepository {
 
-	private final Map<String, RouteDefinition> routes = synchronizedMap(new LinkedHashMap<String, RouteDefinition>());
+	private final Map<String, RouteDefinition> routes = synchronizedMap(new LinkedHashMap<>());
 
 	@Override
 	public Mono<Void> save(Mono<RouteDefinition> route) {

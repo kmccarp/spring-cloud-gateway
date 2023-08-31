@@ -144,8 +144,7 @@ public abstract class MvcUtils {
 	public static Map<String, Object> getGatewayAttributes(ServerRequest request) {
 		// This map is made in GatewayDelegatingRouterFunction.route() and persists across
 		// attribute resetting in RequestPredicates
-		Map<String, Object> attributes = (Map<String, Object>) request.attributes().get(GATEWAY_ATTRIBUTES_ATTR);
-		return attributes;
+		return (Map<String, Object>) request.attributes().get(GATEWAY_ATTRIBUTES_ATTR);
 	}
 
 	@SuppressWarnings("unchecked")
