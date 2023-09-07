@@ -180,7 +180,7 @@ public class GatewayMvcPropertiesBeanDefinitionRegistrar implements ImportBeanDe
 		Map<String, String> handlerArgs = new HashMap<>();
 		// TODO: avoid hardcoded scheme/uri args
 		// maybe find empty args or single RouteProperties param?
-		if (scheme.equals("lb")) {
+		if ("lb".equals(scheme)) {
 			handlerArgs.put("uri", routeProperties.getUri().toString());
 		}
 		Optional<NormalizedOperationMethod> handlerOperationMethod = findOperation(handlerOperations,
