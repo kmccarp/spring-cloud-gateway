@@ -141,7 +141,7 @@ public abstract class BodyFilterFunctions {
 		}).orElse(request);
 	}
 
-	private final static class ByteArrayHttpOutputMessage implements HttpOutputMessage {
+	private static final class ByteArrayHttpOutputMessage implements HttpOutputMessage {
 
 		private final HttpHeaders headers;
 

@@ -35,8 +35,8 @@ public class GrpcSslConfigurer extends AbstractSslConfigurer<NettyChannelBuilder
 	}
 
 	@Override
-	public ManagedChannel configureSsl(NettyChannelBuilder NettyChannelBuilder) throws SSLException {
-		return NettyChannelBuilder.useTransportSecurity().sslContext(getSslContext()).build();
+	public ManagedChannel configureSsl(NettyChannelBuilder nettyChannelBuilder) throws SSLException {
+		return nettyChannelBuilder.useTransportSecurity().sslContext(getSslContext()).build();
 	}
 
 	private SslContext getSslContext() throws SSLException {
@@ -49,7 +49,7 @@ public class GrpcSslConfigurer extends AbstractSslConfigurer<NettyChannelBuilder
 			sslContextBuilder.trustManager(InsecureTrustManagerFactory.INSTANCE.getTrustManagers()[0]);
 		}
 
-		if (!useInsecureTrustManager && ssl.getTrustedX509Certificates().size() > 0) {
+		if (!useInsecureTrustManager && !ssl.getTrustedX509Certificates().isEmpty()) {
 			sslContextBuilder.trustManager(getTrustedX509CertificatesForTrustManager());
 		}
 
