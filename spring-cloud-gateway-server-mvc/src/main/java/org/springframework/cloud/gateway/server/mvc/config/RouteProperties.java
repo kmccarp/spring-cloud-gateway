@@ -52,7 +52,7 @@ public class RouteProperties {
 
 	private Map<String, Object> metadata = new HashMap<>();
 
-	private int order = 0;
+	private int order;
 
 	public RouteProperties() {
 	}
