@@ -38,10 +38,10 @@ import static org.springframework.cloud.gateway.support.GatewayToStringStyler.fi
 public class RequestSizeGatewayFilterFactory
 		extends AbstractGatewayFilterFactory<RequestSizeGatewayFilterFactory.RequestSizeConfig> {
 
-	private static String PREFIX = "kMGTPE";
+    private static final String PREFIX = "kMGTPE";
 
-	private static String ERROR = "Request size is larger than permissible limit."
-			+ " Request size is %s where permissible limit is %s";
+    private static final String ERROR = "Request size is larger than permissible limit."
+            + " Request size is %s where permissible limit is %s";
 
 	public RequestSizeGatewayFilterFactory() {
 		super(RequestSizeGatewayFilterFactory.RequestSizeConfig.class);
