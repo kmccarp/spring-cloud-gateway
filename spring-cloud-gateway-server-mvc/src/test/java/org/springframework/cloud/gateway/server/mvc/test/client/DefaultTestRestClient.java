@@ -518,7 +518,7 @@ public class DefaultTestRestClient implements TestRestClient {
 
 		DefaultBodyContentSpec(EntityExchangeResult<byte[]> result) {
 			this.result = result;
-			this.isEmpty = (result.getResponseBody() == null || result.getResponseBody().length == 0);
+			this.isEmpty = result.getResponseBody() == null || result.getResponseBody().length == 0;
 		}
 
 		@Override

@@ -178,7 +178,7 @@ public class ModifyResponseBodyGatewayFilterFactory
 
 		@Override
 		public String toString() {
-			Object obj = (this.gatewayFilterFactory != null) ? this.gatewayFilterFactory : this;
+			Object obj = this.gatewayFilterFactory != null ? this.gatewayFilterFactory : this;
 			return filterToStringCreator(obj).append("New content type", config.getNewContentType())
 					.append("In class", config.getInClass()).append("Out class", config.getOutClass()).toString();
 		}

@@ -143,7 +143,7 @@ public class SseIntegrationTests {
 	public void sseAsEvent() {
 		ResolvableType type = forClassWithGenerics(ServerSentEvent.class, String.class);
 		Flux<ServerSentEvent<String>> result = this.webClient.get().uri("/event").accept(TEXT_EVENT_STREAM).retrieve()
-				.bodyToFlux(new ParameterizedTypeReference<ServerSentEvent<String>>() {
+				.bodyToFlux(new ParameterizedTypeReference<>() {
 				});
 
 		StepVerifier.create(result).consumeNextWith(event -> {
@@ -165,7 +165,7 @@ public class SseIntegrationTests {
 	@SuppressWarnings("Duplicates")
 	public void sseAsEventWithoutAcceptHeader() {
 		Flux<ServerSentEvent<String>> result = this.webClient.get().uri("/event").accept(TEXT_EVENT_STREAM).retrieve()
-				.bodyToFlux(new ParameterizedTypeReference<ServerSentEvent<String>>() {
+				.bodyToFlux(new ParameterizedTypeReference<>() {
 				});
 
 		StepVerifier.create(result).consumeNextWith(event -> {
